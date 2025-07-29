@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net9.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <Description>SuperSocket benchmarking project for performance testing and analysis of core components using BenchmarkDotNet.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+    <PackageReference Include="System.IO.Pipelines" />
+    <ProjectReference Include="../../src/SuperSocket.ProtoBase/SuperSocket.ProtoBase.csproj" />
+    <ProjectReference Include="../../src/SuperSocket.Connection/SuperSocket.Connection.csproj" />
+  </ItemGroup>
+</Project>

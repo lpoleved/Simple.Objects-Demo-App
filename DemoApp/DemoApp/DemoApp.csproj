@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Controls.TreeList\Simple.Controls.TreeList.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Controls\Simple.Controls.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Datastore.Controls\Simple.Datastore.Controls.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Objects.Controls\Simple.Objects.Controls.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Objects.ServerMonitor\Simple.Objects.ServerMonitor.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Collections\Simple.Collections.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Compression\Simple.Compression.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Datastore\Simple.Datastore.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Modeling\Simple.Modeling.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Network\Simple.Network.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Security\Simple.Security.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Serialization\Simple.Serialization.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Threading\Simple.Threading.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple\Simple.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Datastore.SqlServer\Simple.Datastore.Console\Simple.Datastore.Console.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Datastore.SqlServer\Simple.Datastore.SqlServer\Simple.Datastore.SqlServer.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects.SocketProtocols\Simple.Objects.MonitorProtocol\Simple.Objects.MonitorProtocol.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects.SocketProtocols\Simple.Objects.SocketProtocol\Simple.Objects.SocketProtocol.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects\Simple.Objects.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Socketing\Simple.SocketEngine\Simple.SocketEngine.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Client\SuperSocket.Client.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Connection\SuperSocket.Connection.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.ProtoBase\SuperSocket.ProtoBase.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Server.Abstractions\SuperSocket.Server.Abstractions.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Server\SuperSocket.Server.csproj" />
+    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Udp\SuperSocket.Udp.csproj" />
+    <ProjectReference Include="..\DemoApp.AppContext\DemoApp.AppContext.csproj" />
+    <ProjectReference Include="..\DemoApp.Icons\DemoApp.Icons.csproj" />
+    <ProjectReference Include="..\DemoApp.Objects\DemoApp.Objects.csproj" />
+    <ProjectReference Include="..\DemoApp.Server\DemoApp.Server.csproj" />
+    <ProjectReference Include="..\DemoApp.SocketProtocol\DemoApp.SocketProtocol.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

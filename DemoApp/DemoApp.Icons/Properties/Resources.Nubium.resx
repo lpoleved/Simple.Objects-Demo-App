@@ -1,0 +1,1942 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Administrator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Administrator.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdministratorGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdministratorGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdministratorGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdministratorGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdministratorGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdministratorGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Administrator_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Administrator.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Administrator_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Administrator.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplyPolicy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplyPolicy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplyPolicy_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplyPolicy.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BookOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BookOpen.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BookOpen_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BookOpen.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Building" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Building.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Building_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Building.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Building_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Building.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cable.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableConnector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableConnector.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableConnector_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableConnector.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableConnector_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableConnector.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableType.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableType_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableType.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CableType_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CableType.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cable_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cable.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cable_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cable.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cable_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cable.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cable_Large_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cable.Large.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CablingLevel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CablingLevel.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CablingLevel_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CablingLevel.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CablingLevel_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CablingLevel.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Certificate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Certificate.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Certificate_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Certificate.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChangeTo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChangeTo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChangeTo_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChangeTo.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="City" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\City.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="City_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\City.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="City_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\City.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Clear.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Clear_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Clear.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CollapseAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CollapseAll.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CollapseAll_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CollapseAll.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Computer.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Computer_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Computer.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Computer_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Computer.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Computer_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Computer.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Configure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Configure.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Configure_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Configure.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Copier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Copier.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Copier_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Copier.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Copier_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Copier.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Copier_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Copier.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DataBackup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DataBackup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DataBackup_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DataBackup.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DataRestore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DataRestore.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DataRestore_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DataRestore.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DatastoreManagement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DatastoreManagement.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DatastoreManagement_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DatastoreManagement.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscoveryDevices" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscoveryDevices.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscoveryDevices_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscoveryDevices.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscoveryNetworks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscoveryNetworks.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscoveryNetworks_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscoveryNetworks.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Empty.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Empty_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Empty.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Error.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExpandAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExpandAll.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExpandAll_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExpandAll.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fax" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fax.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fax_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fax.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fax_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fax.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fax_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fax.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Find.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Find_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Find.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Finished" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Finished.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Firewall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Firewall.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Firewall_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Firewall.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Firewall_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Firewall.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Firewall_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Firewall.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Afganistan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Afganistan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Aland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Aland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Albania" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Albania.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Algeria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Algeria.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_American_Samoa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.American Samoa.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Andorra" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Andorra.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Angola" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Angola.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Anguilla" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Anguilla.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Antarctica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Antarctica.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Antigua_and_Barbuda" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Antigua and Barbuda.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Argentina" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Argentina.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Armenia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Armenia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Aruba" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Aruba.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Australia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Australia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Austria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Austria.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Azerbaijan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Azerbaijan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bahamas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bahamas.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bahrain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bahrain.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bangladesh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bangladesh.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Barbados" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Barbados.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Belarus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Belarus.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Belgium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Belgium.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Belize" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Belize.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Benin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Benin.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bermuda" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bermuda.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bhutan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bhutan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bolivia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bolivia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bosnia_and_Herzegovina" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bosnia and Herzegovina.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Botswana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Botswana.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Brasil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Brasil.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_British_Virgin_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.British Virgin Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Brunei" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Brunei.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Bulgaria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Bulgaria.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Burkina_Faso" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Burkina Faso.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Burma" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Burma.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Burundi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Burundi.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cambodia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cambodia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cameroon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cameroon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Canada" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Canada.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cape_Verde" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cape Verde.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cayman_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cayman Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Central_African_Republic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Central African Republic.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Chad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Chad.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Chile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Chile.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_China" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.China.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Colombia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Colombia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Commonwealth" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Commonwealth.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Comoros" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Comoros.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Congo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Congo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Costa_Rica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Costa Rica.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cote_d_Ivoire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cote d'Ivoire.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Croatia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Croatia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cuba" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cuba.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Cyprus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Cyprus.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Czech_Republic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Czech Republic.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Denmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Denmark.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Djibouti" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Djibouti.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Dominica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Dominica.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Dominican_Republic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Dominican Republic.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_East_Timor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.East Timor.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Ecuador" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Ecuador.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Egypt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Egypt.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_El_Salvador" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.El Salvador.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_England" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.England.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Equatorial_Guinea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Equatorial Guinea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Eritrea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Eritrea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Estonia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Estonia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Ethiopia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Ethiopia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_European_Union" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.European Union.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Extramadura" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Extramadura.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Falkland_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Falkland Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Faroes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Faroes.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Fiji" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Fiji.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Finland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Finland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_France" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.France.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Gabon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Gabon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Gambia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Gambia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Georgia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Georgia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Germany" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Germany.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Ghana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Ghana.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Gibraltar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Gibraltar.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Go_Squared" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Go Squared.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Greece" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Greece.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Greenland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Greenland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Grenada" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Grenada.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guam.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guatemala" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guatemala.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guernsey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guernsey.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guinea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guinea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guinea_Bissau" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guinea Bissau.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guyana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guyana.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Guyana_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Guyana Flag.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Haiti" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Haiti.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Holy_See" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Holy See.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Honduras" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Honduras.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Hong_Kong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Hong Kong.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Hungary" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Hungary.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Iceland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Iceland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_India" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.India.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Indonesia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Indonesia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Iran" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Iran.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Iraq" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Iraq.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Ireland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Ireland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Isle_of_Man" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Isle of Man.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Israel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Israel.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Italy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Italy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Jamaica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Jamaica.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Jan_Mayen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Jan Mayen.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Japan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Japan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Jarvis_Island" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Jarvis Island.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Jersey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Jersey.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Jordan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Jordan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Kazakhstan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Kazakhstan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Kenya" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Kenya.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Kiribati" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Kiribati.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Korea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Korea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Kosovo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Kosovo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Kuwait" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Kuwait.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Kyrgyzstan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Kyrgyzstan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Laos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Laos.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Latvia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Latvia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Lebanon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Lebanon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Lesotho" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Lesotho.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Liberia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Liberia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Libya" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Libya.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Liechtenstein" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Liechtenstein.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Lithuania" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Lithuania.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Luxembourg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Luxembourg.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Macau" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Macau.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Macedonia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Macedonia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Madagascar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Madagascar.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Malawi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Malawi.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Malaysia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Malaysia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Maldives" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Maldives.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mali" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mali.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Malta" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Malta.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mars" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mars.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Marshall_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Marshall Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mauritania" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mauritania.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mauritius" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mauritius.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mayotte" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mayotte.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mexico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mexico.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Micronesia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Micronesia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Moldova" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Moldova.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Monaco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Monaco.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mongolia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mongolia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Montenegro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Montenegro.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Montserrat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Montserrat.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Morocco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Morocco.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Mozambique" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Mozambique.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Myanmar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Myanmar.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Nagorno_Karabakh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Nagorno Karabakh.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Namibia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Namibia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Nauru" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Nauru.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Nepal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Nepal.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Netherlands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Netherlands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_New_Caledonia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.New Caledonia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_New_Zealand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.New Zealand.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Nicaragua" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Nicaragua.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Niger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Niger.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Nigeria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Nigeria.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Niue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Niue.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Norfolk_Island" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Norfolk Island.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Northern_Mariana_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Northern Mariana Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_North_Cyprus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.North Cyprus.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_North_Korea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.North Korea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Norway" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Norway.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Oman" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Oman.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Pakistan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Pakistan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Palau" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Palau.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Palestine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Palestine.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Panama" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Panama.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Papua_New_Guinea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Papua New Guinea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Paraguay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Paraguay.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Peru" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Peru.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Philippines" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Philippines.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Pitcairn_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Pitcairn Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Poland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Poland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Portugal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Portugal.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Puerto_Rico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Puerto Rico.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Qatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Qatar.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Republic_of_Congo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Republic of Congo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Republic_of_Moldova" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Republic of Moldova.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Romania" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Romania.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Russia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Russia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Rwanda" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Rwanda.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Saint_Pierre_and_Miquelon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Saint Pierre and Miquelon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Samoa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Samoa.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_San_Marino" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.San Marino.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Sao_Tome_and_Principe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Sao Tome and Principe.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Saudi_Arabia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Saudi Arabia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Scotland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Scotland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Senegal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Senegal.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Serbia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Serbia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Seychelles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Seychelles.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Sierra_Leone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Sierra Leone.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Singapore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Singapore.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Slovakia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Slovakia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Slovenia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Slovenia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Somalia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Somalia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Somaliland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Somaliland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_South_Africa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.South Africa.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_South_Georgia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.South Georgia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_South_Korea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.South Korea.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_South_Ossetia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.South Ossetia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_South_Sudan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.South Sudan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Spain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Spain.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Sri_Lanka" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Sri Lanka.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Sudan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Sudan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Suriname" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Suriname.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Svalbard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Svalbard.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Swaziland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Swaziland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Sweden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Sweden.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Switzerland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Switzerland.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Syria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Syria.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Taiwan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Taiwan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Tajikistan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Tajikistan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Tanzania" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Tanzania.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Thailand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Thailand.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Timor_Leste" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Timor Leste.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Togo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Togo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Tokelau" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Tokelau.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Trinidad_and_Tobago" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Trinidad and Tobago.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Tunisia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Tunisia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Turkey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Turkey.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Turkmenistan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Turkmenistan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Turks_and_Caicos_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Turks and Caicos Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Tuvalu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Tuvalu.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Uganda" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Uganda.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Ukraine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Ukraine.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_United_Arab_Emirates" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.United Arab Emirates.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_United_Kingdom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.United Kingdom.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_United_States" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.United States.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Uruguay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Uruguay.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Uzbekistan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Uzbekistan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Vanuatu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Vanuatu.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Vatican" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Vatican.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Venezuela" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Venezuela.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Vietnam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Vietnam.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Virgin_Islands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Virgin Islands.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Wales" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Wales.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Wallis_and_Futuna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Wallis and Futuna.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Western_Sahara" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Western Sahara.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Yemen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Yemen.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Zambia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Zambia.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Zimbabwe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag.Zimbabwe.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Floor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floor.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Floor_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floor.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Floor_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floor.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder_Expanded" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.Expanded.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GoToGraph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GoToGraph.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GoToGraph_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GoToGraph.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Help.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Home" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Home.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Home_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Home.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Info" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Info.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Info_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Info.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Interface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Interface.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Interface_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Interface.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Interface_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Interface.Up.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.Disabled.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.Up.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Keys_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Keys.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Interface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Interface.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Interface_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Interface.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Interface_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Interface.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Interface_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Interface.Disabled.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Interface_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Interface.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Interface_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Interface.Up.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Switch.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Switch_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Switch.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Switch_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Switch.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L2Switch_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L2Switch.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Interface_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Interface.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Interface_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Interface.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Interface_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Interface.Disabled.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Switch.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Switch_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Switch.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Switch_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Switch.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="L3Switch_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\L3Switch.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LAN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LAN.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Language" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Language.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Language_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Language.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Language_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Language.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LAN_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LAN.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LAN_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LAN.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Laptop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laptop.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Laptop_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laptop.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Laptop_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laptop.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Laptop_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laptop.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Manufacturer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Manufacturer.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Manufacturer_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Manufacturer.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Manufacturer_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Manufacturer.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MeasureUnit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MeasureUnit.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MeasureUnit_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MeasureUnit.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MeasureUnit_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MeasureUnit.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CellPhone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CellPhone.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CellPhone_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CellPhone.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CellPhone_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CellPhone.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CellPhone_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CellPhone.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Modem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Modem.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Modem_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Modem.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Modem_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Modem.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Modem_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Modem.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Monitor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Monitor.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Monitor_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Monitor.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Monitor_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Monitor.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Monitor_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Monitor.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveDown.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveDown_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveDown.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveUp.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveUp_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveUp.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Network" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Network.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkDevice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkDevice.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkDevice_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkDevice.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkDevice_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkDevice.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkDevice_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkDevice.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkIpRange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkIpRange.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkIpRange_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkIpRange.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkIpRange_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkIpRange.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkIpRange_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkIpRange.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkLayer3InterfaceSync" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkLayer3InterfaceSync.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkLayer3InterfaceSync_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkLayer3InterfaceSync.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkNode.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkNode_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkNode.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkNode_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkNode.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicy_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicy.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicy_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicy.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkService" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkService.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkServiceRule" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkServiceRule.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkServiceRule_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkServiceRule.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkServiceRule_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkServiceRule.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkServiceRule_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkServiceRule.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkService_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkService.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkService_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkService.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkService_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkService.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUser.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUser2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUser2.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUserGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUserGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUserGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUserGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUserGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUserGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUser_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUser.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUser_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUser.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkUser_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUser.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Network_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Network.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Network_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Network.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Network_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Network.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Nubium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Nubium.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Nubium_Big" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Nubium.Big.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Nubium_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Nubium.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ObjectProductMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ObjectProductMap.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ObjectProductMap_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ObjectProductMap.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ObjectProductMap_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ObjectProductMap.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Organization" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Organization.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Organization_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Organization.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Organization_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Organization.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outlet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Outlet.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outlet_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Outlet.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outlet_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Outlet.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outlet_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Outlet.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PaintStyle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PaintStyle.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Paused.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pending" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pending.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhysicalProtocol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicalProtocol.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhysicalProtocolType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicalProtocolType.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhysicalProtocolType_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicalProtocolType.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhysicalProtocolType_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicalProtocolType.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhysicalProtocol_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicalProtocol.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhysicalProtocol_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicalProtocol.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play.Green.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Green_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play.Green.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Policy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Policy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Port_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Port.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Printer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Printer.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Printer_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Printer.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Printer_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Printer.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Printer_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Printer.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PrintPreview" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PrintPreview.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PrintPreview_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PrintPreview.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Product" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Product.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductDescription" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductDescription.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductDescriptionLanguage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductDescriptionLanguage.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductDescriptionLanguage_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductDescriptionLanguage.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductDescriptionLanguage_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductDescriptionLanguage.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductDescription_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductDescription.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductDescription_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductDescription.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductMaterialListSpecification" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductMaterialListSpecification.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductProperty.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductPropertyOption" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductPropertyOption.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductPropertyOptionDescription" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductPropertyOptionDescription.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductPropertyOptionDescription_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductPropertyOptionDescription.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductPropertyOptionDescription_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductPropertyOptionDescription.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductPropertyOption_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductPropertyOption.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductPropertyOption_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductPropertyOption.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductProperty_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductProperty.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductProperty_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductProperty.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductType.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductType_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductType.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductType_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductType.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProductType_Expanded" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProductType.Expanded.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Product_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Product.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Product_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Product.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rack_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rack.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rack_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rack.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Refresh_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RejectChanges" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RejectChanges.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RejectChanges_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RejectChanges.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Remove.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemoveSorting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemoveSorting.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemoveSorting_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemoveSorting.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Remove_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Remove.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Room" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Room.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Room_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Room.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Room_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Room.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Router" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Router.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Router_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Router.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Router_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Router.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Router_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Router.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Running" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Running.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveButton.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveButton_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveButton.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Scanner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Scanner.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Scanner_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Scanner.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Scanner_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Scanner.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Scanner_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Scanner.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SecondaryIpAddress" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SecondaryIpAddress.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SecondaryIpAddress_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SecondaryIpAddress.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SecondaryIpAddress_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SecondaryIpAddress.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Server" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Server.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Server_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Server.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Server_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Server.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Server_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Server.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SimpleObjects" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SimpleObjects.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SimpleObjects_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SimpleObjects.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Statistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Statistics.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Statistics_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Statistics.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stop_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stop.Red.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stop_Red_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stop.Red.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubFolder_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubFolder.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubFolder_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubFolder.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Telephone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Telephone.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Telephone_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Telephone.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Telephone_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Telephone.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Telephone_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Telephone.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Terminal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Terminal.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Terminal_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Terminal.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextCode.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextCode_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextCode.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UserGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UserGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UserGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UserGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UserGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UserGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualL3Interface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualL3Interface.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualL3Interface_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualL3Interface.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualL3Interface_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualL3Interface.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualL3Interface_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualL3Interface.Disabled.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualL3Interface_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualL3Interface.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualL3Interface_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualL3Interface.Up.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualNetwork" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualNetwork.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualNetwork_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualNetwork.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualNetwork_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualNetwork.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualNetwork_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VirtualNetwork.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Vlan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vlan.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VlanZone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VlanZone.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VlanZone_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VlanZone.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VlanZone_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VlanZone.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Vlan_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vlan.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Vlan_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vlan.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Web.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Web_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Web.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Netakod_Community_Transparent_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Netakod.Community.Transparent.Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PatchPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PatchPanel.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PatchPanel_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PatchPanel.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PatchPanel_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PatchPanel.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PowerOutlet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PowerOutlet.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PowerOutlet_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PowerOutlet.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PowerOutlet_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PowerOutlet.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PowerOutlet_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PowerOutlet.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Read" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Read.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReadWrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReadWrite.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReadWriteAddRemove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReadWriteAddRemove.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdvancedNetworkPolicy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdvancedNetworkPolicy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdvancedNetworkPolicy_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdvancedNetworkPolicy.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdditionalNetworkPolicy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdditionalNetworkPolicy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdditionalNetworkPolicy_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdditionalNetworkPolicy.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicyGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicyGroup.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicyGroup_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicyGroup.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicyGroup_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicyGroup.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetworkPolicyGroup_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkPolicyGroup.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Application" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Application.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Application_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Application.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Application_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Application.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Application_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Application.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplicationRule" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplicationRule.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplicationRule_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplicationRule.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplicationRule_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplicationRule.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplicationRule_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplicationRule.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicy_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicy.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicy_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicy.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicy_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicy.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosQueuePolicy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosQueuePolicy.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosQueuePolicy_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosQueuePolicy.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosQueuePolicy_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosQueuePolicy.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosQueuePolicy_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosQueuePolicy.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicyMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicyMap.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicyMap_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicyMap.Add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicyMap_Add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicyMap.Add.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QosPolicyMap_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QosPolicyMap.Large.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

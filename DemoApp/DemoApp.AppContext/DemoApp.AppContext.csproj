@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0; netstandard2.1</TargetFrameworks>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Datastore\Simple.Datastore.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Security\Simple.Security.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple\Simple.csproj" />
+  </ItemGroup>
+
+</Project>

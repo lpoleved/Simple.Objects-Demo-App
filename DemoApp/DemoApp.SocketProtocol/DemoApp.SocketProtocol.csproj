@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;</TargetFrameworks>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects.SocketProtocols\Simple.Objects.SocketProtocol\Simple.Objects.SocketProtocol.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects\Simple.Objects.csproj" />
+  </ItemGroup>
+
+</Project>
