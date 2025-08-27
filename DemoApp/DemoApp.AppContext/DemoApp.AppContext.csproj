@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Datastore\Simple.Datastore.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Security\Simple.Security.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple\Simple.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Datastore\Simple.Datastore.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple.Security\Simple.Security.csproj" />

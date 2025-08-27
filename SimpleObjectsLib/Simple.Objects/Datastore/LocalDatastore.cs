@@ -17,13 +17,13 @@ namespace Simple.Objects
 		{
 		}
 
-		public ValueTask<List<long>> GetObjectIds(TableInfo tableInfo)
+		public ValueTask<List<long>> GetObjectIds(TableInfo tableInfo, IPropertyModel idPropertyModel)
 		{
 			//ISimpleObjectModel objectModel = this.ObjectModel.GetObjectModel(tableInfo.TableId);
 			//int idPropertyIndex = objectModel.IdPropertyModel.PropertyIndex;
 			//string idFieldName = objectModel.IdPropertyModel.DatastoreFieldName;
 
-			var result = this.GetRecordKeys<long>(tableInfo, SimpleObject.IndexPropertyId, SimpleObject.StringPropertyId);
+			var result = this.GetRecordKeys<long>(tableInfo, idPropertyModel); // SimpleObject.StringPropertyId);
 
 			return new ValueTask<List<long>>(result);
 		}
@@ -63,7 +63,7 @@ namespace Simple.Objects
 			{
 				if (simpleObject.Manager.GetObjectCache(simpleObject.GetModel().TableInfo.TableId) is ServerObjectCache objectCache)
 				{
-					using (IDataReader reader = this.GetRecord(simpleObject.GetModel().TableInfo, SimpleObject.IndexPropertyId, SimpleObject.StringPropertyId, simpleObject.Id))
+					using (IDataReader reader = this.GetRecord(simpleObject.GetModel().TableInfo, simpleObject.GetModel().IdPropertyModel, simpleObject.Id))
 					{
 						if (reader.Read())
 						{

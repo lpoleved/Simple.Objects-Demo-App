@@ -278,11 +278,12 @@ namespace Simple.Objects
 					Type fieldType = (usedPropertyInfos.Keys.Contains(propertyModel.PropertyName)) ? usedPropertyInfos[propertyModel.PropertyName].FieldType : propertyModel.FieldType; // CalculatePropertyType(propertyModel);
 					string fieldTypeName = ReflectionHelper.GetTypeName(fieldType);
 					string fieldName = propertyModel.PropertyName.UnCapitalizeFirstLetter();
+					string oldFieldName = "old" + fieldName.CapitalizeFirstLetter();
 					string gap = String.Empty;
 					string getFieldValueAction = "(item) => item." + fieldName + ";";
 					string setFieldValueAction = "(item, value) => item." + fieldName + " = (" + fieldTypeName + ")value;";
-					string getOldFieldValueAction = "(item) => item.old" + fieldName.CapitalizeFirstLetter() + ";";
-					string setOldFieldValueAction = "(item, value) => item.old" + fieldName.CapitalizeFirstLetter() + " = (" + fieldTypeName + ")value;";
+					string getOldFieldValueAction = "(item) => item." + oldFieldName + ";";
+					string setOldFieldValueAction = "(item, value) => item." + oldFieldName + " = (" + fieldTypeName + ")value;";
 
 					if (fieldType.Namespace != null)
 						usedNamespaces.Add(fieldType.Namespace);
@@ -380,6 +381,7 @@ namespace Simple.Objects
 				string fieldTypeName = fieldType.GetName();
 				string propertyTypeName = propertyModel.PropertyType.GetName();
 				string fieldName = propertyModel.PropertyName.UnCapitalizeFirstLetter();
+				string oldFieldName = "old" + fieldName.CapitalizeFirstLetter();	
 				string defaultFieldValue = String.Empty;
 				AccessModifier accessModifier = propertyModel.GetAccessModifier; // ToString("F").Replace(",", "").ToLower(); //propertyModel.AccessModifier.InsertTextOnUpperChange(" ").ToLower();
 				string setPropertyAccessModifier = CreateSetAccessModifierString(propertyModel);
@@ -416,7 +418,7 @@ namespace Simple.Objects
 				}
 
 				if (!usedPropertyInfos.Keys.Contains(propertyName)) // Avoid adding duplicate fields
-					strProtectedMembers += "        protected " + fieldTypeName + " " + fieldName + defaultFieldValue + ", old" + propertyModel.PropertyName + defaultFieldValue + ";\r\n";
+					strProtectedMembers += "        protected " + fieldTypeName + " " + fieldName + defaultFieldValue + ", " + oldFieldName + defaultFieldValue + ";\r\n";
 
 				if (fieldType != propertyModel.PropertyType)
 				{

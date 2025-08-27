@@ -27,6 +27,7 @@ namespace Simple.Objects.Controls
 		private bool initializing = false;
 		private Dictionary<int, SimpleRibbonModulePanel> ribbonModulePanelsByGraphKey = new Dictionary<int, SimpleRibbonModulePanel>();
 		private BarSubItem? barSubItemChangeSkin;
+		private SimpleRibbonModulePanel? selectedModulePanel = null;
 
 		#endregion |   Private Members   |
 
@@ -127,16 +128,12 @@ namespace Simple.Objects.Controls
 
         //protected virtual IClientAppContext GetAppContext() { return null; }
 
-        protected SimpleRibbonModulePanel GetModule(RibbonPage page)
+        protected SimpleRibbonModulePanel? GetModule(RibbonPage page)
         {
             if (page == null)
-            {
                 return null;
-            }
             else
-            {
                 return page.Tag as SimpleRibbonModulePanel;
-            }
         }
 
         protected virtual string GetDarkModeSkinName() 
@@ -269,19 +266,21 @@ namespace Simple.Objects.Controls
             //this.ribbonMain.MergeRibbon(module.RibbonControl);
         }
 
-        protected virtual void SelectedPageChanged(object? sender, EventArgs e)
+		protected virtual void SelectedPageChanged(object? sender, EventArgs e)
         {
             if (!this.initializing)
             {
-                SimpleRibbonModulePanel selectedModule = this.GetModule(this.Ribbon.SelectedPage);
+                SimpleRibbonModulePanel? currentModulePannel = this.GetModule(this.Ribbon.SelectedPage);
 
-                if (selectedModule != null)
+                if (currentModulePannel != null)
                 {
-                    if (selectedModule.RefreshOnSelect)
-                        selectedModule.RefreshPanel();
+                    if (this.selectedModulePanel != null && currentModulePannel.RefreshOnSelect) // if this.selectedPanels is null -> noo need for refresh, this is startup when the module is initialized already
+                        currentModulePannel.RefreshPanelInternal(refreshAllGraphElements: currentModulePannel.RefreshAllGraphElementsOnSelect);
 
-                    selectedModule.ModuleIsSelected();
+                    currentModulePannel.ModuleIsSelected();
                 }
+
+				this.selectedModulePanel = currentModulePannel;
             }
         }
 

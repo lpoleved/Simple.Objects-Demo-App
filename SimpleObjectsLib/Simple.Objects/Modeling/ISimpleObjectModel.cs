@@ -13,15 +13,15 @@ namespace Simple.Objects
 		//int TableId { get; }
 
 		Type ObjectType { get; }
-		PropertyModelCollection<IPropertyModel> PropertyModels { get; }
+		PropertyModelCollection<PropertyModel> PropertyModels { get; }
 		IPropertyModel GetPropertyModel(int propertyIndex);
 
 		IPropertyModel IdPropertyModel { get; }
-		IPropertyModel NamePropertyModel { get; }
-		IPropertyModel DescriptionPropertyModel { get; }
-		IPropertyModel ObjectSubTypePropertyModel { get; }
-		IPropertyModel PreviousIdPropertyModel { get; }
-		IPropertyModel OrderIndexPropertyModel { get; }
+		IPropertyModel? NamePropertyModel { get; }
+		IPropertyModel? DescriptionPropertyModel { get; }
+		IPropertyModel? ObjectSubTypePropertyModel { get; }
+		IPropertyModel? PreviousIdPropertyModel { get; }
+		IPropertyModel? OrderIndexPropertyModel { get; }
 		//IPropertyModel ActionSetOrderIndexPropertyModel { get; }
 
 		int[] PropertyIndexes { get; }

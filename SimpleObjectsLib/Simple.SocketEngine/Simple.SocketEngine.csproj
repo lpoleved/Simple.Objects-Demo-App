@@ -10,17 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Client.Proxy\SuperSocket.Client.Proxy.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Client\SuperSocket.Client.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Connection\SuperSocket.Connection.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.ProtoBase\SuperSocket.ProtoBase.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Server.Abstractions\SuperSocket.Server.Abstractions.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Server\SuperSocket.Server.csproj" />
-    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Udp\SuperSocket.Udp.csproj" />
     <ProjectReference Include="..\..\Simple.Core\Simple.Serialization\Simple.Serialization.csproj" />
     <ProjectReference Include="..\..\Simple.Core\Simple.Threading\Simple.Threading.csproj" />
-    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Client.Proxy\SuperSocket.Client.Proxy.csproj" />
     <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Client\SuperSocket.Client.csproj" />
     <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Connection\SuperSocket.Connection.csproj" />
     <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj" />

@@ -10,11 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Simple.Core\Simple.Modeling\Simple.Modeling.csproj" />
+    <ProjectReference Include="..\..\..\Simple.Core\Simple.Serialization\Simple.Serialization.csproj" />
     <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Server\SuperSocket.Server.csproj" />
-    <ProjectReference Include="..\..\Simple.Core\Simple.Modeling\Simple.Modeling.csproj" />
-    <ProjectReference Include="..\..\Simple.Core\Simple.Serialization\Simple.Serialization.csproj" />
-    <ProjectReference Include="..\..\Simple.Socketing\Simple.SocketEngine\Simple.SocketEngine.csproj" />
-    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Server\SuperSocket.Server.csproj" />
+    <ProjectReference Include="..\..\Simple.SocketEngine\Simple.SocketEngine.csproj" />
     <ProjectReference Include="..\Simple.Objects.SocketProtocol\Simple.Objects.SocketProtocol.csproj" />
   </ItemGroup>
 

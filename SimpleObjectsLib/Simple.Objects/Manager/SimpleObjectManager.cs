@@ -324,7 +324,6 @@ namespace Simple.Objects
 					continue;
 
 				SystemTables? systemTableName;
-
 				
 				if (!this.SystemTables.TryGetValue(objectModel.TableInfo.TableId, out systemTableName))
 				{
@@ -1816,7 +1815,7 @@ namespace Simple.Objects
 					}
 					else
 					{
-						List<long> objectKeys = this.GetDatastoreObjectKeys(objectModel.TableInfo).GetAwaiter().GetResult();
+						List<long> objectKeys = this.GetDatastoreObjectKeys(objectModel.TableInfo, objectModel.IdPropertyModel).GetAwaiter().GetResult();
 
 						objectCache = new ServerObjectCache(this, objectModel, objectKeys);
 					}
@@ -1826,17 +1825,17 @@ namespace Simple.Objects
 					objectCache = new ServerObjectCache(this, objectModel);
 				}
 			}
-
+			
 			return objectCache;
 		}
 
-		private async ValueTask<List<long>> GetDatastoreObjectKeys(TableInfo tableInfo)
+		private async ValueTask<List<long>> GetDatastoreObjectKeys(TableInfo tableInfo, IPropertyModel idPropertyModel)
 		{
 			List<long> result; // = null;
 
 			//do
 			//{
-				result = await this.LocalDatastore!.GetObjectIds(tableInfo);
+				result = await this.LocalDatastore!.GetObjectIds(tableInfo, idPropertyModel);
 			//}
 			//while (result == null);
 
@@ -1951,8 +1950,8 @@ namespace Simple.Objects
 
 		public SimpleObject? GetObject(int tableId, long objectId)
 		{
-			if (objectId == 0) // || tableId == 0 
-				return null;
+			//if (objectId == 0) // || tableId == 0 
+			//	return null;
 
 			ObjectCache? objectCache = this.GetObjectCache(tableId);
 			SimpleObject? value = objectCache?.GetObject(objectId);
@@ -5241,7 +5240,7 @@ namespace Simple.Objects
 
 										case TransactionActionType.Delete:
 
-											this.LocalDatastore!.DeleteRecord(objectModel.TableInfo, objectModel.IdPropertyModel.PropertyIndex, objectModel.IdPropertyModel.DatastoreFieldName!, datastoreAction.ObjectId);
+											this.LocalDatastore!.DeleteRecord(objectModel.TableInfo, objectModel.IdPropertyModel, datastoreAction.ObjectId);
 											datastoreAction.DatastoreStatus = DatastoreActionStatus.Deleted;
 
 											break;
@@ -7639,33 +7638,33 @@ namespace Simple.Objects
 
 		//protected virtual void OnSaveablePropertyValueChange(SimpleObject simpleObject, IPropertyModel propertyModel, object value, object oldValue, bool isChanged, ChangeContainer? changeContainer, object? requester) { }
 
-		protected virtual string? GetImageName(SimpleObject simpleObject)
-		{
-			string? imageName = null;
+		protected virtual string? GetImageName(SimpleObject simpleObject) => simpleObject.GetDefaultImageName();
+		//{
+		//	string? imageName = null;
 
-			if (simpleObject is GraphElement graphElement)
-			{
-				if (graphElement.SimpleObject != null)
-					imageName = graphElement.SimpleObject.GetImageName();
-			}
-			else
-			{
-				ISimpleObjectModel objectModel = simpleObject.GetModel();
+		//	if (simpleObject is GraphElement graphElement)
+		//	{
+		//		if (graphElement.SimpleObject != null)
+		//			imageName = graphElement.SimpleObject.GetImageName();
+		//	}
+		//	else
+		//	{
+		//		ISimpleObjectModel objectModel = simpleObject.GetModel();
 
-				imageName = objectModel.ImageName;
+		//		imageName = objectModel.ImageName;
 
-				if (objectModel.ObjectSubTypePropertyModel != null) // ObjectSubTypes.Count > 0)
-				{
-					int objectSubType = simpleObject.GetPropertyValue<int>(objectModel.ObjectSubTypePropertyModel);
-					IModelElement? subTypeModel;
+		//		if (objectModel.ObjectSubTypePropertyModel != null) // ObjectSubTypes.Count > 0)
+		//		{
+		//			int objectSubType = simpleObject.GetPropertyValue<int>(objectModel.ObjectSubTypePropertyModel);
+		//			IModelElement? subTypeModel;
 
-					if (objectModel.ObjectSubTypes.TryGetValue(objectSubType, out subTypeModel))
-						imageName = subTypeModel.ImageName;
-				}
-			}
+		//			if (objectModel.ObjectSubTypes.TryGetValue(objectSubType, out subTypeModel))
+		//				imageName = subTypeModel.ImageName;
+		//		}
+		//	}
 
-			return imageName;
-		}
+		//	return imageName;
+		//}
 
 		//protected virtual void RecalculateImageName(SimpleObject simpleObject)
 		//{

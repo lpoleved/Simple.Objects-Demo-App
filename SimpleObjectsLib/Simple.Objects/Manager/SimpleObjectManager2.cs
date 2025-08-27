@@ -9,6 +9,7 @@ using Simple;
 using Simple.Collections;
 using Simple.Modeling;
 using Simple.Security;
+using Simple.Objects.Graph.Manager;
 
 namespace Simple.Objects
 {

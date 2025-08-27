@@ -83,7 +83,7 @@ namespace Simple.Objects
 
 				if (oneToManyRelationModel.PrimaryTableIdPropertyModel == null)
 				{
-					objectIds = this.Select(so => so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex)!.Equals(primaryObjectId));
+					objectIds = this.Select(so => Comparison.IsEqual(so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex), primaryObjectId));
 				}
 				else
 				{
@@ -91,8 +91,8 @@ namespace Simple.Objects
 					if (oneToManyRelationModel.PrimaryObjectTableId > 0 && primaryTableId != oneToManyRelationModel.PrimaryObjectTableId)
 						throw new ArgumentException(String.Format("GetOneToManyCollection error: oneToManyRelationModel.primaryTableId is not the same as T object TableId"));
 #endif
-					objectIds = this.Select(so => so.GetPropertyValue(oneToManyRelationModel.PrimaryTableIdPropertyModel.PropertyIndex)!.Equals(primaryTableId) &&
-												  so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex)!.Equals(primaryObjectId));
+					objectIds = this.Select(so => Comparison.IsEqual(so.GetPropertyValue(oneToManyRelationModel.PrimaryTableIdPropertyModel.PropertyIndex), primaryTableId) &&
+												  Comparison.IsEqual(so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex), primaryObjectId));
 				}
 
 				if (primaryObjectId > 0) // Ask server is any other elements, since client doesn't know how many elements are. If primary ObjectId < 0, it is new object and not exists on server

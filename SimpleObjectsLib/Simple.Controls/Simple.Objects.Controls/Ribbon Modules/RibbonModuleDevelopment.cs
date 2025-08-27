@@ -65,6 +65,7 @@ namespace Simple.Objects.Controls
 		protected override void OnSetIsActive()
 		{
 			base.OnSetIsActive();
+			
 			this.treeListTransactionLog.Visible = this.IsActive;
 		}
 		

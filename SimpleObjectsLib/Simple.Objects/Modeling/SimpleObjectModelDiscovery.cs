@@ -445,15 +445,15 @@ namespace Simple.Objects
 					//}
 				}
 
-				// 5. Set the object property models as require
-				foreach (SimpleObjectModel objectModel in this.ObjectModels)
-				{
-					foreach (var propertyModel in objectModel.PropertyModels)
-					{
-						//propertyModel.PropertyName = propertyModel.PropertyName;
-						propertyModel.DatastoreFieldName = propertyModel.PropertyName;
-					}
-				}
+				//// 5. Set the object property models as require
+				//foreach (SimpleObjectModel objectModel in this.ObjectModels)
+				//{
+				//	foreach (var propertyModel in objectModel.PropertyModels)
+				//	{
+				//		//propertyModel.PropertyName = propertyModel.PropertyName;
+				//		propertyModel.DatastoreFieldName = propertyModel.PropertyName;
+				//	}
+				//}
 
 
 				//// Some computer Net.Framework assemblies has an problem when calling assembly.GetTypes() that result in app crash at start.

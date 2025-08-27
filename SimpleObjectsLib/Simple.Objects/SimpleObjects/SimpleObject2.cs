@@ -205,30 +205,6 @@ namespace Simple.Objects
 
 		#region |   Public Methods   |
 
-		public virtual string? GetImageName()
-		{
-			if (this.imageName == null)
-			{
-				//this.imageName = String.Empty;
-				this.RecalcImageName();
-			}
-
-			//if (imageName == "Vlan")
-			//	imageName = imageName;
-
-			//if (this.GetName() == "VlanX (GE)")
-			//	imageName = imageName;
-
-			return this.imageName;
-		}
-
-		public void SetImageName(string imageName)
-		{ 
-			
-			this.imageName = imageName;
-			this.RecalcImageName();
-		}
-
 		public virtual string? GetDescription()
 		{
 			if (this.GetModel().DescriptionPropertyModel != null)
@@ -617,30 +593,62 @@ namespace Simple.Objects
 
 
 
-		//      public virtual ISimpleObjectModel GetModel()
-		//      {
-		//	return this.GetCustomObjectModel();
-		//      }
+		public string? GetImageName()
+		{
+			if (this.imageName == null)
+				this.RecalcImageName();
 
-		//protected virtual ISimpleObjectModel GetCustomObjectModel()
-		//{
-		//	return this.ObjectManager.GetObjectModel(this.GetType());
-		//}
+			return this.imageName;
+		}
 
-		//public void SetImageName(string imageName) => this.imageName = imageName;
+		public virtual string? GetDefaultImageName()
+		{
+			string? result = null;
+			
+			if (this is GraphElement graphElement)
+			{
+				if (graphElement.SimpleObject != null)
+					result = graphElement.SimpleObject.GetDefaultImageName();
+			}
+			else
+			{
+				ISimpleObjectModel objectModel = this.GetModel();
+
+				result = objectModel.ImageName;
+
+				if (objectModel.ObjectSubTypePropertyModel != null) // ObjectSubTypes.Count > 0)
+				{
+					int objectSubType = this.GetPropertyValue<int>(objectModel.ObjectSubTypePropertyModel);
+					IModelElement? subTypeModel;
+
+					if (objectModel.ObjectSubTypes.TryGetValue(objectSubType, out subTypeModel))
+						result = subTypeModel.ImageName;
+				}
+			}
+
+			return result;
+		}
+
+		public void SetImageName(string imageName)
+		{
+			this.imageName = imageName;
+			this.RecalcImageName();
+		}
 
 		public void RecalcImageName()
 		{
-			string? imageName = this.Manager.GetImageNameInternal(this);
-
-			if (imageName != this.imageName)
+			string? newImageName = this.Manager.GetImageNameInternal(this);
+			
+			if (newImageName != this.imageName)
 			{
 				string? oldImageName = this.imageName;
 
-				this.imageName = imageName;
-				
-				if (!oldImageName.IsNullOrEmpty())
-					this.Manager.ImageNameIsChanged(this, imageName, oldImageName);
+				this.imageName = newImageName;
+				this.Manager.ImageNameIsChanged(this, this.imageName, oldImageName);
+			}
+			else
+			{
+				this.imageName = newImageName;
 			}
 		}
 

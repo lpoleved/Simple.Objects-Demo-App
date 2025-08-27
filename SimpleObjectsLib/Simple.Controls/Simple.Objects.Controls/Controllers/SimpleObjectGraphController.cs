@@ -501,12 +501,12 @@ namespace Simple.Objects.Controls
             }
         }
 
-        [Category("Simple"), DefaultValue(true)]
-        public bool RefreshGraphNodeOnEverySimpleObjectPropertyValueChange
-        {
-            get { return this.refreshGraphNodeOnEverySimpleObjectPropertyValueChange; }
-            set { this.refreshGraphNodeOnEverySimpleObjectPropertyValueChange = value; }
-        }
+        //[Category("Simple"), DefaultValue(true)]
+        //public bool RefreshGraphNodeOnEverySimpleObjectPropertyValueChange
+        //{
+        //    get { return this.refreshGraphNodeOnEverySimpleObjectPropertyValueChange; }
+        //    set { this.refreshGraphNodeOnEverySimpleObjectPropertyValueChange = value; }
+        //}
 
         [Category("Simple"), DefaultValue(false)]
         public bool LoadAllNodes { get; set; }
@@ -747,7 +747,8 @@ namespace Simple.Objects.Controls
         protected abstract void GraphControlMoveNode(object sourceNode, object? destinationNode);
         protected abstract void GraphControlExpandNode(object node);
         protected abstract void GraphControlCollapseNode(object node);
-        protected abstract void GraphControlExpandAll();
+
+		protected abstract void GraphControlExpandAll();
         protected abstract void GraphControlCollapseAll();
 
         protected abstract object? GraphControlGetParentNode(object node);
@@ -1225,7 +1226,7 @@ namespace Simple.Objects.Controls
 
         public void BestFitGraphColumns(bool applyAutoWidth)
         {
-            if (this.nodesByGraphElement.Count > 0)
+            if (this.graphUpdate == 0 && this.nodesByGraphElement.Count > 0)
             {
 				this.GraphControlBestFitColumns(applyAutoWidth);
 				this.RaiseAfterBestFitGraphColumns();
@@ -1511,8 +1512,12 @@ namespace Simple.Objects.Controls
 
         public void RefreshAllNodes()
         {
-            for (int i = 0; i < this.nodesByGraphElement.Count; i++)
+			this.BeginGraphUpdate();
+
+			for (int i = 0; i < this.nodesByGraphElement.Count; i++)
 				this.RefreshNode(this.nodesByGraphElement.GraphElementAt(i), this.nodesByGraphElement.NodeAt(i));
+
+            this.EndGraphUpdate();
 
 			//foreach (var nodeGraphElementItem in this.nodesByGraphElement)
    //             this.RefreshNode(nodeGraphElementItem.Key, nodeGraphElementItem.Value);
@@ -2295,8 +2300,8 @@ namespace Simple.Objects.Controls
                             this.isLoadingInProgress = false;
 						    nodeTag.ChildrenNodesLoading = false;
                             
-                            this.BestFitGraphColumns();
                             this.EndGraphUpdate();
+                            //this.BestFitGraphColumns();
 						
                             Cursor.Current = currentCursor;
                         }
@@ -3211,36 +3216,49 @@ namespace Simple.Objects.Controls
             //return;
 
             //SimpleObject? simpleObject = e.SimpleObject as SimpleObject;
-			GraphElement? graphElement = null;
-			object? node = null;
+			//GraphElement? graphElement = null;
+			//object? node = null;
 
-			if (e.SimpleObject is GraphElement)
+			if (e.SimpleObject is GraphElement graphElement)
             {
-				graphElement = e.SimpleObject as GraphElement;
-				node = this.GetNode(graphElement);
-            }
-			else
-			{
-				foreach (var item in e.SimpleObject.GraphElements)
-				{
-					node = this.GetNode(item);
+                object? node = this.GetNode(graphElement);
 
-					if (node != null)
-					{
-						graphElement = item;
-						break;
+                if (node != null)
+                {
+					int imageIndex = -1;
+					GraphElementNodeTag? nodeTag = this.GetGraphNodeTag(graphElement);
+
+                    if (nodeTag != null)
+                    {
+                        imageIndex = (e.ImageName != null) ? this.GetImageIndex(e.ImageName, nodeTag) : -1;
+                        nodeTag.ImageIndex = imageIndex;
 					}
+					
+                    this.GraphControlSetNodeImageIndex(node, imageIndex);
 				}
 			}
+			//else
+			//{
+			//	foreach (var item in e.SimpleObject.GraphElements)
+			//	{
+			//		node = this.GetNode(item);
 
-			if (node != null)
-			{
-				string? imageName = e.ImageName;
-				GraphElementNodeTag nodeTag = this.GetGraphNodeTag(graphElement);
+			//		if (node != null)
+			//		{
+			//			graphElement = item;
+			//			break;
+			//		}
+			//	}
+			//}
 
-				nodeTag.ImageIndex = this.GetImageIndex(e.ImageName, nodeTag);
-				this.GraphControlSetNodeImageIndex(node, nodeTag.ImageIndex);
-			}
+			//if (node != null)
+			//{
+			//	string? imageName = e.ImageName;
+			//	GraphElementNodeTag nodeTag = this.GetGraphNodeTag(graphElement);
+
+			//	nodeTag.ImageIndex = this.GetImageIndex(e.ImageName, nodeTag);
+			//	this.GraphControlSetNodeImageIndex(node, nodeTag.ImageIndex);
+			//}
 
 			//GraphElement focusedGraphElement = this.fo GraphControlGetGraphElementByNode(node);
 
@@ -3497,7 +3515,7 @@ namespace Simple.Objects.Controls
 			this.BindingObjectPushData?.Invoke(this, new BindingObjectEventArgs(bindingObject));
         }
 
-        private void RaiseBindingObjectRefreshContext(SimpleObject? bindingObject, IPropertyModel? propertyModel, object? value, object? oldValue, bool isChanged, ChangeContainer? changeContainer, ObjectActionContext context, object? requester)
+        internal void RaiseBindingObjectRefreshContext(SimpleObject? bindingObject, IPropertyModel? propertyModel, object? value, object? oldValue, bool isChanged, ChangeContainer? changeContainer, ObjectActionContext context, object? requester)
         {
             this.BindingObjectRefreshContext?.Invoke(this, new ChangePropertyValueBindingObjectEventArgs(bindingObject, propertyModel, value, oldValue, isChanged, changeContainer, context, requester));
         }
@@ -3551,7 +3569,7 @@ namespace Simple.Objects.Controls
         {
             if (this.GetCustomCellEditValue != null)
             {
-                EditValueGraphElementEventArgs args = new EditValueGraphElementEventArgs(graphElement, node, graphCpolumn, value);
+                EditValueGraphElementEventArgs args = new EditValueGraphElementEventArgs(graphElement, node, graphCpolumn, editValue: value);
                 
                 this.GetCustomCellEditValue(this, args);
 
@@ -3832,6 +3850,8 @@ namespace Simple.Objects.Controls
 			this.GraphControlSetFocusedNode(node);
 		}
 
+
+
         private object AddNodeInternal(GraphElement graphElement, GraphElement? parentGraphElement)
         {
             object? parentNode = this.GetNode(parentGraphElement);
@@ -3984,22 +4004,29 @@ namespace Simple.Objects.Controls
 
 		private void UpdateNodeColumnValueInternal(GraphElement graphElement, object node, int simpleObjectPropertyIndex)
 		{
-			object? editValue = null;
-
             if (graphElement.SimpleObject != null)
             {
 				GraphColumnBindingPolicy? columnBindingPolicy = this.GetGraphColumnBindingPolicyByObjectPropertyIndex(graphElement.SimpleObject.GetModel().TableInfo.TableId, simpleObjectPropertyIndex);
+                object? editValue = null; 
 
-                if (columnBindingPolicy != null)
-                {
-                    editValue = this.GetEditValueByEvent(graphElement, node, columnBindingPolicy.GraphColumn, editValue);
-
-                    if (editValue == null)
-                        editValue = this.GetControlCellValueFromPropertyValue(graphElement, columnBindingPolicy);
+				if (columnBindingPolicy != null)
+                { 
+					editValue = this.GetControlCellValueFromPropertyValue(graphElement, columnBindingPolicy);
+				    editValue = this.GetEditValueByEvent(graphElement, node, columnBindingPolicy.GraphColumn, editValue);
 
                     this.GraphControlCloseEditor();
                     this.GraphControlSetNodeCellEditValue(node, columnBindingPolicy.GraphColumn.Index, editValue);
                 }
+                else // We don't know if this property value influence in some column edit text, so we are going to refresh each column custom text by getting edit value by event
+                {
+                    foreach (GraphColumn graphColumn in this.Columns)
+                    {
+						editValue = this.GetEditValueByEvent(graphElement, node, graphColumn, value: null);
+						
+                        if (editValue != null)
+                            this.GraphControlSetNodeCellEditValue(node, graphColumn.Index, editValue);
+					}
+				}
             }
 		}
 
@@ -4523,8 +4550,9 @@ namespace Simple.Objects.Controls
 
 				object cellValue = this.GetCellEditValue(node, graphColumn.Index);
 
-				if (cellValue is string cellText && cellText is not null)
+				if (cellValue != null)
 				{
+                    string cellText = cellValue.ToString() ?? String.Empty;
 					string normalizedTextToFind = textToFind;
 
 					if (!matchCase)
@@ -4566,8 +4594,7 @@ namespace Simple.Objects.Controls
 				return null;
 
 			object? parentNode = this.GraphControlGetParentNode(node);
-            object[] childNodes = (parentNode is not null) ? this.GraphControlGetChildNodes(parentNode) 
-                                                           : new object[] { };
+            object[] childNodes = this.GraphControlGetChildNodes(parentNode);
             bool isFound = false;
 
 			foreach (object currentNode in childNodes)

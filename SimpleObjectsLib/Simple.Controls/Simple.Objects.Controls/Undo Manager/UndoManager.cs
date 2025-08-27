@@ -11,7 +11,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraBars.Ribbon;
 using Simple.Modeling;
-using Simple.Objects;
+using Simple.Objects.Graph.Manager;
 
 namespace Simple.Objects.Controls
 {

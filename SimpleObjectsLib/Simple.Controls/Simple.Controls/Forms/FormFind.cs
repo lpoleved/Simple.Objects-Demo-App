@@ -49,7 +49,7 @@ namespace Simple.Controls
 				this.actionInfoTimer.Stop();
 				this.Text = strFormCaprion;
 				
-				object startNode = this.TextFinder.FocusedNode;
+				object startNode =  this.TextFinder.FocusedNode;
 				string textToFind = this.editorFindWhat.Text.Trim();
 				
 				bool isFind = this.TextFinder.FindNextText(startNode, textToFind, this.checkEditMatchCase.Checked);

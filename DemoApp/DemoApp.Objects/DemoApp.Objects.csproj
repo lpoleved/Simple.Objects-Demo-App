@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Simple.Core\Simple\Simple.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Core\Simple\Simple.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects\Simple.Objects.csproj" />
   </ItemGroup>

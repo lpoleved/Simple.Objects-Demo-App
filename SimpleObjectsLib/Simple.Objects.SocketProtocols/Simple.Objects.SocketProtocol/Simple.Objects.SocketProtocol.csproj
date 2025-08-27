@@ -12,8 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Simple.Objects\Simple.Objects.csproj" />
-    <ProjectReference Include="..\..\Simple.Socketing\Simple.SocketEngine\Simple.SocketEngine.csproj" />
-    <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj" />
+    <ProjectReference Include="..\..\Simple.SocketEngine\Simple.SocketEngine.csproj" />
   </ItemGroup>
 
 </Project>

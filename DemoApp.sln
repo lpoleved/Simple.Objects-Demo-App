@@ -21,25 +21,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Objects.Controls", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple.Core", "Simple.Core", "{A97A1CE7-EA0A-4955-B65B-567CD896A6E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple", "SimpleObjectsLib\Simple.Core\Simple\Simple.csproj", "{6C216CD5-06EE-4017-A5FF-665BE06925EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple", "Simple.Core\Simple\Simple.csproj", "{6C216CD5-06EE-4017-A5FF-665BE06925EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.AppContext", "SimpleObjectsLib\Simple.Core\Simple.AppContext\Simple.AppContext.csproj", "{C896685A-781C-493A-A32C-29ECD0C3FDFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.AppContext", "Simple.Core\Simple.AppContext\Simple.AppContext.csproj", "{C896685A-781C-493A-A32C-29ECD0C3FDFC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Collections", "SimpleObjectsLib\Simple.Core\Simple.Collections\Simple.Collections.csproj", "{045095E4-2046-4DDA-BC1D-71061F2D3FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Collections", "Simple.Core\Simple.Collections\Simple.Collections.csproj", "{045095E4-2046-4DDA-BC1D-71061F2D3FF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Compression", "SimpleObjectsLib\Simple.Core\Simple.Compression\Simple.Compression.csproj", "{8A8F5F64-51C0-417F-BBA7-1D9E2E1C239F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Compression", "Simple.Core\Simple.Compression\Simple.Compression.csproj", "{8A8F5F64-51C0-417F-BBA7-1D9E2E1C239F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Datastore", "SimpleObjectsLib\Simple.Core\Simple.Datastore\Simple.Datastore.csproj", "{FBA1DD8E-A1D4-4969-9610-118ACB0FC8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Datastore", "Simple.Core\Simple.Datastore\Simple.Datastore.csproj", "{FBA1DD8E-A1D4-4969-9610-118ACB0FC8BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Modeling", "SimpleObjectsLib\Simple.Core\Simple.Modeling\Simple.Modeling.csproj", "{9DEE9778-DAD5-478E-8685-BEEFF9C50C0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Modeling", "Simple.Core\Simple.Modeling\Simple.Modeling.csproj", "{9DEE9778-DAD5-478E-8685-BEEFF9C50C0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Network", "SimpleObjectsLib\Simple.Core\Simple.Network\Simple.Network.csproj", "{A7708EFB-C279-4ACD-B2E7-19DD7A16850B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Network", "Simple.Core\Simple.Network\Simple.Network.csproj", "{A7708EFB-C279-4ACD-B2E7-19DD7A16850B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Security", "SimpleObjectsLib\Simple.Core\Simple.Security\Simple.Security.csproj", "{655E35D8-3DE2-4B25-BB3B-FC19AC03DE64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Security", "Simple.Core\Simple.Security\Simple.Security.csproj", "{655E35D8-3DE2-4B25-BB3B-FC19AC03DE64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Serialization", "SimpleObjectsLib\Simple.Core\Simple.Serialization\Simple.Serialization.csproj", "{6E989BCD-AF91-4661-AD65-0341814FA684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Serialization", "Simple.Core\Simple.Serialization\Simple.Serialization.csproj", "{6E989BCD-AF91-4661-AD65-0341814FA684}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Threading", "SimpleObjectsLib\Simple.Core\Simple.Threading\Simple.Threading.csproj", "{B2BB7BCA-0B26-4B57-885A-58F82D263F9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Threading", "Simple.Core\Simple.Threading\Simple.Threading.csproj", "{B2BB7BCA-0B26-4B57-885A-58F82D263F9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple.Objects", "Simple.Objects", "{899D8E65-B639-4C5C-8F64-DB4F7508A31D}"
 EndProject
@@ -74,25 +74,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Datastore.SqlServer"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuperSocket", "SuperSocket", "{BCFC823B-55C2-48B3-9DB0-5AF02A2C3B6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Client", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Client\SuperSocket.Client.csproj", "{51801A48-5872-4941-92BD-12BD9102E4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Client", "SuperSocket\src\SuperSocket.Client\SuperSocket.Client.csproj", "{51801A48-5872-4941-92BD-12BD9102E4D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Primitives", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj", "{FBA2C27E-5CF4-45B4-AFF5-3FFE83B20DC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Primitives", "SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj", "{FBA2C27E-5CF4-45B4-AFF5-3FFE83B20DC4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.ProtoBase", "SimpleObjectsLib\SuperSocket\src\SuperSocket.ProtoBase\SuperSocket.ProtoBase.csproj", "{8BD464F0-7B93-43A6-B87A-2AACDD1DFEA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.ProtoBase", "SuperSocket\src\SuperSocket.ProtoBase\SuperSocket.ProtoBase.csproj", "{8BD464F0-7B93-43A6-B87A-2AACDD1DFEA3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Server", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Server\SuperSocket.Server.csproj", "{8461BE45-3910-4680-96AC-BD883262B613}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Server", "SuperSocket\src\SuperSocket.Server\SuperSocket.Server.csproj", "{8461BE45-3910-4680-96AC-BD883262B613}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Udp", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Udp\SuperSocket.Udp.csproj", "{267B20CC-254E-4C84-BD45-656D6DAD155C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperSocket.Udp", "SuperSocket\src\SuperSocket.Udp\SuperSocket.Udp.csproj", "{267B20CC-254E-4C84-BD45-656D6DAD155C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Objects.ServerMonitor", "SimpleObjectsLib\Simple.Controls\Simple.Objects.ServerMonitor\Simple.Objects.ServerMonitor.csproj", "{E807FA75-DD1A-4691-858A-DB4CD2FFDC3C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Datastore.Controls", "SimpleObjectsLib\Simple.Controls\Simple.Datastore.Controls\Simple.Datastore.Controls.csproj", "{7667D826-0EE8-4040-92FA-9024E44EA412}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSocket.Connection", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Connection\SuperSocket.Connection.csproj", "{08A3127B-DB48-3A16-69A9-AD29FF1F30E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSocket.Connection", "SuperSocket\src\SuperSocket.Connection\SuperSocket.Connection.csproj", "{08A3127B-DB48-3A16-69A9-AD29FF1F30E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSocket.Server.Abstractions", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Server.Abstractions\SuperSocket.Server.Abstractions.csproj", "{08817B10-AC2E-5A66-6FE3-0C1357D15079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSocket.Server.Abstractions", "SuperSocket\src\SuperSocket.Server.Abstractions\SuperSocket.Server.Abstractions.csproj", "{08817B10-AC2E-5A66-6FE3-0C1357D15079}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSocket.Client.Proxy", "SimpleObjectsLib\SuperSocket\src\SuperSocket.Client.Proxy\SuperSocket.Client.Proxy.csproj", "{79EAF51D-96DF-C8AD-73CD-07A627E87ADA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSocket.Client.Proxy", "SuperSocket\src\SuperSocket.Client.Proxy\SuperSocket.Client.Proxy.csproj", "{79EAF51D-96DF-C8AD-73CD-07A627E87ADA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,7 +249,6 @@ Global
 		{96AEA7FD-A104-4948-A160-095C0241E6AF} = {F27115FC-967E-4800-9F60-AA6429D9476C}
 		{E8CC47F6-EFF1-4A5D-9963-9032F6870F1A} = {F27115FC-967E-4800-9F60-AA6429D9476C}
 		{0804A516-3527-4A71-9685-7F188A836EAF} = {F27115FC-967E-4800-9F60-AA6429D9476C}
-		{A97A1CE7-EA0A-4955-B65B-567CD896A6E6} = {A127B443-8D18-49FE-85C4-B786D957609A}
 		{6C216CD5-06EE-4017-A5FF-665BE06925EF} = {A97A1CE7-EA0A-4955-B65B-567CD896A6E6}
 		{C896685A-781C-493A-A32C-29ECD0C3FDFC} = {A97A1CE7-EA0A-4955-B65B-567CD896A6E6}
 		{045095E4-2046-4DDA-BC1D-71061F2D3FF3} = {A97A1CE7-EA0A-4955-B65B-567CD896A6E6}
@@ -270,7 +269,6 @@ Global
 		{118226A5-7403-4023-BD91-159B3C8D7091} = {A127B443-8D18-49FE-85C4-B786D957609A}
 		{E418247D-AD1C-4F54-8CA1-724A695DA4D8} = {118226A5-7403-4023-BD91-159B3C8D7091}
 		{8F6BFC4C-7C4C-4DAC-B1CF-D1E1A5C06DAE} = {118226A5-7403-4023-BD91-159B3C8D7091}
-		{BCFC823B-55C2-48B3-9DB0-5AF02A2C3B6F} = {A127B443-8D18-49FE-85C4-B786D957609A}
 		{51801A48-5872-4941-92BD-12BD9102E4D7} = {BCFC823B-55C2-48B3-9DB0-5AF02A2C3B6F}
 		{FBA2C27E-5CF4-45B4-AFF5-3FFE83B20DC4} = {BCFC823B-55C2-48B3-9DB0-5AF02A2C3B6F}
 		{8BD464F0-7B93-43A6-B87A-2AACDD1DFEA3} = {BCFC823B-55C2-48B3-9DB0-5AF02A2C3B6F}

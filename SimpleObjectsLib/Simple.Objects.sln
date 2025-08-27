@@ -7,19 +7,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Objects", "Simple.Ob
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple.Core", "Simple.Core", "{A52138FF-3DDE-4897-B059-C82E3DDC2763}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Compression", "Simple.Core\Simple.Compression\Simple.Compression.csproj", "{47C61367-E18A-4F55-84F1-65BE270C0CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Compression", "..\Simple.Core\Simple.Compression\Simple.Compression.csproj", "{47C61367-E18A-4F55-84F1-65BE270C0CE6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Datastore", "Simple.Core\Simple.Datastore\Simple.Datastore.csproj", "{1A0A3482-24FB-49C3-8A17-69E1F3AB59DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Datastore", "..\Simple.Core\Simple.Datastore\Simple.Datastore.csproj", "{1A0A3482-24FB-49C3-8A17-69E1F3AB59DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Modeling", "Simple.Core\Simple.Modeling\Simple.Modeling.csproj", "{D5801C95-AB73-4115-8B68-F9F7D0097E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Modeling", "..\Simple.Core\Simple.Modeling\Simple.Modeling.csproj", "{D5801C95-AB73-4115-8B68-F9F7D0097E4B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple", "Simple.Core\Simple\Simple.csproj", "{BF987368-0DAE-4E56-ABDA-99D1BA59E988}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple", "..\Simple.Core\Simple\Simple.csproj", "{BF987368-0DAE-4E56-ABDA-99D1BA59E988}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Serialization", "Simple.Core\Simple.Serialization\Simple.Serialization.csproj", "{34F54036-CB18-4293-87E3-BFFB683E663E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Serialization", "..\Simple.Core\Simple.Serialization\Simple.Serialization.csproj", "{34F54036-CB18-4293-87E3-BFFB683E663E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Collections", "Simple.Core\Simple.Collections\Simple.Collections.csproj", "{66716634-8D83-4D4E-893D-4F9A42F92DA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Collections", "..\Simple.Core\Simple.Collections\Simple.Collections.csproj", "{66716634-8D83-4D4E-893D-4F9A42F92DA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Security", "Simple.Core\Simple.Security\Simple.Security.csproj", "{769214A0-F8FE-4D82-8159-78467CF52032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Security", "..\Simple.Core\Simple.Security\Simple.Security.csproj", "{769214A0-F8FE-4D82-8159-78467CF52032}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

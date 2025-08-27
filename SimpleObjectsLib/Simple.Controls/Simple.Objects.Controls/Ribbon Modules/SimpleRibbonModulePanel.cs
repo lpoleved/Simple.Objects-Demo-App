@@ -22,6 +22,7 @@ namespace Simple.Objects.Controls
 		private bool readOnly = false;
         private bool started = false;
         private bool refreshOnSelect = true;
+        private bool refreshAllGraphElementsOnSelect = true;
 		private SimpleRibbonFormBase? ribbonForm = null;
 		private SimpleObjectGraphController? graphController = null;
         private List<ISimpleValidation> controlsToValidate = new List<ISimpleValidation>();
@@ -89,6 +90,13 @@ namespace Simple.Objects.Controls
             set { this.refreshOnSelect = value; }
         }
 
+		[Category("Simple.Properties"), DefaultValue(true)]
+		public bool RefreshAllGraphElementsOnSelect
+		{
+			get { return this.refreshAllGraphElementsOnSelect; }
+			set { this.refreshAllGraphElementsOnSelect = value; }
+		}
+		
         [Category("Simple.Properties"), Browsable(false)]
         public bool Started
         {
@@ -130,22 +138,22 @@ namespace Simple.Objects.Controls
 		
 		#endregion
 
-        #region |   Public Properties   |
+        #region |   Protected Properties   |
 
         protected List<ISimpleValidation> ControlsToValidate 
         {
             get { return this.controlsToValidate; }
         }
-        
-        #endregion |   Public Properties   |
 
-        #region |   Public Methods   |
+		#endregion |   Protected Properties   |
 
-        /// <summary>
-        /// Start - initialize module and start showing data.
-        /// Internally raise implementation of OnStarted() method.
-        /// </summary>
-        public void Start()
+		#region |   Public Methods   |
+
+		/// <summary>
+		/// Start - initialize module and start showing data.
+		/// Internally raise implementation of OnStarted() method.
+		/// </summary>
+		public void Start()
         {
             this.OnStart();
             this.started = true;
@@ -155,16 +163,34 @@ namespace Simple.Objects.Controls
         /// Refreshes panel.
         /// Internally raise implementation of OnRefreshPanel() method.
         /// </summary>
-        public void RefreshPanel()
-        {
-            this.OnRefreshPanel();
-        }
+        public void RefreshPanel() => this.RefreshPanelInternal(refreshAllGraphElements: true);
 
-        /// <summary>
-        /// Validate panel ie controls on it.
-        /// Internally raise implementation of OnValidatePanel() method.
-        /// </summary>
-        public bool ValidatePanel()
+		internal void RefreshPanelInternal(bool refreshAllGraphElements)
+		{
+			if (this.graphController != null)
+			{
+				Cursor? currentCursor = Cursor.Current;
+
+				this.Cursor = Cursors.WaitCursor;
+
+                if (refreshAllGraphElements)
+                    this.graphController.RefreshAllNodes();
+                else if (this.graphController.FocusedGraphElement != null)
+                     this.graphController.RefreshGraphElement(this.graphController.FocusedGraphElement);
+
+                this.graphController.RaiseBindingObjectRefreshContext(this.graphController.FocusedGraphElement?.SimpleObject, null, null, null, isChanged: false, this.graphController.FocusedGraphElement?.SimpleObject?.ChangeContainer, ObjectActionContext.Client, requester: this);
+				this.Cursor = currentCursor;
+			}
+
+			this.OnRefreshPanel();
+		}
+
+
+		/// <summary>
+		/// Validate panel ie controls on it.
+		/// Internally raise implementation of OnValidatePanel() method.
+		/// </summary>
+		public bool ValidatePanel()
         {
             bool isValid = true;
             
@@ -388,6 +414,7 @@ namespace Simple.Objects.Controls
         protected virtual void OnRefreshPanel()
         {
         }
+
         /// <summary>
         /// Raised when ValidatePanel() method is called.
         /// Here is place to implement validating panel controls.
@@ -439,6 +466,8 @@ namespace Simple.Objects.Controls
 
 		protected virtual void OnSetIsActive()
 		{
+            if (this.graphController != null)
+                this.graphController.IsActive = this.isActive;
 		}
 
         #endregion |   Protected Virtual Methods   |

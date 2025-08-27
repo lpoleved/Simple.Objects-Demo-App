@@ -14,12 +14,13 @@ namespace Simple.Objects
 		public SystemObjectModel(Type objectType)
 		{
 			List<int> storablePropertyIndexes = new List<int>();
+			List<int> storablePropertyIndexesWithouKey = new List<int>();
 			//List<IPropertyModel> storablePropertyModels = new List<IPropertyModel>();
 			int propertyIndex = 0;
 
 			this.ObjectType = objectType;
 			//this.TableName = this.ObjectType.Name + "s";
-			this.ObjectKeyPropertyModel = null!;
+			this.IdPropertyModel = null!;
 			this.AutoGenerateKey = true;
 
 			PropertyInfo[] propertiesByReflection = this.ObjectType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -29,7 +30,7 @@ namespace Simple.Objects
 			{
 				PropertyModel propertyModel = new PropertyModel(propertyIndex++, propertyInfo.Name, propertyInfo.PropertyType);
 
-				propertyModel.DatastoreFieldName = propertyModel.PropertyName;
+				//propertyModel.DatastoreFieldName = propertyModel.PropertyName;
 				propertyModel.PropertyInfo = propertyInfo;
 				this.PropertyModels[propertyModel.PropertyIndex] = propertyModel;
 
@@ -52,32 +53,42 @@ namespace Simple.Objects
 
 				if (objectKeyAttributes.Length > 0)
 				{
-					if (this.ObjectKeyPropertyModel != null)
-						throw new Exception(String.Format("Duplicate ObjectKey attribute. SystemObject type: {0}, property names: {1} & {2}.", this.ObjectType.Name, this.ObjectKeyPropertyModel.PropertyName, propertyInfo.Name));
+					if (this.IdPropertyModel != null)
+						throw new Exception(String.Format("Duplicate ObjectKey attribute. SystemObject type: {0}, property names: {1} & {2}.", this.ObjectType.Name, this.IdPropertyModel.PropertyName, propertyInfo.Name));
 
-					this.ObjectKeyPropertyModel = propertyModel;
+					this.IdPropertyModel = propertyModel;
+					this.IdPropertyModel.IsId = true;
 				}
 
 				object[] storableAttributes = propertyInfo.GetCustomAttributes(typeof(NonStorableAttribute), true);
 
 				if (storableAttributes.Length > 0)
+				{
 					propertyModel.IsStorable = false;
-				else 
+				}
+				else
+				{
 					storablePropertyIndexes.Add(propertyModel.PropertyIndex);
+
+					if (!propertyModel.IsId)
+						storablePropertyIndexesWithouKey.Add(propertyModel.PropertyIndex);
+				}
 			}
 
 			this.StorablePropertyIndexes = storablePropertyIndexes.ToArray();
-			//this.StorablePropertyModels = storablePropertyModels.ToArray();
+			this.StorablePropertyIndexesWithoutKey = storablePropertyIndexesWithouKey.ToArray();
 		}
 
 		Type ObjectType { get; set; }
-		public PropertyModel ObjectKeyPropertyModel { get; set; }
+		public PropertyModel IdPropertyModel { get; set; }
 		
 		public TableInfo TableInfo { get; set; }
 		//public string TableName { get; set; }
 		public bool AutoGenerateKey { get; set; }
 		public bool ReuseObjectKeys { get; set; }
 		public int[] StorablePropertyIndexes { get; private set; }
+		public int[] StorablePropertyIndexesWithoutKey { get; private set; }
+
 		//public IPropertyModel[] StorablePropertyModels { get; private set; }
 		public IPropertyModel[] PropertyModels { get; private set; }
 		//IPropertyModel[] PropertyModelSequence { get; set; }
@@ -90,12 +101,13 @@ namespace Simple.Objects
 
 	public interface ISystemObjectModel //: ISimpleObjectModel
 	{
-		PropertyModel ObjectKeyPropertyModel { get; }
+		PropertyModel IdPropertyModel { get; }
 		TableInfo TableInfo { get; }
 		//string TableName { get; }
 		bool AutoGenerateKey { get; }
 		bool ReuseObjectKeys { get; }
 		int[] StorablePropertyIndexes { get; }
+		int[] StorablePropertyIndexesWithoutKey { get; }
 		//IPropertyModel[] StorablePropertyModels { get; }
 		IPropertyModel[] PropertyModels { get; }
 		IPropertyModel GetPropertyModel(int propertyIndex);

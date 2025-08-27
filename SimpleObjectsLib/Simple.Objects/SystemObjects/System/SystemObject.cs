@@ -120,22 +120,27 @@ namespace Simple.Objects
 			{
 				this.OnBeforeSave();
 
-				int[] propertyIndexes = this.GetModel().StorablePropertyIndexes;
+				int[] propertyIndexes ;
 
 				//propertyIndexes = new int[] { 0, 1 }; //, 1, 2, 3 };
 
-				var propertyIndexValues = this.GetPropertyIndexValuePairs(propertyIndexes);
+				PropertyIndexValuePair[] propertyIndexValues;
 
 				if (this.IsNew) // -> Insert
 				{
+					propertyIndexes = this.GetModel().StorablePropertyIndexes;
+					propertyIndexValues = this.GetPropertyIndexValuePairs(propertyIndexes);
+
 					this.ObjectManager?.LocalDatastore?.InsertRecord(this.GetModel().TableInfo, propertyIndexValues, this.GetModel().GetPropertyModel);
 					this.IsNew = false;
 				}
 				else // -> Update
 				{
 					TKey key = this.GetKeyValue();
-					
-					this.ObjectManager?.LocalDatastore?.UpdateRecord(this.GetModel().TableInfo, this.GetModel().ObjectKeyPropertyModel.PropertyIndex, key, propertyIndexValues, this.GetModel().GetPropertyModel);
+					propertyIndexes = this.GetModel().StorablePropertyIndexesWithoutKey;
+					propertyIndexValues = this.GetPropertyIndexValuePairs(propertyIndexes);
+
+					this.ObjectManager?.LocalDatastore?.UpdateRecord(this.GetModel().TableInfo, this.GetModel().IdPropertyModel.PropertyIndex, key, propertyIndexValues, this.GetModel().GetPropertyModel);
 				}
 
 				this.OnAfterSave();
@@ -149,7 +154,7 @@ namespace Simple.Objects
 				this.OnBeforeDelete();
 
 				if (!this.IsNew)
-					this.ObjectManager?.LocalDatastore?.DeleteRecord(this.GetModel().TableInfo, this.GetModel().ObjectKeyPropertyModel.PropertyIndex, this.GetModel().ObjectKeyPropertyModel.PropertyName, this.GetKeyValue());
+					this.ObjectManager?.LocalDatastore?.DeleteRecord(this.GetModel().TableInfo, this.GetModel().IdPropertyModel, this.GetKeyValue());
 
 				TKey key = this.GetKeyValue();
 
@@ -168,7 +173,7 @@ namespace Simple.Objects
 
 		protected internal virtual TKey GetKeyValue()
 		{
-			var value = this.GetModel().ObjectKeyPropertyModel.PropertyInfo?.GetValue(this, null);
+			var value = this.GetModel().IdPropertyModel.PropertyInfo?.GetValue(this, null);
 
 			if (value is TKey tKey)
 				return tKey;
@@ -178,7 +183,7 @@ namespace Simple.Objects
 
 		protected internal virtual void SetKeyValue(TKey value)
 		{
-			this.GetModel().ObjectKeyPropertyModel.PropertyInfo?.SetValue(this, value, null);
+			this.GetModel().IdPropertyModel.PropertyInfo?.SetValue(this, value, null);
 		}
 
 		protected virtual void OnLoad()
@@ -262,6 +267,7 @@ namespace Simple.Objects
 
 			return result;
 		}
+
 
 		private object? GetNormalizedSystemPropertyValue(Type propertyType, object? fieldValue)
 		{

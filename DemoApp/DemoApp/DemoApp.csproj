@@ -13,6 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Collections\Simple.Collections.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Compression\Simple.Compression.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Datastore\Simple.Datastore.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Modeling\Simple.Modeling.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Network\Simple.Network.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Security\Simple.Security.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Serialization\Simple.Serialization.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple.Threading\Simple.Threading.csproj" />
+    <ProjectReference Include="..\..\Simple.Core\Simple\Simple.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Controls.TreeList\Simple.Controls.TreeList.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Controls\Simple.Controls.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Controls\Simple.Datastore.Controls\Simple.Datastore.Controls.csproj" />
@@ -33,7 +43,7 @@
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects.SocketProtocols\Simple.Objects.MonitorProtocol\Simple.Objects.MonitorProtocol.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects.SocketProtocols\Simple.Objects.SocketProtocol\Simple.Objects.SocketProtocol.csproj" />
     <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Objects\Simple.Objects.csproj" />
-    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.Socketing\Simple.SocketEngine\Simple.SocketEngine.csproj" />
+    <ProjectReference Include="..\..\SimpleObjectsLib\Simple.SocketEngine\Simple.SocketEngine.csproj" />
     <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Client\SuperSocket.Client.csproj" />
     <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Connection\SuperSocket.Connection.csproj" />
     <ProjectReference Include="..\..\SuperSocket\src\SuperSocket.Primitives\SuperSocket.Primitives.csproj" />

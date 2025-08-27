@@ -3008,7 +3008,7 @@ namespace Simple.Objects.Controls
 			this.AfterInitializeControl?.Invoke(this, new EventArgs());
 		}
 
-        private void RaiseBindingObjectRefreshContext(ChangePropertyValueBindingObjectEventArgs changePropertyValueBindingObjectRequesterEventArgs)
+        internal void RaiseBindingObjectRefreshContext(ChangePropertyValueBindingObjectEventArgs changePropertyValueBindingObjectRequesterEventArgs)
         {
 			this.BindingObjectRefreshContext?.Invoke(this, changePropertyValueBindingObjectRequesterEventArgs);
         }

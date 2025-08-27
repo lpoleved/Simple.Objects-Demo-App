@@ -161,8 +161,8 @@ namespace Simple.Objects
                                 object? validationSimpleObjectPropertyValue = null;
 
                                 if (propertyModel != null)
-                                    validationSimpleObjectPropertyValue = (propertyModel.PropertyIndex != validationSimpleObject.GetModel().NamePropertyModel.PropertyIndex) ? validationSimpleObject[propertyModel.PropertyIndex]
-                                                                                                                                                                             : validationSimpleObject.GetName();
+                                    validationSimpleObjectPropertyValue = (propertyModel.PropertyIndex != validationSimpleObject.GetModel().NamePropertyModel?.PropertyIndex) ? validationSimpleObject[propertyModel.PropertyIndex]
+                                                                                                                                                                              : validationSimpleObject.GetName();
                                 else // if (this.PropertyModel?.PropertyName == "Name")
                                     validationSimpleObjectPropertyValue = validationSimpleObject.GetName();
 

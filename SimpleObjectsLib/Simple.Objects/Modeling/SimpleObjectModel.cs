@@ -13,7 +13,7 @@ namespace Simple.Objects
 {
 	public abstract class SimpleObjectModel<TObject, TPropertyModel, TObjectModel> : SimpleObjectModel, ISimpleObjectModel
 		where TObject : SimpleObject
-		where TPropertyModel : SimpleObjectPropertyModelBase, new()
+		where TPropertyModel : PropertyModelBase, new()
 		where TObjectModel : SimpleObjectModel<TObject, TPropertyModel, TObjectModel>, new()
 	{
 		private static TObjectModel? instance = null;
@@ -87,7 +87,7 @@ namespace Simple.Objects
 		private TableInfo tableInfo;
 		private ReadOnlyList<IValidationRule> iUpdateValidationRules = null;
 		private ReadOnlyList<IValidationRule> iDeleteValidationRules = null;
-		private PropertyModelCollection<IPropertyModel> iPropertyModelCollection = null;
+		//private PropertyModelCollection<IPropertyModel> iPropertyModelCollection = null;
 		private int sortableOneToManyRelationKey;
 		private bool mustHaveAtLeastOneGraphElement = false;
 		private int mustHaveGraphElementGraphKey = 0;
@@ -118,7 +118,7 @@ namespace Simple.Objects
 
 			this.TableInfo = tableInfo; //(tableInfo != null) ? tableInfo : TableInfo.Empty;
 			this.PropertyModels = new PropertyModelCollection<PropertyModel>(propertyModelElementFieldHolderInstance, owner: this);
-			this.iPropertyModelCollection = this.PropertyModels.AsCustom<IPropertyModel>();
+			//this.iPropertyModelCollection = this.PropertyModels.AsCustom<IPropertyModel>();
 
 			foreach (PropertyModel propertyModel in this.PropertyModels)
 			{
@@ -271,11 +271,11 @@ namespace Simple.Objects
 		}
 
 		public IPropertyModel IdPropertyModel { get; set; }
-		public IPropertyModel NamePropertyModel { get; set; }
-		public IPropertyModel DescriptionPropertyModel { get; set; }
-		public IPropertyModel ObjectSubTypePropertyModel { get; set; }
-		public IPropertyModel PreviousIdPropertyModel { get; set; }
-		public IPropertyModel OrderIndexPropertyModel { get; set; }
+		public IPropertyModel? NamePropertyModel { get; set; }
+		public IPropertyModel? DescriptionPropertyModel { get; set; }
+		public IPropertyModel? ObjectSubTypePropertyModel { get; set; }
+		public IPropertyModel? PreviousIdPropertyModel { get; set; }
+		public IPropertyModel? OrderIndexPropertyModel { get; set; }
 		//public IPropertyModel ActionSetOrderIndexPropertyModel { get; set; }
 
 
@@ -427,10 +427,10 @@ namespace Simple.Objects
 		protected virtual void Initialize() { }
 		protected virtual void OnSetTableInfo(TableInfo tableInfo) { }
 
-		PropertyModelCollection<IPropertyModel> ISimpleObjectModel.PropertyModels
-        {
-            get { return this.iPropertyModelCollection; } // PropertyModels. as IPropertyModelCollection<PropertyModel>; }
-        }
+		//PropertyModelCollection<IPropertyModel> ISimpleObjectModel.PropertyModels
+  //      {
+  //          get { return this.iPropertyModelCollection; } // PropertyModels. as IPropertyModelCollection<PropertyModel>; }
+  //      }
 
 		int[] ISimpleObjectModel.SerializablePropertyIndexes
 		{

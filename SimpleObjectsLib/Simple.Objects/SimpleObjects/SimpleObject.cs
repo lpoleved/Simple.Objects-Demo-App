@@ -232,7 +232,11 @@ namespace Simple.Objects
 		//	//}
 		//}
 
-		internal void SetId(long objectId) => this.id = objectId;
+		internal void SetId(long objectId)
+		{
+			this.SetFieldValue(this.GetModel().IdPropertyModel.PropertyIndex, objectId);
+			this.id = objectId;
+		}
 
 		public bool IsNew => this.isNew;
 
@@ -1961,7 +1965,7 @@ namespace Simple.Objects
 					result.Sort(setPrevious: true, this.ChangeContainer, this.Requester);
 					
 					
-				if (requireSave && this.ChangeContainer!.RequireCommit)
+					if (requireSave && this.ChangeContainer!.RequireCommit)
 						this.Manager.CommitChanges(this.ChangeContainer, this.Context, this.Requester);
 				}
 

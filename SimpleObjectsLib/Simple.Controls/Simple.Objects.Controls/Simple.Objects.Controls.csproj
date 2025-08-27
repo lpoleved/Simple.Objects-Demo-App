@@ -11,15 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevExpress.Win.Design" Version="25.1.3" />
+    <PackageReference Include="DevExpress.Win.Design" Version="25.1.4" />
     <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
-    <ProjectReference Include="..\..\Simple.Core\Simple.Collections\Simple.Collections.csproj" />
-    <ProjectReference Include="..\..\Simple.Core\Simple.Modeling\Simple.Modeling.csproj" />
-    <ProjectReference Include="..\..\Simple.Core\Simple\Simple.csproj" />
+    <ProjectReference Include="..\..\..\Simple.Core\Simple.AppContext\Simple.AppContext.csproj" />
+    <ProjectReference Include="..\..\..\Simple.Core\Simple.Collections\Simple.Collections.csproj" />
+    <ProjectReference Include="..\..\..\Simple.Core\Simple.Modeling\Simple.Modeling.csproj" />
+    <ProjectReference Include="..\..\..\Simple.Core\Simple\Simple.csproj" />
     <ProjectReference Include="..\..\Simple.Objects\Simple.Objects.csproj" />
     <ProjectReference Include="..\Simple.Controls.TreeList\Simple.Controls.TreeList.csproj" />
     <ProjectReference Include="..\Simple.Controls\Simple.Controls.csproj" />

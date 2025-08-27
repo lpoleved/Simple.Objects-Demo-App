@@ -113,7 +113,7 @@ namespace Simple.Objects
 
 			if (oneToManyRelationModel.PrimaryTableIdPropertyModel == null)
 			{
-				objectIds = this.Select(so => so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex)!.Equals(primaryObjectId));
+				objectIds = this.Select(so => Comparison.IsEqual(so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex), primaryObjectId));
 			}
 			else
 			{
@@ -121,8 +121,8 @@ namespace Simple.Objects
 				if (oneToManyRelationModel.PrimaryObjectTableId > 0 && primaryTableId != oneToManyRelationModel.PrimaryObjectTableId)
 					throw new ArgumentException(String.Format("GetOneToManyCollection error: oneToManyRelationModel.primaryTableId is not the same as T object TableId"));
 #endif
-				objectIds = this.Select(so => so.GetPropertyValue(oneToManyRelationModel.PrimaryTableIdPropertyModel.PropertyIndex)!.Equals(primaryTableId) && 
-											  so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex)!.Equals(primaryObjectId));
+				objectIds = this.Select(so => Comparison.IsEqual(so.GetPropertyValue(oneToManyRelationModel.PrimaryTableIdPropertyModel.PropertyIndex), primaryTableId) && 
+											  Comparison.IsEqual(so.GetPropertyValue(oneToManyRelationModel.PrimaryObjectIdPropertyModel.PropertyIndex), primaryObjectId));
 			}
 
 			return objectIds;
@@ -252,7 +252,6 @@ namespace Simple.Objects
 			return isRemoved;
 		}
 
-
 		internal IPropertyModel[] GetPropertyModelsByDataReaderFieldIndex(IDataReader dataReader)
 		{
 			if (this.propertyModelsByDataReaderFieldIndex == null)
@@ -260,7 +259,7 @@ namespace Simple.Objects
 				this.propertyModelsByDataReaderFieldIndex = new IPropertyModel[dataReader.FieldCount];
 
 				for (int i = 0; i < this.propertyModelsByDataReaderFieldIndex.Length; i++)
-					this.propertyModelsByDataReaderFieldIndex[i] = this.ObjectModel.PropertyModels[dataReader.GetName(i)];
+					this.propertyModelsByDataReaderFieldIndex[i] = this.ObjectModel.PropertyModels.GetPropertyModelByDatastoreFieldName(dataReader.GetName(i))!;
 			}
 
 			return this.propertyModelsByDataReaderFieldIndex;

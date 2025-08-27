@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple.Datastore.SqlServer"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple.Core", "Simple.Core", "{C1A0866E-57A4-4BD2-AD63-F1BC7B94793E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple", "Simple.Core\Simple\Simple.csproj", "{E7D0C3BD-BFBF-4FC5-8734-ACA06DF1D051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple", "..\Simple.Core\Simple\Simple.csproj", "{E7D0C3BD-BFBF-4FC5-8734-ACA06DF1D051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
