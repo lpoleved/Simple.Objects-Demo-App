@@ -218,6 +218,7 @@ namespace Simple.Modeling
 		public bool IsId { get; set; }
 		public bool IsRelationTableId { get; set; }
 		public bool IsRelationObjectId { get; set; }
+		public bool IsRelationZeroValueDatastoreDBNull { get; set; }
 		public bool IsPreviousId { get; set; }
 		public bool IsOrderIndex { get; set; }
 		//public bool IsActionSetOrderIndex { get; set; }

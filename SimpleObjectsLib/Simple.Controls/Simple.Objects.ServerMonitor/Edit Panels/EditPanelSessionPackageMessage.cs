@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Buffers;
+﻿using DevExpress.DataAccess.Native.Web;
+using DevExpress.DataProcessing;
 using Simple;
-using Simple.Serialization;
 using Simple.Controls;
 using Simple.Objects;
-using Simple.SocketEngine;
 using Simple.Objects.SocketProtocol;
+using Simple.Serialization;
+using Simple.SocketEngine;
+using System;
+using System.Buffers;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Threading;
-using DevExpress.DataProcessing;
+using System.Windows.Forms;
 
 namespace Simple.Objects.ServerMonitor
 {
@@ -36,30 +38,31 @@ namespace Simple.Objects.ServerMonitor
 
 		public static int LargePackageBufferSize = 4096;
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			//this.MessagePackage = (packageInfoRow.SessionPackageJobAction.JobActionType == Simple.SocketEngine.JobActionType.MessageSent) ? packageInfoRow.SessionPackageJobAction.SentPackage :
 			//																																  packageInfoRow.SessionPackageJobAction.ReceivedPackage;
 
 			if (this.PackageInfoRow != null)
 			{
-				PackageInfo message = this.PackageInfoRow.RequestOrMessagePackageInfo;
-				int packageKey = message.Key;
-				string keyAppInfo = (message.HeaderInfo.IsSystem) ? "System" : "App";
+				ISimpleObjectSession? session = this.Context?.GetSimpleObjectSession(this.PackageInfoRow.SessionKey);
+				var message = this.PackageInfoRow.RequestOrMessagePackageReader;
+				int packageKey = message.PackageInfo.Key;
+				string keyAppInfo = (message.PackageInfo.HeaderInfo.IsSystem) ? "System" : "App";
 				string keyDescription = String.Empty;
 
-				if (message.HeaderInfo.IsSystem)
+				if (message.PackageInfo.HeaderInfo.IsSystem)
 					keyDescription = ((SystemMessage)packageKey).ToString();
 
 				this.tabPageObjectName.Text = String.Format("Socket Package Massage  -  {0}.{1} ({2})", keyAppInfo, keyDescription, packageKey);
 				this.editorMessageCodeOrRequestId.Text += $"  ({keyAppInfo}.{keyDescription})";
 				this.editorMessagePackageLength.Text = message.PackageLength.ToString() + " Bytes";
-				this.editorMessagePackageHeaderValue.Text = "0x" + message.HeaderInfo.Value.ToString("X4");
-				this.packageHeaderControlMessage.SetPackageHeaderValues(message.HeaderInfo);
+				this.editorMessagePackageHeaderValue.Text = "0x" + message.PackageInfo.HeaderInfo.Value.ToString("X4");
+				this.packageHeaderControlMessage.SetPackageHeaderValues(message.PackageInfo.HeaderInfo);
 
-				if (message.Buffer.Length < LargePackageBufferSize)
+				if (message.PackageInfo.Buffer?.Length < LargePackageBufferSize)
 				{
 					this.editorMessagePackageValue.Text = this.CreatePackageText(message);
 				}
@@ -80,23 +83,33 @@ namespace Simple.Objects.ServerMonitor
 					setPackageHexText.Start();
 				}
 
-				if (message.PackageArgs is null)
+
+				if (message.PackageInfo.PackageArgs is null && session != null)
 				{
-					MessageArgs? messageArgs = this.CreateMessageArgs();
+					message.PackageInfo.PackageArgs = this.CreateMessageArgs();
 
-					if (messageArgs != null)
+					if (message.PackageInfo.PackageArgs != null)
 					{
-						SequenceReader reader = new SequenceReader(message.Buffer);
-						ISimpleObjectSession? session = this.Context?.GetSimpleObjectSession(this.PackageInfoRow.SessionKey);
-
 						try
 						{
-							reader.AdvancePosition(message.PackageLengthSize + message.HeaderSize);
-							message.ReadArgs(messageArgs, ref reader, session: session!);
+							message.DecodePackageArgs(session);
 						}
-						catch (Exception)
+						catch (Exception ex)
 						{
+							Debug.WriteLine($"Error reading response args: {ex} (RequestId={message.PackageInfo.Key})");
 						}
+
+
+						//SequenceReader reader = new SequenceReader(message.Buffer);
+
+						//try
+						//{
+						//	reader.AdvancePosition(message.PackageLengthInfoSize + message.HeaderSize);
+						//	message.ReadArgs(messageArgs, ref reader, session: session!);
+						//}
+						//catch (Exception)
+						//{
+						//}
 					}
 				}
 

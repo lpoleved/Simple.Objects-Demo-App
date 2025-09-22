@@ -97,7 +97,7 @@ namespace Simple.Objects
 
 		public PM PreviousId = new PreviousIdPM<long>(1);
 		public PM GraphKey              = new PM<int>(2) { AccessPolicy = PropertyAccessPolicy.ReadOnly, GetAccessModifier = AccessModifier.Public, SetAccessModifier = AccessModifier.Internal, DatastoreType = typeof(short), IsIndexed = true }; // FirePropertyValueChangeEvent = false, CanSetOnClientUpdate = false }; // This property is not part of the relation thus require manual sets IsIdexed and IsSerializationOptimizable.
-		public PM ParentId			   = new PM<long>(3) { AccessPolicy = PropertyAccessPolicy.ReadOnly, GetAccessModifier = AccessModifier.Public, IsRelationObjectId = true }; // SetAccessModifier = AccessModifier.Private,
+		public PM ParentId			   = new PM<long>(3) { AccessPolicy = PropertyAccessPolicy.ReadOnly, GetAccessModifier = AccessModifier.Public, IsRelationZeroValueDatastoreDBNull = true }; // SetAccessModifier = AccessModifier.Private,
 		public PM ObjectTableId         = new PM<int>(4) { AccessPolicy = PropertyAccessPolicy.ReadOnly, GetAccessModifier = AccessModifier.Public }; //, DatastoreType = typeof(short) };
 		public PM ObjectId			   = new PM<long>(5) { AccessPolicy = PropertyAccessPolicy.ReadOnly, GetAccessModifier = AccessModifier.Public };
 		public PM UserId			   = new PM<long>(6) { AccessPolicy = PropertyAccessPolicy.ReadOnly, GetAccessModifier = AccessModifier.Public, DefaultValue = 1 };

@@ -349,76 +349,76 @@ namespace Simple.Objects.MonitorProtocol
 		#region |   Message Receives   |
 
 		[SystemMessageCommand((int)MonitorSystemMessage.ServerSrarted)]
-		protected void MessageReceive_ServerStarted(ISimpleSession session, PackageReader packageInfo) => this.ServerStarted?.Invoke();
+		protected void MessageReceive_ServerStarted(ISimpleSession session, PackageInfo packageInfo) => this.ServerStarted?.Invoke();
 
 		[SystemMessageCommand((int)MonitorSystemMessage.ServerStopped)]
-		protected void MessageReceive_ServerStopped(ISimpleSession session, PackageReader packageInfo) => this.ServerStopped?.Invoke();
+		protected void MessageReceive_ServerStopped(ISimpleSession session, PackageInfo packageInfo) => this.ServerStopped?.Invoke();
 
 		[SystemMessageCommand((int)MonitorSystemMessage.SessionConnected)]
-		protected void MessageReceive_SessionConnected(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_SessionConnected(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.SessionConnected != null && packageInfo.PackageArgs is SessionConnectedMessageArgs args)
 				this.sessionConnectedActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.SessionClosed)]
-		protected void MessageReceive_SessionClosed(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_SessionClosed(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.SessionClosed != null && packageInfo.PackageArgs is SessionClosedMessageArgs args)
 				this.sessionClosedActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.SessionAuthenticated)]
-		protected void MessageReceive_SessionAuthenticated(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_SessionAuthenticated(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.SessionAuthenticated != null && packageInfo.PackageArgs is SessionAuthenticatedMessageArgs args)
 				this.sessionAuthenticatedActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.MessageSent)]
-		protected void MessageReceive_MessageSent(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_MessageSent(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.MessageSent != null && packageInfo.PackageArgs is MessageSessionMessageArgs args)
 				this.messageSentActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.BrodcastMessageSent)]
-		protected void MessageReceive_BrodcastMessageSent(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_BrodcastMessageSent(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.BrodcastMessageSent != null && packageInfo.PackageArgs is BrodcastMessageMessageArgs args)
 				this.brodcastMessageSentActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.MessageReceived)]
-		protected void MessageReceive_MessageReceived(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_MessageReceived(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.MessageReceived != null && packageInfo.PackageArgs is MessageSessionMessageArgs args)
 				this.messageReceivedActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.RequestReceived)]
-		protected void MessageReceive_RequestReceived(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_RequestReceived(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.RequestReceived != null && packageInfo.PackageArgs is RequestResponseSessionMessageArgs args)
 				this.requestReceivedActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.RequestSent)]
-		protected void MessageReceive_RequestSent(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_RequestSent(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.RequestSent != null && packageInfo.PackageArgs is RequestResponseSessionMessageArgs args)
 				this.requestSentActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.PackageProcessingError)]
-		protected void MessageReceive_PackageProcessingError(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_PackageProcessingError(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.PackageProcessingError != null && packageInfo.PackageArgs is SessionErrorPackageInfoMessageArgs args)
 				this.packageProcessingErrorActionBlock.Post(args);
 		}
 
 		[SystemMessageCommand((int)MonitorSystemMessage.TransactionFinished)]
-		protected void MessageReceive_TransactionFinished(ISimpleSession session, PackageReader packageInfo)
+		protected void MessageReceive_TransactionFinished(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (this.TransactionFinished != null && packageInfo.PackageArgs is TransactionMessageArgs args)
 				this.transactionFinishedActionBlock.Post(args);

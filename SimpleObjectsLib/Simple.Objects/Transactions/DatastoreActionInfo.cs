@@ -45,7 +45,29 @@ namespace Simple.Objects
 		protected override int ReadPropertyTypeId(ref SequenceReader reader, Func<int, ServerObjectModelInfo?> getServerObjectModel, int propertyIndex) => reader.ReadInt32Optimized();
 		protected override bool ReadIsProperySerializationOptimizable(ref SequenceReader reader, Func<int, ServerObjectModelInfo?> getServerObjectModel, int propertyIndex) => reader.ReadBoolean();
 
-		protected override int GetPropertyTypeId(IServerPropertyInfo propertyModel) => propertyModel.DatastoreTypeId;
+		protected override int GetPropertyTypeId(IServerPropertyInfo propertyModel, object? propertyValue)
+		{
+			Type propertyModelType = PropertyTypes.GetPropertyType(propertyModel.PropertyTypeId);
+			Type propertyValueType = propertyValue?.GetType() ?? typeof(String);
+
+			if (propertyValue == null && !propertyModelType.IsNullable())
+			{
+				if (propertyModel.PropertyTypeId == (int)PropertyTypeId.Int64)
+					return (int)PropertyTypeId.NullableInt64;
+				else if (propertyModel.PropertyTypeId == (int)PropertyTypeId.Int32)
+					return (int)PropertyTypeId.NullableInt32;
+				else
+					return (int)PropertyTypeId.String;
+			}
+			else if (propertyModelType != propertyValueType)
+			{
+				return PropertyTypes.GetPropertyTypeId(propertyValueType);
+			}
+			else
+			{
+				return propertyModel.DatastoreTypeId;
+			}
+		}
 
 		protected override object? GetPropertyValue(object? value) => (value == DBNull.Value) ? null : value;
 	}

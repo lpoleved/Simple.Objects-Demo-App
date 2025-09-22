@@ -54,9 +54,9 @@ namespace Simple.Objects.Controls
 			}
 		}
 
-		public void RefreshBindingObject()
+		public void RefreshBindingObject(object? requester = null)
 		{
-			this.OnRefreshBindingObject();
+			this.OnRefreshBindingObject(requester);
 		}
 
         #endregion |   Public Methods   |
@@ -72,7 +72,7 @@ namespace Simple.Objects.Controls
 			this.RefreshBindingObject();
 		}
 
-		protected virtual void OnRefreshBindingObject()
+		protected virtual void OnRefreshBindingObject(object? requester)
 		{
 		}
 		

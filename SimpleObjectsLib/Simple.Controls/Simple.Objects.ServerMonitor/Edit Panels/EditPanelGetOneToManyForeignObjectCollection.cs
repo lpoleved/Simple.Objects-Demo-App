@@ -35,13 +35,13 @@ namespace Simple.Objects.ServerMonitor
 			this.treeListObjectIds.OptionsView.AutoWidth = false;
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			try
 			{
-				if (this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs is RelationKeyTableIdObjectIdRequestArgs requestArgs)
+				if (this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs is RelationKeyTableIdObjectIdRequestArgs requestArgs)
 				{
 					//int tableId = requestArgs.TableId;
 					//var objectModel = Program.MonitorClient.GetServerObjectModelInfoFromCache(tableId);
@@ -66,7 +66,7 @@ namespace Simple.Objects.ServerMonitor
 				//var responseArgs = new GetObjectKeysResponseArgs();
 				//responseArgs.ReadFrom(this.ResponsePackage.Reader);
 
-				if (this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs is ObjectIdsResponseArgs responeArgs)
+				if (this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs is ObjectIdsResponseArgs responeArgs)
 				{
 					this.treeListObjectIds.BeginUnboundLoad();
 					this.treeListObjectIds.ClearNodes();

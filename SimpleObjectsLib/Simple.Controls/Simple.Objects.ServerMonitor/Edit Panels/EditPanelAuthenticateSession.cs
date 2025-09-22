@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Simple.Objects.MonitorProtocol;
+//using Simple.Objects.Services;
+using Simple.Objects.SocketProtocol;
+using Simple.SocketEngine;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using Simple.Objects.Services;
-using Simple.Objects.SocketProtocol;
-using Simple.SocketEngine;
 
 namespace Simple.Objects.ServerMonitor
 {
@@ -21,12 +22,12 @@ namespace Simple.Objects.ServerMonitor
 			InitializeComponent();
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
-			PackageInfo? request = this.PackageInfoRow?.RequestOrMessagePackageInfo;
-			PackageInfo? response = this.PackageInfoRow?.ResponsePackageInfo;
+			PackageInfo? request = this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo;
+			PackageInfo? response = this.PackageInfoRow?.ResponsePackageReader?.PackageInfo;
 			bool isAuthenticated = (response?.PackageArgs as AuthenticateSessionResponseArgs)?.IsAuthenticated ?? false;
 
 

@@ -29,13 +29,13 @@ namespace Simple.Objects.ServerMonitor
 			InitializeComponent();
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			ServerObjectModelInfo? objectModel = null;
 
-			if (this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs is RelationKeyTableIdObjectIdRequestArgs requestArgs) // && this.PackageInfoRow.ResponseArgs is PropertyIndexValuePairsResponseArgs responseArgs)
+			if (this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs is RelationKeyTableIdObjectIdRequestArgs requestArgs) // && this.PackageInfoRow.ResponseArgs is PropertyIndexValuePairsResponseArgs responseArgs)
 			{
 				string objectName = this.Context?.GetObjectName(requestArgs.TableId, requestArgs.ObjectId) ?? "Unknown";
 				var relationName = this.Context?.GetRelationName(requestArgs.RealationKey);
@@ -51,7 +51,7 @@ namespace Simple.Objects.ServerMonitor
 				this.editorObjectKey.Text = String.Empty;
 			}
 
-			if (this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs is TableIdObjectIdResponseArgs responseArgs)
+			if (this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs is TableIdObjectIdResponseArgs responseArgs)
 			{
 				string objectName = this.Context?.GetObjectName(responseArgs.TableId, responseArgs.ObjectId) ?? "Unknown";
 

@@ -16,6 +16,7 @@ using Simple.SocketEngine;
 using Simple.Objects.SocketProtocol;
 using Simple.Controls;
 using Simple.Objects.Controls;
+using Simple.Objects.MonitorProtocol;
 using DevExpress.XtraRichEdit.Import.OpenXml;
 using DevExpress.XtraGrid.Columns;
 
@@ -68,7 +69,7 @@ namespace Simple.Objects.ServerMonitor
 		//	return result;
 		//}
 
-		protected string CreatePropertyIndexValuesString(ServerObjectModelInfo? objectModel, IEnumerable<PropertyIndexValuePair>? propertyIndexValues, int startIndex = 0)
+		protected virtual string CreatePropertyIndexValuesString(ServerObjectModelInfo? objectModel, IEnumerable<PropertyIndexValuePair>? propertyIndexValues, int startIndex = 0)
 		{
 			string result = String.Empty;
 			string splitter = String.Empty;
@@ -93,14 +94,14 @@ namespace Simple.Objects.ServerMonitor
 			return result;
 		}
 
-		protected string GePropertyValueString(IServerPropertyInfo propertyModel, object? propertyValue)
+		protected virtual string GePropertyValueString(IServerPropertyInfo propertyModel, object? propertyValue)
 		{
 			Type propertyType = PropertyTypes.GetPropertyType(propertyModel.PropertyTypeId);
 
 			if (propertyType.IsEnum)
 				return String.Format("{0}({1}.{2})", Conversion.TryChangeType<int>(propertyValue), propertyType.Name, Enum.GetName(propertyType, propertyValue ?? "null"));
 
-			return propertyValue?.ValueToString() ?? String.Empty;
+			return propertyValue.ValueToString();
 		}
 
 		protected void SetPackageTextToControl(MemoEdit textControl, string text)
@@ -114,26 +115,49 @@ namespace Simple.Objects.ServerMonitor
 		protected void OnSetPackageText(MemoEdit textControl, string text) => textControl.Text = text;
 
 
-		protected string CreatePackageText(PackageInfo packageInfo)
+		protected string CreatePackageText(MonitorPackageReader packageReader)
 		{
 			string text;
+			string requestIdOrMessageCodeText = (packageReader.PackageInfo.HeaderInfo.PackageType == PackageType.Message) ? "Message Code" : "Request Id";
+			long packageArgsLength = packageReader.PackageArgsBytesConsumed;
 
-			text = packageInfo.PackageLength.To7BitEncodedHexString() + "   <- Package length, " + this.GetByteText(packageInfo.PackageLengthSize) + "\r\n";
-			text += $"  ---- Header, {this.GetByteText(packageInfo.HeaderSize)} ----\r\n";
-			text += packageInfo.HeaderInfo.Value.To7BitEncodedHexString(out int headerInfoSize) + "   <- Header Info, " + this.GetByteText(headerInfoSize) + "\r\n";
-			text += packageInfo.Key.To7BitEncodedHexString(out int requestIdSize) + "   <- RequestId, " + this.GetByteText(requestIdSize) + "\r\n";
+			text = packageReader.PackageLength.To7BitEncodedHexString() + "   <- Package Length, " + this.GetByteText(packageReader.PackageLengthBytesConsumed) + "\r\n";
+			text += $"  ====  Header, {this.GetByteText(packageReader.HeaderInfoBytesConsumed + packageReader.KeyBytesConsumed)}  ====\r\n";
+			text += packageReader.PackageInfo.HeaderInfo.Value.To7BitEncodedHexString(out int headerInfoSize) + "   <- Header Info, " + this.GetByteText(headerInfoSize) + "\r\n";
+			text += packageReader.PackageInfo.Key.To7BitEncodedHexString(out int requestIdSize) + $"   <- {requestIdOrMessageCodeText}, " + this.GetByteText(requestIdSize) + "\r\n";
 
 			//if (packageInfo.HeaderInfo.PackageType != PackageType.Message)
 			//	text += packageInfo.Token.To7BitEncodedHexString(out int tokenSize) + "   <- Token, " + this.GetByteText(tokenSize) + "\r\n";
-			long bodyLength = packageInfo.PackageLength - packageInfo.HeaderSize;
 
-			text += $"  ---- Package Args Body, {this.GetByteText(bodyLength)} ----\r\n";
+			text += $"  ====  Package Args Body, {this.GetByteText(packageArgsLength)}  ====\r\n";
 
-			if (bodyLength > 0)
-				text += BitConverter.ToString(packageInfo.Buffer, startIndex: packageInfo.PackageLengthSize + packageInfo.HeaderSize);
+			if (packageArgsLength > 0 && packageReader.PackageInfo.Buffer != null)
+				text += BitConverter.ToString(packageReader.PackageInfo.Buffer, startIndex: packageReader.PackageLengthBytesConsumed + packageReader.HeaderInfoBytesConsumed + packageReader.KeyBytesConsumed);
 
 			return text;
 		}
+
+		//protected string CreatePackageText(PackageInfo packageInfo)
+		//{
+		//	string text;
+
+		//	text = packageInfo.PackageLength.To7BitEncodedHexString() + "   <- Package length, " + this.GetByteText(packageInfo.PackageLengthSize) + "\r\n";
+		//	text += $"  ---- Header, {this.GetByteText(packageInfo.HeaderSize)} ----\r\n";
+		//	text += packageInfo.HeaderInfo.Value.To7BitEncodedHexString(out int headerInfoSize) + "   <- Header Info, " + this.GetByteText(headerInfoSize) + "\r\n";
+		//	text += packageInfo.Key.To7BitEncodedHexString(out int requestIdSize) + "   <- RequestId, " + this.GetByteText(requestIdSize) + "\r\n";
+
+		//	//if (packageInfo.HeaderInfo.PackageType != PackageType.Message)
+		//	//	text += packageInfo.Token.To7BitEncodedHexString(out int tokenSize) + "   <- Token, " + this.GetByteText(tokenSize) + "\r\n";
+		//	long bodyLength = packageInfo.PackageLength - packageInfo.HeaderSize;
+
+		//	text += $"  ---- Package Args Body, {this.GetByteText(bodyLength)} ----\r\n";
+
+		//	if (bodyLength > 0)
+		//		text += BitConverter.ToString(packageInfo.Buffer, startIndex: packageInfo.PackageLengthSize + packageInfo.HeaderSize);
+
+		//	return text;
+		//}
+
 
 		protected GridColumn CreateGridColumn(string columnName) => this.CreateGridColumn(columnName, columnName);
 

@@ -23,7 +23,7 @@ namespace Simple.SocketEngine
 		private EndPoint? remoteEndPoint = null;
 		private bool useChannelEncription = false;
 		private bool useChannelCompression = false;
-		private IEasyClient<PackageReader>? provider = null;
+		private IEasyClient<PackageInfo>? provider = null;
 		private bool isConnected = false;
 		private bool isAuthenticated = false;
 		//private long sessionKey = 0;
@@ -33,7 +33,7 @@ namespace Simple.SocketEngine
 		private bool receiveStarted = false;
 		private Encoding characterEncoding = new UTF8Encoding(false); //Encoding.UTF8;
 		private ManualResetEvent requestResetEvent = new ManualResetEvent(false);
-		private PackageReader? response = null;
+		private PackageInfo? response = null;
 		private readonly object lockRequest = new object();
 
         //private int numOfRetry = 1;
@@ -63,7 +63,7 @@ namespace Simple.SocketEngine
 
 		#region |   Protected Properties   |
 
-		protected internal IEasyClient<PackageReader>? Provider
+		protected internal IEasyClient<PackageInfo>? Provider
 		{
 			get => this.provider;
 			set
@@ -128,7 +128,7 @@ namespace Simple.SocketEngine
 
 		protected virtual ILoggerFactory GetLoggerFactory() => LoggerFactory.Create(builder => builder.AddDebug());
 
-		protected virtual IEasyClient<PackageReader> CreateClientProvider()
+		protected virtual IEasyClient<PackageInfo> CreateClientProvider()
 		{
 			var pipelineFilter = this.CreatePipelineFilter(this);
 			var connectionOptions = this.CreateConnectionOptions();
@@ -243,7 +243,7 @@ namespace Simple.SocketEngine
 
 		private async ValueTask<bool> SendMessage(HeaderInfo flags, int messageCode, MessageArgs? messageArgs)
 		{
-			PackageWriter package = new PackageWriter(flags, messageCode, this.CharacterEncoding, session: this, messageArgs);
+			PackageWriter package = new PackageWriter(flags, messageCode, session: this, messageArgs);
 			bool succeeded;
 
 			try
@@ -268,7 +268,7 @@ namespace Simple.SocketEngine
 			where TResponseArgs : ResponseArgs, new()
 		{
 			PackageWriter request;
-			PackageReader? response = null;
+			PackageInfo? response = null;
 			TResponseArgs result;
 
 			if (!this.IsConnected)
@@ -282,7 +282,7 @@ namespace Simple.SocketEngine
 				lock (this.lockRequest)
 				{
 					this.requestResetEvent.Reset(); // Prepare
-					request = new PackageWriter(headerInfo, key: requestId, this.CharacterEncoding, session: this, requestArgs);
+					request = new PackageWriter(headerInfo, key: requestId, session: this, requestArgs);
 
 					int retry = 0;
 					bool isEnd = false;
@@ -366,7 +366,7 @@ namespace Simple.SocketEngine
 			}
 		}
 
-		private ValueTask Client_PackageHandler(EasyClient<PackageReader> sender, PackageReader packageInfo)
+		private ValueTask Client_PackageHandler(EasyClient<PackageInfo> sender, PackageInfo packageInfo)
 		{
 			return this.OnPackageReceived(commandOwner: this.GetCommandOwnerInstance(), session: this, packageInfo, this.CommandDiscovery); // .DoNotAwait();
 		}
@@ -409,7 +409,7 @@ namespace Simple.SocketEngine
 				await this.Provider.SendAsync(packageEncoder, package);
 		}
 
-		void ISimpleSession.ResponseIsReceived(PackageReader response)
+		void ISimpleSession.ResponseIsReceived(PackageInfo response)
 		{
 			this.response = response;
 			this.requestResetEvent.Set();

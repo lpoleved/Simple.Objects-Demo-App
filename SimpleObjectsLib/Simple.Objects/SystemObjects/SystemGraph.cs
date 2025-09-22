@@ -55,8 +55,6 @@ namespace Simple.Objects
 					{
 						this.ObjectManager.CacheGraphElementsWithObjectsFromServer(this.GraphKey, parentGraphElementId: 0, out List<long> graphElementIds); //, out bool[] hasChildrenInfo);
 						this.rootGraphElements = new SimpleObjectCollection<GraphElement>(this.ObjectManager, GraphElementModel.TableId, graphElementIds);
-
-						return this.rootGraphElements;
 					}
 					else
 					{
@@ -67,6 +65,19 @@ namespace Simple.Objects
 				}
 
 				return this.rootGraphElements;
+			}
+		}
+
+		internal void MergeRootGraphElementsInternal(IEnumerable<long> graphElementObjectIds)
+		{
+			if (this.rootGraphElements != null)
+			{
+				List<long> newObjectIds = new List<long>(this.rootGraphElements.GetObjectIds().Union(graphElementObjectIds));
+
+				this.rootGraphElements = new SimpleObjectCollection<GraphElement>(this.ObjectManager!, GraphElementModel.TableId, newObjectIds);
+				
+				//TODO: Check if sorting is needed
+				//this.rootGraphElements.Sort(setPrevious: true, this.ChangeContainer, this.Requester); //  GraphElementModel
 			}
 		}
 
@@ -81,7 +92,7 @@ namespace Simple.Objects
 		//		{
 		//			this.ObjectManager.CacheGraphElementsWithObjectsFromServer(this.GraphKey, parentGraphElementId: 0, out List<long> graphElementIds, out hasChildrenInfo);
 		//			this.rootGraphElements = new SimpleObjectCollection<GraphElement>(this.ObjectManager, GraphElementModel.TableId, graphElementIds);
-					
+
 		//			return this.rootGraphElements;
 		//		}
 		//		else
@@ -96,7 +107,7 @@ namespace Simple.Objects
 
 		//	for (int i = 0; i < this.rootGraphElements.Count; i++)
 		//		hasChildrenInfo[i] = this.rootGraphElements[i].HasChildren;
-			
+
 		//	return this.rootGraphElements;
 		//}
 

@@ -27,9 +27,10 @@ namespace Simple.Objects.ServerMonitor
 	public partial class EditPanelGetGraphElementsWithObjects : EditPanelSessionPackageRequestResponse
 	{
 		private int columnIndexIndex, columnNameIndex, columnObjectTypeIdIndex, columnObjectTypeNameIndex;
-		private int columnDatastoreTypeIdIndex, columnIsRelationTableIdIndex, columnIsRelationObjectIdIndex;
+		private int columnDatastoreTypeIdIndex, columnIsRelationTableIdIndex, columnIsRelationObjectIdIndex, columnIsRelationZeroValueDatastoreDBNullIndex;
 		private int columnIsSerializationOptimizableIndex, columnIsClientSeriazableIndex, columnIsServerSeriazableIndex, columnIsServerToClientTransactionInfoSeriazableIndex;
 		private int columnIsStorableIndex, columnIsEncryptedIndex, columnIncludeInTransactionActionLogIndex, columnDefaultValueIndex;
+
 		private GridColumn columnNo, columnGraphElementId, columnGraphKey, columnParentId, columnObjectTableId, columnObjectId, columnHasChildren, columnSimpleObjectPropertyIndexValues;
 		//private int graphKey;
 		//private long parentGraphElementId;
@@ -52,8 +53,7 @@ namespace Simple.Objects.ServerMonitor
 
 			// int PropertyIndex
 			this.columnIndexIndex = column.AbsoluteIndex;
-			column.Name = "Index";
-			column.Caption = "TableId/PropertyIndex";
+			column.Name = column.Caption = "Index";
 			column.Visible = true;
 
 			// string PropertyName
@@ -62,15 +62,15 @@ namespace Simple.Objects.ServerMonitor
 			column.Name = column.Caption = "Name";
 			column.Visible = true;
 
-			column = this.treeListNewObjectModels.Columns.Add();
-			this.columnObjectTypeNameIndex = column.AbsoluteIndex;
-			column.Name = column.Caption = "Type";
-			column.Visible = true;
-
 			// int PropertyTypeId
 			column = this.treeListNewObjectModels.Columns.Add();
 			this.columnObjectTypeIdIndex = column.AbsoluteIndex;
 			column.Name = column.Caption = "TypeId";
+			column.Visible = true;
+
+			column = this.treeListNewObjectModels.Columns.Add();
+			this.columnObjectTypeNameIndex = column.AbsoluteIndex;
+			column.Name = column.Caption = "Type";
 			column.Visible = true;
 
 			// int DatastoreTypeId
@@ -89,6 +89,12 @@ namespace Simple.Objects.ServerMonitor
 			column = this.treeListNewObjectModels.Columns.Add();
 			this.columnIsRelationObjectIdIndex = column.AbsoluteIndex;
 			column.Name = column.Caption = "IsRelationObjectId";
+			column.Visible = true;
+
+			// bool IsRelationZeroValueDatastoreDBNull 
+			column = this.treeListNewObjectModels.Columns.Add();
+			this.columnIsRelationZeroValueDatastoreDBNullIndex = column.AbsoluteIndex;
+			column.Name = column.Caption = "IsRelationZeroValueDatastoreDBNull";
 			column.Visible = true;
 
 			//bool IsSerializationOptimizable
@@ -110,13 +116,6 @@ namespace Simple.Objects.ServerMonitor
 			this.columnIsServerSeriazableIndex = column.AbsoluteIndex;
 			column.Name = "IsServerSeriazable";
 			column.Caption = "IsServerSeriazable";
-			column.Visible = true;
-
-			// bool IsMemberOfcolumnIsServerToClientTransactionInfoSequence
-			column = this.treeListNewObjectModels.Columns.Add();
-			this.columnIsServerToClientTransactionInfoSeriazableIndex = column.AbsoluteIndex;
-			column.Name = "IsServerToClientTransactionInfoSeriazable";
-			column.Caption = "IsServerToClientTransactionInfoSeriazable";
 			column.Visible = true;
 
 			// bool IsStorable 
@@ -167,11 +166,11 @@ namespace Simple.Objects.ServerMonitor
 			this.gridControlGraphElementsWithObjects.DataSource = this.dataSourceGraphElementsWithObjects;
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
-			if (this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs is ParentGraphElementIdGraphKeyRequestArgs requestArgs) // && this.PackageInfoRow.ResponseArgs is PropertyIndexValuePairsResponseArgs responseArgs)
+			if (this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs is ParentGraphElementIdGraphKeyRequestArgs requestArgs) // && this.PackageInfoRow.ResponseArgs is PropertyIndexValuePairsResponseArgs responseArgs)
 			{
 				string? graphName = this.Context?.GetGraphName(requestArgs.GraphKey);
 				string? parentGrapElementName = this.Context?.GetObjectName(GraphElementModel.TableId, requestArgs.ParentGraphElementId);
@@ -211,7 +210,7 @@ namespace Simple.Objects.ServerMonitor
 				//}
 			}
 
-			if (this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs is GraphElementsWithObjectsResponseArgs responseArgs)
+			if (this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs is GraphElementsWithObjectsResponseArgs responseArgs)
 			{
 				this.tabPageResponseNewServerObjectPropertyModels.Text = this.tabNewObjectModelsName + " (" + (responseArgs.NewServerObjectModels?.Count().ToString() ?? "0") + ")";
 				this.tabPageResponseGraphElementsWithObjects.Text = this.tabGraphElementsWithObjectsName + " (" + responseArgs?.GraphElementWithObjects.Count() + ")";
@@ -237,19 +236,19 @@ namespace Simple.Objects.ServerMonitor
 
 							node.SetValue(this.columnIndexIndex, serverPropertyInfo.PropertyIndex);
 							node.SetValue(this.columnNameIndex, serverPropertyInfo.PropertyName);
-							node.SetValue(this.columnObjectTypeNameIndex, (propertyObjectType != null) ? ReflectionHelper.GetTypeName(propertyObjectType) : String.Empty);
 							node.SetValue(this.columnObjectTypeIdIndex, serverPropertyInfo.PropertyTypeId);
+							node.SetValue(this.columnObjectTypeNameIndex, (propertyObjectType != null) ? ReflectionHelper.GetTypeName(propertyObjectType) : String.Empty);
 							node.SetValue(this.columnDatastoreTypeIdIndex, serverPropertyInfo.DatastoreTypeId.ToString());
 							node.SetValue(this.columnIsRelationTableIdIndex, serverPropertyInfo.IsRelationTableId.ToString());
 							node.SetValue(this.columnIsRelationObjectIdIndex, serverPropertyInfo.IsRelationObjectId.ToString());
+							node.SetValue(this.columnIsRelationZeroValueDatastoreDBNullIndex, serverPropertyInfo.IsRelationZeroValueDatastoreDBNull.ToString());
 							node.SetValue(this.columnIsSerializationOptimizableIndex, serverPropertyInfo.IsSerializationOptimizable.ToString());
 							node.SetValue(this.columnIsClientSeriazableIndex, serverPropertyInfo.IsClientToServerSeriazable.ToString());
 							node.SetValue(this.columnIsServerSeriazableIndex, serverPropertyInfo.IsServerToClientSeriazable.ToString());
-							node.SetValue(this.columnIsServerToClientTransactionInfoSeriazableIndex, serverPropertyInfo.IsServerToClientTransactionInfoSeriazable.ToString());
 							node.SetValue(this.columnIsStorableIndex, serverPropertyInfo.IsStorable.ToString());
 							node.SetValue(this.columnIsEncryptedIndex, serverPropertyInfo.IsEncrypted.ToString());
 							node.SetValue(this.columnIncludeInTransactionActionLogIndex, serverPropertyInfo.IncludeInTransactionActionLog.ToString());
-							node.SetValue(this.columnDefaultValueIndex, serverPropertyInfo.DefaultValue?.ValueToString());
+							node.SetValue(this.columnDefaultValueIndex, serverPropertyInfo.DefaultValue?.ToString() ?? "null");
 						}
 					}
 				}

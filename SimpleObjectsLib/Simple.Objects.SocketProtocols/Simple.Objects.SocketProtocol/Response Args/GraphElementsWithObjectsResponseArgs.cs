@@ -57,7 +57,7 @@ namespace Simple.Objects.SocketProtocol
 					var serverObjectModel = simpleObjectSession.GetServerObjectModel(item.SimpleObjectTableId);
 
 					writer.WriteInt32Optimized(item.SimpleObjectPropertyIndexValues.Count());
-					item.SimpleObjectPropertyIndexValues.WtiteTo(ref writer, serverObjectModel);
+					item.SimpleObjectPropertyIndexValues.WtiteTo(ref writer, serverObjectModel!);
 
 					//ObjectPropertyValuesResponseArgs graphElementObjectProperyValues = new ObjectPropertyValuesResponseArgs(GraphElementModel.TableId, item.GraphElementPropertyIndexValues);
 					//ObjectPropertyValuesResponseArgs simpleObjectProperyValues = new ObjectPropertyValuesResponseArgs(item.SimpleObjectTableId, item.SimpleObjectPropertyIndexValues);

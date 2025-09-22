@@ -420,7 +420,7 @@ namespace Simple.Objects.Controls
         {
         }
 
-        protected virtual void OnRefreshContext(ChangePropertyValueBindingObjectEventArgs e)
+		protected virtual void OnRefreshContext(ChangePropertyValueBindingObjectEventArgs e)
         {
         }
 
@@ -446,7 +446,7 @@ namespace Simple.Objects.Controls
 
 			//if (this.RefreshContextOnEveryBindingObjectPropertyValueChange)
 			//{
-			//	this.OnRefreshContext(changePropertyValueBindingObjectRequesterEventArgs);
+				//this.OnRefreshContext(changePropertyValueBindingObjectRequesterEventArgs);
 			//}
         }
 
@@ -479,7 +479,6 @@ namespace Simple.Objects.Controls
             this.BindingObjectRefreshContext?.Invoke(this, changePropertyValueBindingObjectRequesterEventArgs);
             this.OnRefreshContext(changePropertyValueBindingObjectRequesterEventArgs);
         }
-
 		
 		private void RaiseReloadData(ChangePropertyValueBindingObjectEventArgs changePropertyValueBindingObjectRequesterEventArgs)
 		{
@@ -617,21 +616,17 @@ namespace Simple.Objects.Controls
 
 		#region |   IEditPanelBinding Interface   |
 
-		void IBindingControl.SetBindingObject(object bindingObject)
+		void IBindingControl.SetBindingObject(object? bindingObject)
 		{
 			if (bindingObject == null || !(bindingObject is SimpleObject))
-			{
 				this.SetBindingObject(null);
-			}
 			else if (bindingObject is SimpleObject)
-			{
 				this.SetBindingObject(bindingObject as SimpleObject);
-			}
 		}
 
-		void IBindingControl.RefreshBindingObject()
+		void IBindingControl.RefreshBindingObject(object? requester)
 		{
-			this.RaiseRefreshContext(new ChangePropertyValueBindingObjectEventArgs(this.BindingObject, propertyModel: null, value: null, oldValue: null, isChanged: false, this.BindingObject?.ChangeContainer, this.BindingObject?.Context ?? ObjectActionContext.Unspecified, requester: this));
+			this.RaiseRefreshContext(new ChangePropertyValueBindingObjectEventArgs(this.BindingObject, propertyModel: null, value: null, oldValue: null, isChanged: false, this.BindingObject?.ChangeContainer, this.BindingObject?.Context ?? ObjectActionContext.Unspecified, requester));
 		}
 
 		#endregion |   IEditPanelBinding Interface   |
@@ -660,7 +655,7 @@ namespace Simple.Objects.Controls
 	public interface IBindingControl
 	{
 		void SetBindingObject(object? bindingObject);
-		void RefreshBindingObject();
+		void RefreshBindingObject(object? requester);
 	}
 
 	#endregion |   Interfaces   |

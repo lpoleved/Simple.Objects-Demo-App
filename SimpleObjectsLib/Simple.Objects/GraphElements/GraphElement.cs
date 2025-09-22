@@ -423,6 +423,23 @@ namespace Simple.Objects
 			}
 		}
 
+		internal void MergeClientGraphElementCollectionInternal(IEnumerable<long> graphElementObjectIds)
+		{
+			int relationKey = RelationPolicyModelBase.OneToManyGraphElementToParentGraphElement.RelationKey;
+
+			// TODO: Check if this sorting is needed?
+			if (this.OneToManyForeignCollectionsByRelationKey.ContainsKey(relationKey))
+			{
+				var current = this.OneToManyForeignCollectionsByRelationKey[relationKey];
+				List<long> newObjectIds = new List<long>(current.GetObjectIds().Union(graphElementObjectIds));
+				var result = new SimpleObjectCollection(this.Manager, GraphElementModel.TableId, newObjectIds);
+
+				this.OneToManyForeignCollectionsByRelationKey[relationKey] = result;
+
+				//TODO: Check if sorting is needed
+				result.Sort(setPrevious: true, this.ChangeContainer, this.Requester); //  GraphElementModel
+			}
+		}
 
 		private void SetPreviousIdAndNextIdOnGraphElementSimpleObjectsAsIs(SimpleObjectCollection<GraphElement> graphElements)
 		{

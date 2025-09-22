@@ -166,9 +166,9 @@ namespace Simple.Objects.ServerMonitor
 		//protected new FormMain? Context => base.Context as FormMain;
 		bool isFirstTime = true;
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			//if (this.isFirstTime)
 			//{

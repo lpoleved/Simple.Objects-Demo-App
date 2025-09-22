@@ -179,7 +179,7 @@ namespace Simple.Objects.Controls
 				IEnumerable<DatastoreActionInfo> datastoreActions = e.DatastoreActions ?? new DatastoreActionInfo[0];
 
 				if (parentNode == this.treeListTransactionLog.FocusedNode)
-					this.groupPropertyPanel.RefreshBindingObject();
+					this.groupPropertyPanel.RefreshBindingObject(e.Requester);
 				
 				parentNode[this.columnStatusIndex] = e.Transaction.Status.ToString();
 

@@ -12,16 +12,15 @@ using Simple.Serialization;
 
 namespace Simple.SocketEngine
 {
-	public class PackageReader : IPackageDecoder<PackageReader>, IKeyedPackageInfo<int>
+	public class PackageReader : IPackageDecoder<PackageInfo> //, IKeyedPackageInfo<int>
 	{
-		private long packageDataLength = 0;
-		private int packageLengthSize = 0;
+		//private long packageDataLength = 0;
+		//private int packageLengthInfoSize = 0;
 		private bool packageLengthReceived = false;
-		private long totalPackageLength = 0;
-		private PackageArgsFactory packageArgsFactory;
-		private bool createDataCopy;
+		//private long totalPackageLength = 0;
+		private PackageArgsFactory? packageArgsFactory = null;
 
-		private static readonly TryGetInt64By7BitEncodingDelegate tryGetInt64By7BitEncoding;
+		private static readonly TryGetInt64By7BitEncodingDelegate tryGetPackageLength;
 
 		/// <summary>
 		/// TryGetPackageLengthBy7BitEncoding endianness delegate
@@ -29,311 +28,156 @@ namespace Simple.SocketEngine
 		/// <param name="reader">The reader</param>
 		/// <param name="value">The length of the package.</param>
 		/// <returns></returns>
-		private delegate bool TryGetInt64By7BitEncodingDelegate(ref SequenceReader<byte> reader, ref long value, ref int bytesConsumed);
+		private delegate bool TryGetInt64By7BitEncodingDelegate(ref SequenceReader<byte> reader, ref int packageLengthBytesConsumed, ref long packageLength);
 
 		static PackageReader()
 		{
 			if (BitConverter.IsLittleEndian)
-				tryGetInt64By7BitEncoding = TryGetInt64By7BitLittleEndianEncoding;
+				tryGetPackageLength = TryGetPackageLengthByLittleEndianEncoding;
 			else
-				tryGetInt64By7BitEncoding = TryGetInt64By7BitBigEndianEncoding;
+				tryGetPackageLength = TryGetPackageLengthByBigEndianEncoding;
 		}
-
 
 		public PackageReader(PackageArgsFactory packageArgsFactory, bool createDataCopy = false)
         {
 			this.packageArgsFactory = packageArgsFactory;
-			this.createDataCopy = createDataCopy;
+			this.CreateDataCopy = createDataCopy;
+			this.PackageInfo = new PackageInfo();
 		}
 
-		internal bool CreateDataCopy { get => this.createDataCopy; set => this.createDataCopy = value; }
-
-		internal bool IsPackageLengthReceived(ref SequenceReader<byte> reader)
+		public PackageReader(byte[] buffer)
 		{
-			if (!this.packageLengthReceived)
-			{
-				this.packageLengthReceived = TryGetInt64By7BitEncoding(ref reader, ref this.packageDataLength, ref this.packageLengthSize);
-
-				if (this.packageLengthReceived)
-					this.totalPackageLength = this.packageDataLength + this.packageLengthSize;
-			}
-
-			return this.packageLengthReceived;
+			this.PackageInfo = new PackageInfo(buffer);
+			//this.packageArgsFactory = PackageArgsFactory.Empty;
+			this.CreateDataCopy = false;
 		}
 
-		public long PackageLength => this.packageDataLength;
-		public int PackageLengthSize => this.packageLengthSize;
+		private long packageLength;
+		private int packageLengthBytesConsumed;
 
-		public long TotalPackageLength => this.totalPackageLength;
+		public PackageInfo PackageInfo { get; private set; }
 
-		public HeaderInfo HeaderInfo { get; set; }
-		//public int HeaderSize { get; set; }
+		public long PackageLength => this.packageLength;
+		public int PackageLengthBytesConsumed => this.packageLengthBytesConsumed;
+		public long TotalPackageLength { get; private set; }
+
+		internal bool CreateDataCopy { get; set; }
+
+		//public long PackageLength => this.packageDataLength;
+		//public int PackageLengthInfoSize => this.packageLengthInfoSize;
+
+		//public long TotalPackageLength => this.totalPackageLength;
+
+		//public HeaderInfo HeaderInfo 
+		//{ 
+		//	get; 
+
+		//	internal set; 
+		//}
+		////public int HeaderSize { get; set; }
 
 
-		/// <summary>
-		/// The package key.
-		/// If package type is message it is message code.
-		/// If package is request it is request id.
-		/// </summary>
-		public int Key { get; set; }
+		///// <summary>
+		///// The package key.
+		///// If package type is message it is message code.
+		///// If package is request it is request id.
+		///// </summary>
+		//public int Key { get; set; }
 
-		//public int Token { get; set; }
+		////public Encoding CharacterEncoding => this.Session.CharacterEncoding;
 
-		public PackageArgs? PackageArgs { get; set; }
+		////public int Token { get; set; }
 
-		public byte[]? Buffer { get; set; } = null;
+		//public PackageArgs? PackageArgs { get; set; }
 
-		public PackageReader Decode(ref ReadOnlySequence<byte> sequence, object context)
+		//public byte[]? Buffer { get; set; } = null;
+
+		public PackageInfo Decode(ref ReadOnlySequence<byte> sequence, object context)
 		{
 			SequenceReader<byte> reader = new SequenceReader<byte>(sequence);
 
 			return this.Decode(ref reader, context as ISimpleSession);
 		}
 
-		public PackageReader Decode(ref SequenceReader<byte> buffer, ISimpleSession? session)
+		public PackageInfo Decode(ref SequenceReader<byte> sequence, ISimpleSession? session)
 		{
-			if (this.createDataCopy)
-				this.Buffer = buffer.Sequence.ToArray();
+			SequenceReader reader = new SequenceReader(ref sequence);
+			
+			if (this.CreateDataCopy)
+				this.PackageInfo.Buffer = sequence.Sequence.ToArray();
 
-			//if (context is ISimpleSession session)
-			//{
-				//SerializationReader reader = new SerializationReader(ref buffer);
-				SequenceReader reader = new SequenceReader(ref buffer);
+			this.DecodeHeader(ref reader);
+			this.DecodePackageKey(ref reader);
+			this.DecodePackageArgs(ref reader, session, this.packageArgsFactory);
 
-				//reader.AdvancePosition(this.PackageLengthSize); // Skip reading package data length again
-				
-				this.HeaderInfo = new HeaderInfo(reader.ReadUInt64Optimized());
-				this.Key = reader.ReadInt32Optimized(); // package is response => package.Key is RequestId
-
-				if (this.HeaderInfo.PackageType == PackageType.Request)
-				{
-					//this.Token = reader.ReadInt32Optimized();
-					this.PackageArgs = (this.HeaderInfo.IsSystem) ? this.packageArgsFactory.CreateSystemRequestArgs(this.Key) :
-																	this.packageArgsFactory.CreateRequestArgs(this.Key);
-				}
-				else if (this.HeaderInfo.PackageType == PackageType.Response)
-				{
-					//this.Token = reader.ReadInt32Optimized();
-					this.PackageArgs = (this.HeaderInfo.IsSystem) ? this.packageArgsFactory.CreateSystemResponseArgs(this.Key) :
-																	this.packageArgsFactory.CreateResponseArgs(this.Key);
-				}
-				else if (this.HeaderInfo.PackageType == PackageType.Message)
-				{
-					this.PackageArgs = (this.HeaderInfo.IsSystem) ? this.packageArgsFactory.CreateSystemMessageArgs(this.Key) :
-																	this.packageArgsFactory.CreateMessageArgs(this.Key);
-				}
-
-				if (this.PackageArgs != null)
-				{
-					try
-					{
-						this.PackageArgs.ReadFrom(ref reader, session);
-					}
-					catch (Exception ex)
-					{
-						this.PackageArgs.Status = PackageStatus.ExceptionIsCaughtOnArgsSerialization;
-						this.PackageArgs.ErrorMessage = $"Error in args serialization, PackageType={this.HeaderInfo.PackageType.ToString()}, RequestId={this.Key}, " +
-														$"IsSystem={this.HeaderInfo.IsSystem.ToString()}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-					}
-				}
-			//}
-
-			return this;
+			return this.PackageInfo;
 		}
 
-		public PackageReader DecodeOld(ref SequenceReader<byte> buffer, object context)
+		protected virtual void DecodePackageLength(ref SequenceReader<byte> sequence)
 		{
-			if (this.createDataCopy)
-				this.Buffer = buffer.Sequence.ToArray();
+			this.IsPackageLengthInfoReceived(ref sequence);
+		}
 
-			if (context is SimpleSession session)
+		protected virtual void DecodeHeader(ref SequenceReader reader)
+		{
+			this.PackageInfo.HeaderInfo = new HeaderInfo(reader.ReadUInt64Optimized());
+		}
+
+		protected virtual void DecodePackageKey(ref SequenceReader reader)
+		{
+			this.PackageInfo.Key = reader.ReadInt32Optimized(); // package is response => package.Key is RequestId
+		}
+
+		protected virtual void DecodePackageArgs(ref SequenceReader reader, ISimpleSession? session, PackageArgsFactory? packageArgsFactory = null)
+		{
+			if (this.PackageInfo.PackageArgs is null && packageArgsFactory != null)
 			{
-				//SerializationReader reader = new SerializationReader(ref buffer);
-				SequenceReader reader = new SequenceReader(ref buffer);
-
-				reader.AdvancePosition(this.PackageLengthSize); // Skip reading package data length again
-
-				this.HeaderInfo = new HeaderInfo(reader.ReadUInt64Optimized());
-
-				if (this.HeaderInfo.PackageType == PackageType.Request)
+				if (this.PackageInfo.HeaderInfo.PackageType == PackageType.Request)
 				{
-					this.Key = reader.ReadInt32Optimized(); // package is response => package.Key is RequestId
-					//this.Token = reader.ReadInt32Optimized();
-
-					try
-					{
-						this.PackageArgs = (this.HeaderInfo.IsSystem) ? this.packageArgsFactory.CreateSystemRequestArgs(this.Key) :
-																		this.packageArgsFactory.CreateRequestArgs(this.Key);
-					}
-					catch (Exception ex)
-					{
-						PackageStatus status = PackageStatus.UnknownRequest;
-
-						if (this.HeaderInfo.IsSystem)
-						{
-							if (this.packageArgsFactory.SystemRequestArgsByRequestId.GetValue(this.Key) != null)
-								status = PackageStatus.ExceptionIsCaughtOnRequestArgsInitialization;
-						}
-						else if (this.packageArgsFactory.RequestArgsByRequestId.GetValue(this.Key) != null)
-							status = PackageStatus.ExceptionIsCaughtOnRequestArgsInitialization;
-
-						if (this.PackageArgs != null)
-						{
-							this.PackageArgs.Status = status;
-							this.PackageArgs.ErrorMessage = $"Error in requst args initialization, RequestId={this.Key}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-						}
-						else
-						{
-							this.PackageArgs = new ErrorRequestArgs(status, $"Unknown Request (no method to process found), RequestId={this.Key}, SessionKey={session.SessionKey}");
-						}
-
-						return this;
-					}
-
-					if (this.PackageArgs != null)
-					{
-						try
-						{
-							this.PackageArgs.ReadFrom(ref reader, session);
-						}
-						catch (Exception ex)
-						{
-							this.PackageArgs.Status = PackageStatus.ExceptionIsCaughtOnRequestArgsSerialization;
-							this.PackageArgs.ErrorMessage = $"Error in requst args initialization, RequestId={this.Key}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-
-							return this;
-						}
-					}
-					else
-					{
-						this.PackageArgs = new ErrorRequestArgs(PackageStatus.UnknownRequest, $"Unknown Request (no method to process found), RequestId={this.Key}, SessionKey={session.SessionKey}");
-					}
+					this.PackageInfo.PackageArgs = (this.PackageInfo.HeaderInfo.IsSystem) ? packageArgsFactory.CreateSystemRequestArgs(this.PackageInfo.Key) :
+																							packageArgsFactory.CreateRequestArgs(this.PackageInfo.Key);
 				}
-				else if (this.HeaderInfo.PackageType == PackageType.Response)
+				else if (this.PackageInfo.HeaderInfo.PackageType == PackageType.Response)
 				{
-					//this.Token = reader.ReadInt32Optimized();
-
-					try
-					{
-						this.PackageArgs = (this.HeaderInfo.IsSystem) ? this.packageArgsFactory.CreateSystemResponseArgs(this.Key) :
-																		this.packageArgsFactory.CreateResponseArgs(this.Key);
-					}
-					catch (Exception ex)
-					{
-						PackageStatus status = PackageStatus.UnknownRequest;
-
-						if (this.HeaderInfo.IsSystem)
-						{
-							if (this.packageArgsFactory.SystemResponseArgsByRequestId.GetValue(this.Key) != null)
-								status = PackageStatus.ExceptionIsCaughtOnResponseArgsInitialization;
-						}
-						else if (this.packageArgsFactory.ResponseArgsByRequestId.GetValue(this.Key) != null)
-							status = PackageStatus.ExceptionIsCaughtOnResponseArgsInitialization;
-
-						if (this.PackageArgs != null)
-						{
-							this.PackageArgs.Status = status;
-							this.PackageArgs.ErrorMessage = $"Error in response args initialization, RequestId={this.Key}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-						}
-						else
-						{
-							this.PackageArgs = new ErrorResponseArgs(status, $"Unknown Response (no method to process found), RequestId={this.Key}, SessionKey={session.SessionKey}");
-						}
-
-						return this;
-					}
-
-					if (this.PackageArgs != null)
-					{
-						try
-						{
-							if (this.HeaderInfo.ResponseSucceed)
-							{
-								this.PackageArgs.ReadFrom(ref reader, session);
-							}
-							else
-							{
-								this.PackageArgs.ReadErrorInfo(ref reader);
-
-								if (this.PackageArgs.Status == PackageStatus.OK)
-								{
-									this.PackageArgs.Status = PackageStatus.Error;
-									this.PackageArgs.ErrorMessage += $" PAckage ResponseSucceed flag set to false, but Status is OK, RequestId={this.Key}";
-
-									return this;
-								}
-							}
-						}
-						catch (Exception ex)
-						{
-							this.PackageArgs.Status = PackageStatus.ExceptionIsCaughtOnRequestArgsSerialization;
-							this.PackageArgs.ErrorMessage = $"Error in requst args initialization, RequestId={this.Key}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-
-							return this;
-						}
-					}
-					else
-					{
-						this.PackageArgs = new ErrorResponseArgs(PackageStatus.UnknownRequest, $"Unknown Request (no method to process found), RequestId={this.Key}, SessionKey={session.SessionKey}");
-					}
-
+					this.PackageInfo.PackageArgs = (this.PackageInfo.HeaderInfo.IsSystem) ? packageArgsFactory.CreateSystemResponseArgs(this.PackageInfo.Key) :
+																							packageArgsFactory.CreateResponseArgs(this.PackageInfo.Key);
 				}
-				else if (this.HeaderInfo.PackageType == PackageType.Message)
+				else if (this.PackageInfo.HeaderInfo.PackageType == PackageType.Message)
 				{
-					this.Key = reader.ReadInt32Optimized(); // package is response => package.Key is RequestId
-
-					try
-					{
-						this.PackageArgs = (this.HeaderInfo.IsSystem) ? this.packageArgsFactory.CreateSystemMessageArgs(this.Key) :
-																		this.packageArgsFactory.CreateMessageArgs(this.Key);
-					}
-					catch (Exception ex)
-					{
-						PackageStatus status = PackageStatus.UnknownMessage;
-
-						if (this.HeaderInfo.IsSystem)
-						{
-							if (this.packageArgsFactory.SystemMessageArgsByMessageCode.GetValue(this.Key) != null)
-								status = PackageStatus.ExceptionIsCaughtOnMessageArgsInitialization;
-						}
-						else if (this.packageArgsFactory.MessageArgsByMessageCode.GetValue(this.Key) != null)
-							status = PackageStatus.ExceptionIsCaughtOnMessageArgsInitialization;
-
-						if (this.PackageArgs != null)
-						{
-							this.PackageArgs.Status = status;
-							this.PackageArgs.ErrorMessage = $"Error in message args initialization, MeesageCode={this.Key}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-						}
-						else
-						{
-							this.PackageArgs = new ErrorResponseArgs(status, $"Unknown message (no method to process found), MessageCode={this.Key}, SessionKey={session.SessionKey}");
-						}
-
-						return this;
-					}
-
-					if (this.PackageArgs != null)
-					{
-						try
-						{
-							this.PackageArgs.ReadFrom(ref reader, session);
-						}
-						catch (Exception ex)
-						{
-							this.PackageArgs.Status = PackageStatus.ExceptionIsCaughtOnMessageArgsSerialization;
-							this.PackageArgs.ErrorMessage = $"Error in message args initialization, RequestId={this.Key}: {ExceptionHelper.GetFullErrorMessage(ex)}";
-
-							return this;
-						}
-					}
-					else
-					{
-						this.PackageArgs = new ErrorResponseArgs(PackageStatus.UnknownMessage, $"Unknown message (no method to process found), MessageCode={this.Key}, SessionKey={session.SessionKey}");
-					}
+					this.PackageInfo.PackageArgs = (this.PackageInfo.HeaderInfo.IsSystem) ? packageArgsFactory.CreateSystemMessageArgs(this.PackageInfo.Key) :
+																							packageArgsFactory.CreateMessageArgs(this.PackageInfo.Key);
 				}
 			}
 
-			return this;
+			if (this.PackageInfo.PackageArgs != null)
+			{
+				if (session != null)
+				{
+					try
+					{
+						this.PackageInfo.PackageArgs.ReadFrom(ref reader, session);
+					}
+					catch (Exception ex)
+					{
+						this.PackageInfo.PackageArgs.Status = PackageStatus.ExceptionIsCaughtOnArgsSerialization;
+						this.PackageInfo.PackageArgs.ErrorMessage = $"Error in args serialization, PackageType={this.PackageInfo.HeaderInfo.PackageType.ToString()}, RequestId={this.PackageInfo.Key}, " +
+																	$"IsSystem={this.PackageInfo.HeaderInfo.IsSystem.ToString()}: {ExceptionHelper.GetFullErrorMessage(ex)}";
+					}
+				}
+			}
+		}
+
+		internal bool IsPackageLengthInfoReceived(ref SequenceReader<byte> reader) //ref SequenceReader<byte> buffer)
+		{
+			if (!this.packageLengthReceived)
+			{
+				this.packageLengthReceived = TryGetPackageLength(ref reader, ref this.packageLengthBytesConsumed, ref this.packageLength);
+
+				if (this.packageLengthReceived)
+					this.TotalPackageLength = this.PackageLengthBytesConsumed + this.PackageLength;
+			}
+
+			return this.packageLengthReceived;
 		}
 
 		/// <summary>
@@ -342,7 +186,7 @@ namespace Simple.SocketEngine
 		/// The value is written 7 bits at a time (starting with the least-significant bits) until there are no more bits to write.
 		/// The eighth bit of each byte stored is used to indicate whether there are more bytes following this one.
 		/// </summary>
-		private static bool TryGetInt64By7BitEncoding(ref SequenceReader<byte> reader, ref long value, ref int bytesConsumed) => tryGetInt64By7BitEncoding(ref reader, ref value, ref bytesConsumed);
+		private static bool TryGetPackageLength(ref SequenceReader<byte> reader, ref int packageLengthBytesConsumed, ref long packageLength) => tryGetPackageLength(ref reader, ref packageLengthBytesConsumed, ref packageLength);
 
 		/// <summary>
 		/// reads a 64-bit unsigned value into the stream using 7-bit little endian encoding.
@@ -353,7 +197,7 @@ namespace Simple.SocketEngine
 		/// <param name="reader"></param>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		private static bool TryGetInt64By7BitLittleEndianEncoding(ref SequenceReader<byte> reader, ref long value, ref int bytesConsumed)
+		private static bool TryGetPackageLengthByLittleEndianEncoding(ref SequenceReader<byte> reader, ref int packageLengthBytesConsumed, ref long packageLength)
 		{
 			int bitShift = 0;
 
@@ -366,16 +210,14 @@ namespace Simple.SocketEngine
 				if (!reader.TryRead(out byte nextByte))
 					return false; // no enought data
 
-				bytesConsumed++;
-
-				value |= ((long)nextByte & 0x7f) << bitShift;
+				packageLengthBytesConsumed++;
+				packageLength |= ((long)nextByte & 0x7f) << bitShift;
 				bitShift += 7;
 
 				if ((nextByte & 0x80) == 0)
 					return true;
 			}
 		}
-
 
 		/// <summary>
 		/// reads a 64-bit unsigned value into the stream using 7-bit big endian encoding.
@@ -386,19 +228,19 @@ namespace Simple.SocketEngine
 		/// <param name="reader"></param>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		private static bool TryGetInt64By7BitBigEndianEncoding(ref SequenceReader<byte> reader, ref long value, ref int bytesConsumed)
+		private static bool TryGetPackageLengthByBigEndianEncoding(ref SequenceReader<byte> reader, ref int packageLengthBytesConsumed, ref long packageLength)
 		{
 			for (int i = 0; i < 9; i++)
 			{
 				if (!reader.TryRead(out byte nextByte))
 					return false; // no enought data
 
-				bytesConsumed++;
+				packageLengthBytesConsumed++;
 
 				if (unchecked((long)nextByte) == -1)
 					throw new Exception("End of Stream Exception");
 
-				value = (value << 7) | ((long)nextByte & 0x7f);
+				packageLength = (packageLength << 7) | ((long)nextByte & 0x7f);
 
 				if ((nextByte & 0x80) == 0)
 					return true;

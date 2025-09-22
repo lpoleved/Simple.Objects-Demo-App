@@ -53,9 +53,9 @@ namespace Simple.Objects.Controls
 		//	this.OnRefreshBindingObject();
 		//}
 		
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			var selectedTabPage = this.tabControl.SelectedTabPage;
 			
@@ -144,7 +144,7 @@ namespace Simple.Objects.Controls
 							TreeListNode node = this.treeListDatastorePropertyValues.AppendNode(null, parentNode: null);
 
 							node[columnIndexIndex] = propertyModel.PropertyIndex.ToString();
-							node[columnNameIndex] = propertyModel.PropertyName;
+							node[columnNameIndex] = propertyModel.DatastoreFieldName;
 							node[columnValueIndex] = this.GePropertyValueString(propertyModel, item.PropertyValue); // SimpleObject.GetPropertyValueString(propertyModel, propertyValue);
 
 							//node[columnOldValueIndex] = SimpleObject.GetPropertyValueString(propertyModel, oldPropertyValue);

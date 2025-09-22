@@ -392,7 +392,7 @@ namespace Simple.Objects
 
         protected internal void ImageNameIsChanged(SimpleObject simpleObject, string? imageName, string? oldImageName)
         {
-            if (!oldImageName.IsNullOrEmpty()) // String.Empty is default value, and noo need to fire event when first time gets the image name
+            if (oldImageName != String.Empty) // String.Empty is default value, and noo need to fire event when first time gets the image name
             {
                 this.RaiseImageNameChange(simpleObject, imageName, oldImageName);
                 this.OnImageNameChange(simpleObject, imageName, oldImageName);

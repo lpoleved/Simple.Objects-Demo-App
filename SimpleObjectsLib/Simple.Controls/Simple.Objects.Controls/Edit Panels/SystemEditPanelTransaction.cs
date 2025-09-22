@@ -24,9 +24,9 @@ namespace Simple.Objects.Controls
 		//	this.OnRefreshBindingObject();
 		//}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			if (this.BindingObject is SystemTransaction transaction)
 			{

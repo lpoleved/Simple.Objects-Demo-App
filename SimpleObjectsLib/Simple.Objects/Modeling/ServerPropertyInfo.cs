@@ -12,13 +12,13 @@ namespace Simple.Objects
 	public class ServerPropertyInfo : IServerPropertyInfo
 	{
 		public ServerPropertyInfo(IPropertyModel propertyModel)
-			: this(propertyModel.PropertyIndex, propertyModel.PropertyName, propertyModel.PropertyTypeId, propertyModel.DatastoreTypeId, propertyModel.IsRelationTableId, propertyModel.IsRelationObjectId, propertyModel.IsStorable,
+			: this(propertyModel.PropertyIndex, propertyModel.PropertyName, propertyModel.PropertyTypeId, propertyModel.DatastoreTypeId, propertyModel.IsRelationTableId, propertyModel.IsRelationObjectId, propertyModel.IsRelationZeroValueDatastoreDBNull, propertyModel.IsStorable,
 				   propertyModel.IsSerializationOptimizable, propertyModel.IsClientToServerSeriazable, propertyModel.IsServerToClientSeriazable, propertyModel.IsServerToClientTransactionInfoSeriazable,
 				   propertyModel.IsEncrypted, propertyModel.IncludeInTransactionActionLog, propertyModel.DefaultValue)
 		{
 		}
 
-		public ServerPropertyInfo(int propertyIndex, string propertyName, int propertyTypeId, int datastoreTypeId, bool isRelationTableId, bool isRelationObjectId, bool isStorable,
+		public ServerPropertyInfo(int propertyIndex, string propertyName, int propertyTypeId, int datastoreTypeId, bool isRelationTableId, bool isRelationObjectId, bool isRelationZeroValueDatastoreDBNull, bool isStorable,
 								  bool isSerializationOptimizable, bool isMemberOfClientToServerSerializationSequence, bool isMemberOfServerToClientSerializationSequence, bool isMemberServerToClientTransactionInfoSerializationSequence, 
 								  bool isEncrypted, bool includeInTransactionActionLogData, object? defaultValue)
 		{
@@ -28,6 +28,7 @@ namespace Simple.Objects
 			this.DatastoreTypeId = datastoreTypeId;
 			this.IsRelationTableId = isRelationTableId;
 			this.IsRelationObjectId = isRelationObjectId;
+			this.IsRelationZeroValueDatastoreDBNull = isRelationZeroValueDatastoreDBNull;
 			this.IsStorable = isStorable;
 			this.IsSerializationOptimizable = isSerializationOptimizable;
 			this.IsClientToServerSeriazable = isMemberOfClientToServerSerializationSequence;
@@ -44,6 +45,7 @@ namespace Simple.Objects
 		public int DatastoreTypeId { get; private set; }
 		public bool IsRelationTableId { get; private set; }
 		public bool IsRelationObjectId { get; private set; }
+		public bool IsRelationZeroValueDatastoreDBNull {  get; private set; }
 		public bool IsSerializationOptimizable { get; private set; }
 		public bool IsClientToServerSeriazable { get; private set; }
 		public bool IsServerToClientSeriazable { get; private set; }

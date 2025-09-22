@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Windows.Forms;
+﻿using DevExpress.CodeParser;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraTab;
-using Simple.Controls;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 using Simple.Collections;
+using Simple.Controls;
 using Simple.Modeling;
 
 namespace Simple.Objects.Controls
@@ -121,7 +122,7 @@ namespace Simple.Objects.Controls
 
 		public void RegisterCheckEdit(RepositoryItemCheckEdit repositoryItemCheckEdit, Type objectType, IPropertyModel propertyModel, object checkedPropertyValue, object uncheckedPropertyValue)
         {
-			this.RegisterCheckEdit(repositoryItemCheckEdit, objectType, propertyModel, checkedPropertyValue, uncheckedPropertyValue, valueToSetToTheControl => (repositoryItemCheckEdit.OwnerEdit as CheckEdit).Checked = (bool)valueToSetToTheControl);
+			this.RegisterCheckEdit(repositoryItemCheckEdit, objectType, propertyModel, checkedPropertyValue, uncheckedPropertyValue, valueToSetToTheControl => (repositoryItemCheckEdit.OwnerEdit as CheckEdit)!.Checked = (bool)valueToSetToTheControl);
         }
 
 		public void RegisterCheckEdit(RepositoryItemCheckEdit repositoryItemCheckEdit, Type objectType, IPropertyModel propertyModel, Action<object> setControlValue)
@@ -155,13 +156,13 @@ namespace Simple.Objects.Controls
 		}
 
 		public void RegisterComboBox(RepositoryItemComboBox repositoryItemComboBox, Type objectType, IPropertyModel propertyModel, IDictionary keyValueDictionary, 
-									 Func<object, object>? getName, Action<object>? setControlValue, Func<object?, object>? getImageName)
+									 Func<object, object>? getName, Action<object>? setControlValue, Func<object?, string>? getImageName)
 		{
 			this.RegisterComboBox(repositoryItemComboBox, objectType, EditorBindingType.ObjectProperty, propertyModel, -1, keyValueDictionary, getName, setControlValue, getImageName);
 		}
 
 		public void RegisterComboBox(RepositoryItemComboBox repositoryItemComboBox, Type objectType, EditorBindingType bindingType, IPropertyModel propertyModel, int relationKey, IDictionary keyValueDictionary, 
-									 Func<object, object>? getName, Action<object>? setControlValue, Func<object, object?>? getImageName)
+									 Func<object, object>? getName, Action<object>? setControlValue, Func<object?, string?>? getImageName)
         {
 			NullableDictionary<object?, object?> keysByValue = new NullableDictionary<object?, object?>();
 			NullableDictionary<object?, object?> valuesByKey = new NullableDictionary<object?, object?>();
@@ -217,41 +218,27 @@ namespace Simple.Objects.Controls
 					object? objectKey = (key != null && bindingType == EditorBindingType.ObjectProperty && propertyModel.PropertyType.IsEnum && !key.GetType().IsEnum) ? Conversion.TryChangeType(key, propertyModel.PropertyType) 
 																																									   : key;
 					object objectValue = ((getName != null && value != null) ? getName(value) : value) ?? String.Empty;
-                    bool isItemAdded = false;
 
 					if (bindingType == EditorBindingType.ObjectProperty && propertyModel.PropertyType.IsEnum && !key.GetType().IsEnum)
 						objectKey = Conversion.TryChangeType(key, propertyModel.PropertyType);
 
 					valuesByKey.Add(objectKey, objectValue);
 					keysByValue.Add(objectValue, objectKey);
-						
-					isItemAdded = true;
 
 					if (repositoryItemComboBox is RepositoryItemImageComboBox repositoryItemImageComboBox)
 					{
-						repositoryItemImageComboBox.Items.Add(new ImageComboBoxItem(objectValue, -1));
+						string? imageName = (getImageName != null) ? getImageName(key) : null;
+						int imageIndex = -1;
 
-						if (key != null && getImageName is not null && repositoryItemImageComboBox.SmallImages is not null && repositoryItemImageComboBox.SmallImages is ImageList imageList)
-						{
-							string? imageName = getImageName(key)?.ToString();
+						if (imageName != null && repositoryItemImageComboBox.SmallImages is ImageList imageList)
+							imageIndex = imageList.Images.IndexOfKey(imageName);
 
-							if (!imageName.IsNullOrEmpty())
-							{
-								int imageIndex = imageList.Images.IndexOfKey(imageName!);
-								
-								repositoryItemImageComboBox.Items.Add(new ImageComboBoxItem(objectValue, imageIndex));
-								isItemAdded = true;
-							}
-
-						}
+						repositoryItemComboBox.Items.Add(new ImageComboBoxItem(objectValue, imageIndex));
 					}
 					else
 					{
 						repositoryItemComboBox.Items.Add(objectValue);
 					}
-
-					if (!isItemAdded)
-						repositoryItemComboBox.Items.Add(objectValue);
                 }
             }
             finally
@@ -278,7 +265,7 @@ namespace Simple.Objects.Controls
                             }, 
                             propertyValue => 
                             {
-                                object? controlValue = null;
+                                object? controlValue;
 
                                 //if (propertyValue != null)
                                 //{
@@ -290,7 +277,7 @@ namespace Simple.Objects.Controls
                                 //    controlValue = null;
                                 //}
 
-                                return controlValue;
+                                return controlValue!;
                             },
                             setControlValue);
         }

@@ -38,11 +38,11 @@ namespace Simple.SocketEngine
 		private TokenGenerator<int> tokenGenerator = new TokenGenerator<int>();
 		//private ThreadSyncWithDataExchange<int, PackageReader> threadSync = new ThreadSyncWithDataExchange<int, PackageReader>();
 		private ThreadSync<int> threadSync = new ThreadSync<int>();
-		private Dictionary<int, PackageReader> responsesByToken = new Dictionary<int, PackageReader>();
+		private Dictionary<int, PackageInfo> responsesByToken = new Dictionary<int, PackageInfo>();
 		//private HashArray<PackageReader?> responsePackagesByToken = new HashArray<PackageReader?>();
 		//private Dictionary<int, ResponseArgs> responseArgsByToken = new Dictionary<int, ResponseArgs>();
 		//private Dictionary<int, object?> responseContextByToken = new Dictionary<int, object?>();
-		private PipelineFilter? filter;
+		protected PipelineFilter? filter;
 		private ILogger? logger = null;
 		private bool createPackageDataCopy = false;
 
@@ -152,7 +152,7 @@ namespace Simple.SocketEngine
 		//protected virtual PackageArgsFactory CreatePackageArgsFactory() => new PackageArgsFactory(AppDomain.CurrentDomain.GetAssemblies());
 		//protected virtual object? GetPackageArgsSerializationContext(PackageType packageType, int requestIdOrMessageCode, bool isSystem) => null;
 
-		protected virtual IPipelineFilter<PackageReader> CreatePipelineFilter(object session) 
+		public virtual IPipelineFilter<PackageInfo> CreatePipelineFilter()
 		{
 			this.filter = new PipelineFilter(this.PackageArgsFactory, this.CreatePackageDataCopy); // this.CreatePipelineFilter(session);
 			this.filter.CreatePackageDataCopy = this.createPackageDataCopy;
@@ -160,6 +160,17 @@ namespace Simple.SocketEngine
 
 			return this.filter;
 		}
+
+		protected virtual IPipelineFilter<PackageInfo> CreatePipelineFilter(object session) 
+		{
+			this.filter = new PipelineFilter(this.PackageArgsFactory, this.CreatePackageDataCopy); // this.CreatePipelineFilter(session);
+			this.filter.CreatePackageDataCopy = this.createPackageDataCopy;
+			//filter.Decoder = this.packageEncoding;
+
+			return this.filter;
+		}
+
+
 
 		protected virtual CommandDiscovery CreateComandDiscovery() => new CommandDiscovery(this.GetType());
 
@@ -440,24 +451,23 @@ namespace Simple.SocketEngine
 		//	return result;
 		//}
 
-		protected async ValueTask OnPackageReceived(object commandOwner, ISimpleSession session, PackageReader package, CommandDiscovery commandDiscovery)
+		protected async ValueTask OnPackageReceived(object commandOwner, ISimpleSession session, PackageInfo packageInfo, CommandDiscovery commandDiscovery)
 		{
-			HeaderInfo flags = package.HeaderInfo;
+			HeaderInfo flags = packageInfo.HeaderInfo;
 			
 			if (flags.PackageType == PackageType.Request)
 			{
-				PackageReader requestPackage = package;
+				// PackageInfo requestPackage = packageInfo;
 				//int token = requestPackage.Token;
-				int requestId = requestPackage.Key; //  package is response => package.Key is RequestId
+				int requestId = packageInfo.Key; //  package is response => package.Key is RequestId
 				bool acceptRequest = session.IsAuthenticated;
-				Encoding encoding = session.CharacterEncoding;
 				HeaderInfo responseFlags;
 				ResponseArgs? responseArgs;
 
                 if (!acceptRequest) // if session is not authorized, check if request require authorization
 				{
-					HashSet<int> requestIdsNotRequireAuthorization = (requestPackage.HeaderInfo.IsSystem) ? commandDiscovery.SystemRequestIdsNotRequireAuthorization :
-																									 commandDiscovery.RequestIdsNotRequireAuthorization;
+					HashSet<int> requestIdsNotRequireAuthorization = (packageInfo.HeaderInfo.IsSystem) ? commandDiscovery.SystemRequestIdsNotRequireAuthorization :
+																										 commandDiscovery.RequestIdsNotRequireAuthorization;
 					acceptRequest = requestIdsNotRequireAuthorization.Contains(requestId);
 				}
 
@@ -465,7 +475,7 @@ namespace Simple.SocketEngine
 				{
 					// Request require authorisation -> send back error response
 					responseArgs = new ErrorResponseArgs(PackageStatus.NotAuthenticated, "Session is not authorized, RequestId=" + requestId);
-					responseFlags = requestPackage.HeaderInfo.IsSystem ? ResponseSystemNotSucceedFlags : ResponseNotSucceedFlags;
+					responseFlags = packageInfo.HeaderInfo.IsSystem ? ResponseSystemNotSucceedFlags : ResponseNotSucceedFlags;
 					this.Logger?.LogDebug(responseArgs.ErrorMessage);
 				}
 				else
@@ -473,7 +483,7 @@ namespace Simple.SocketEngine
 					MethodInfo? method = null;
 					HashArray<MethodInfo> methodsByRequestId;
 
-					if (requestPackage.HeaderInfo.IsSystem)
+					if (packageInfo.HeaderInfo.IsSystem)
 					{
 						methodsByRequestId = commandDiscovery.SystemRequestMethodsByRequestId;
 						responseFlags = ResponseSystemFlags;
@@ -497,13 +507,13 @@ namespace Simple.SocketEngine
 					{
 						string errorMessage = "Unknown Request (no method to process found), RequestId=" + requestId;
 
-						responseFlags = requestPackage.HeaderInfo.IsSystem ? ResponseSystemNotSucceedFlags : ResponseNotSucceedFlags;
+						responseFlags = packageInfo.HeaderInfo.IsSystem ? ResponseSystemNotSucceedFlags : ResponseNotSucceedFlags;
 						responseArgs = new ErrorResponseArgs(PackageStatus.UnknownRequest, errorMessage); 
 						this.Logger?.LogDebug(errorMessage);
 					}
 					else
 					{
-						object[] methodArgs = new object[] { session, requestPackage };
+						object[] methodArgs = new object[] { session, packageInfo };
 
 						try
 						{
@@ -511,26 +521,26 @@ namespace Simple.SocketEngine
 						}
 						catch (Exception ex)
 						{
-							responseFlags = requestPackage.HeaderInfo.IsSystem ? ResponseSystemNotSucceedFlags : ResponseNotSucceedFlags;
+							responseFlags = packageInfo.HeaderInfo.IsSystem ? ResponseSystemNotSucceedFlags : ResponseNotSucceedFlags;
 							responseArgs = new ErrorResponseArgs(PackageStatus.ExceptionIsCaughtOnRequestProcessing, ex.GetFullErrorMessage()); //  new RequestResult<object>(null, RequestResultInfo.ExceptionIsCaughtOnRequestProcessing, package.Token, ExceptionHelper.GetFullErrorMessage(ex));
 							this.Logger?.LogDebug("ExceptionIsCaughtOnRequestProcessing: " + ex.GetFullErrorMessage());
 						}
 					}
 				}
 
-				PackageWriter responsePackage = new PackageWriter(responseFlags, key: requestId, encoding, session, responseArgs);
+				PackageWriter responsePackage = new PackageWriter(responseFlags, key: requestId, session, responseArgs);
 
 				//responsePackage.WriteHeader(); 
 				//responsePackage.WritePackageArgs();
 				
 				await session.SendAsync(this.PackageEncoder, responsePackage);
 				
-				if (requestPackage.Buffer != null && responsePackage.Buffer != null)
-					await this.OnRequestReceived(session, requestPackage.Buffer, responsePackage.Buffer);
+				if (packageInfo.Buffer != null && responsePackage.Buffer != null)
+					await this.OnRequestReceived(session, packageInfo.Buffer, responsePackage.Buffer);
 			}
 			else if (flags.PackageType == PackageType.Response)
 			{
-				PackageReader responsePackage = package;
+				//PackageReader responsePackage = packageInfo;
 				//int token = package.Token;
 				//int requestId = package.Key;
 				//ResponseArgs? responseArgs;
@@ -573,7 +583,7 @@ namespace Simple.SocketEngine
 
 				//this.responsesByToken[token] = responsePackage;
 
-				session.ResponseIsReceived(responsePackage);
+				session.ResponseIsReceived(packageInfo);
 
 
 				//this.response = package;
@@ -592,17 +602,17 @@ namespace Simple.SocketEngine
 				//}
 
 				//this.threadSync.Release(token); //, responsePackage);
-				if (responsePackage.Buffer != null)
-					await this.OnResponseReceived(session, responsePackage.Buffer);
+				if (packageInfo.Buffer != null)
+					await this.OnResponseReceived(session, packageInfo.Buffer);
 					
 			}
 			else if (flags.PackageType == PackageType.Message)
 			{
-				PackageReader messagePackage = package;
-				int messageCode = package.Key; // package is message => package.Key is MessageCode
+				//PackageReader messagePackage = packageInfo;
+				int messageCode = packageInfo.Key; // package is message => package.Key is MessageCode
 				MethodInfo? method = null;
-				HashArray<MethodInfo> methodsByMessageCode = (package.HeaderInfo.IsSystem) ? commandDiscovery.SystemMessageMethodsByMessageCode : 
-																							 commandDiscovery.MessageMethodsByMessageCode;
+				HashArray<MethodInfo> methodsByMessageCode = (packageInfo.HeaderInfo.IsSystem) ? commandDiscovery.SystemMessageMethodsByMessageCode : 
+																								 commandDiscovery.MessageMethodsByMessageCode;
 				try
 				{
 					method = methodsByMessageCode[messageCode];
@@ -618,7 +628,7 @@ namespace Simple.SocketEngine
 				}
 				else
 				{
-					object[] arguments = new object[] { session, package };
+					object[] arguments = new object[] { session, packageInfo };
 
 					try
 					{
@@ -630,8 +640,8 @@ namespace Simple.SocketEngine
 					}
 				}
 
-				if (messagePackage.Buffer != null)
-					await this.OnMessageReceived(session, messagePackage.Buffer);
+				if (packageInfo.Buffer != null)
+					await this.OnMessageReceived(session, packageInfo.Buffer);
 			}
 #if NETSTANDARD2_1_OR_GREATER
 			//return new ValueTask();

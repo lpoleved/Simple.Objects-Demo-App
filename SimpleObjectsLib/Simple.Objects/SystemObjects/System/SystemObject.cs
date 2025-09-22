@@ -63,29 +63,11 @@ namespace Simple.Objects
 		//	get { return excludedPropertyNamesOnStoring; }
 		//}
 
-		protected static PropertyModel[] GetPropertyModelsByFieldIndex(IDataReader dataReader)
-		{
-			if (propertyModelsByFieldIndex == null)
-			{
-				propertyModelsByFieldIndex = new PropertyModel[dataReader.FieldCount];
-
-				for (int i = 0; i < propertyModelsByFieldIndex.Length; i++)
-				{
-					PropertyModel? propertyModel = Model.PropertyModels.FirstOrDefault((item) => item.PropertyName == dataReader.GetName(i)) as PropertyModel;
-
-					if (propertyModel != null)
-						propertyModelsByFieldIndex[i] = propertyModel;
-				}
-			}
-
-			return propertyModelsByFieldIndex;
-		}
-
 		internal void Load(IDataReader dataReader)
 		{
 			lock (this.lockObject)
 			{
-				PropertyModel[] propertyModelsByFieldIndex = GetPropertyModelsByFieldIndex(dataReader);
+				PropertyModel[] propertyModelsByFieldIndex = this.GetPropertyModelsByFieldIndex(dataReader);
 
 				this.IsNew = false;
 				this.LoadFromDatastore(dataReader, propertyModelsByFieldIndex);
@@ -104,8 +86,8 @@ namespace Simple.Objects
 				{
 					object? propertyValue = dataReader.GetValue(fieldIndex);
 					
-					propertyValue = GetNormalizedSystemPropertyValue(propertyModel.PropertyType, propertyValue);
-					propertyModel.PropertyInfo.SetValue(this, propertyValue, null);
+					propertyValue = SimpleObject.GetNormalizedValueWhenReadingFromDatastore(propertyModel,  propertyValue, expectedType: propertyModel.PropertyType, encryptMethod: pv => pv);
+					propertyModel.PropertyInfo?.SetValue(this, propertyValue, null);
 				}
 				else
 				{
@@ -129,7 +111,7 @@ namespace Simple.Objects
 				if (this.IsNew) // -> Insert
 				{
 					propertyIndexes = this.GetModel().StorablePropertyIndexes;
-					propertyIndexValues = this.GetPropertyIndexValuePairs(propertyIndexes);
+					propertyIndexValues = this.GetPropertyIndexValuePairsForWritingToDatastore(propertyIndexes);
 
 					this.ObjectManager?.LocalDatastore?.InsertRecord(this.GetModel().TableInfo, propertyIndexValues, this.GetModel().GetPropertyModel);
 					this.IsNew = false;
@@ -138,7 +120,7 @@ namespace Simple.Objects
 				{
 					TKey key = this.GetKeyValue();
 					propertyIndexes = this.GetModel().StorablePropertyIndexesWithoutKey;
-					propertyIndexValues = this.GetPropertyIndexValuePairs(propertyIndexes);
+					propertyIndexValues = GetPropertyIndexValuePairsForWritingToDatastore(propertyIndexes);
 
 					this.ObjectManager?.LocalDatastore?.UpdateRecord(this.GetModel().TableInfo, this.GetModel().IdPropertyModel.PropertyIndex, key, propertyIndexValues, this.GetModel().GetPropertyModel);
 				}
@@ -220,7 +202,7 @@ namespace Simple.Objects
 		//				value = normalizer(propertyModel.PropertyType, value);
 
 		//			result.Add(propertyModel.Name, propertyModel.PropertyInfo.GetValue(this, null));
-				
+
 		//			//	if (excludedPropertyNamesOnStoring.Contains(propertyInfo.Name))
 		//		//		continue;
 
@@ -234,24 +216,42 @@ namespace Simple.Objects
 		//	return result;
 		//}
 
-		private object?[] GetPropertyValues(IEnumerable<int> propertyIndexes)
+		//private object?[] GetPropertyValuesForReadingFromdatastore(IEnumerable<int> propertyIndexes)
+		//{
+		//	object?[] propertyValues = new object[propertyIndexes.Count()];
+
+		//	for (int i = 0; i < propertyIndexes.Count(); i++)
+		//	{
+		//		int propertyIndex = propertyIndexes.ElementAt(i);
+		//		IPropertyModel propertyModel = this.GetModel().GetPropertyModel(propertyIndex);
+		//		object? propertyValue = propertyModel.PropertyInfo?.GetValue(this, null);
+		//		object? normalizedPropertyValue = GetNormalizedValueWhenReadingFromDatastore(propertyModel, propertyValue, propertyModel.DatastoreType);
+
+		//		propertyValues[i] = normalizedPropertyValue;
+		//	}
+
+		//	return propertyValues;
+		//}
+
+		protected PropertyModel[] GetPropertyModelsByFieldIndex(IDataReader dataReader)
 		{
-			object?[] propertyValues = new object[propertyIndexes.Count()];
-
-			for (int i = 0; i < propertyIndexes.Count(); i++)
+			if (propertyModelsByFieldIndex == null)
 			{
-				int propertyIndex = propertyIndexes.ElementAt(i);
-				IPropertyModel propertyModel = this.GetModel().GetPropertyModel(propertyIndex);
-				object? propertyValue = propertyModel.PropertyInfo?.GetValue(this, null);
-				object? normalizedPropertyValue = (propertyValue != null) ? this.GetNormalizedSystemPropertyValue(propertyModel.DatastoreType, propertyValue) : null;
+				propertyModelsByFieldIndex = new PropertyModel[dataReader.FieldCount];
 
-				propertyValues[i] = normalizedPropertyValue;
+				for (int i = 0; i < propertyModelsByFieldIndex.Length; i++)
+				{
+					PropertyModel? propertyModel = Model.PropertyModels.FirstOrDefault((item) => item.PropertyName == dataReader.GetName(i)) as PropertyModel;
+
+					if (propertyModel != null)
+						propertyModelsByFieldIndex[i] = propertyModel;
+				}
 			}
 
-			return propertyValues;
+			return propertyModelsByFieldIndex;
 		}
 
-		protected PropertyIndexValuePair[] GetPropertyIndexValuePairs(IEnumerable<int> propertyIndexes)
+		protected PropertyIndexValuePair[] GetPropertyIndexValuePairsForWritingToDatastore(IEnumerable<int> propertyIndexes)
 		{
 			PropertyIndexValuePair[] result = new PropertyIndexValuePair[propertyIndexes.Count()];
 
@@ -260,7 +260,7 @@ namespace Simple.Objects
 				int propertyIndex = propertyIndexes.ElementAt(i);
 				IPropertyModel propertyModel = this.GetModel().GetPropertyModel(propertyIndex);
 				object? propertyValue = propertyModel.PropertyInfo?.GetValue(this, null);
-				object? normalizedPropertyValue = (propertyValue != null) ? this.GetNormalizedSystemPropertyValue(propertyModel.DatastoreType, propertyValue) : null;
+				object? normalizedPropertyValue = SimpleObject.GetNormalizedValueForWritingToDatastore(propertyModel, propertyValue, propertyModel.DatastoreType, encryptMethod: pv => pv);
 
 				result[i] = new PropertyIndexValuePair(propertyIndex, normalizedPropertyValue);
 			}
@@ -269,15 +269,61 @@ namespace Simple.Objects
 		}
 
 
-		private object? GetNormalizedSystemPropertyValue(Type propertyType, object? fieldValue)
-		{
-			if (fieldValue == null || fieldValue.GetType() == typeof(System.DBNull))
-				return propertyType.GetDefaultValue();
-			else if (fieldValue.GetType() != propertyType)
-				return Conversion.TryChangeType(fieldValue, propertyType);
+		//private object? GetNormalizedPropertyValueWhenReadingFromDatastore(Type propertyType, object? fieldValue)
+		//{
+		//	if (fieldValue == DBNull.Value || fieldValue == null)
+		//		return PropertyTypes.GetPropertyType(expectedPropertyTypeId).GetDefaultValue();
+		//	else
+		//		return GetNormalizedValue(propertyModel, value, expectedPropertyTypeId, encryptMethod);
 
-			return fieldValue;
-		}
+
+		//	if (fieldValue == null || fieldValue.GetType() == typeof(System.DBNull))
+		//		return propertyType.GetDefaultValue();
+		//	else if (fieldValue.GetType() != propertyType)
+		//		return Conversion.TryChangeType(fieldValue, propertyType);
+
+		//	return fieldValue;
+		//}
+
+		//private object? GetNormalizedPropertyValueWhenWritingToDatastore(Type propertyType, object? value)
+		//{
+		//	if (value == null || value.GetType() == typeof(System.DBNull))
+		//		return propertyType.GetDefaultValue();
+		//	else if (value.GetType() != propertyType)
+		//		return Conversion.TryChangeType(value, propertyType);
+
+		//	return value;
+		//}
+
+		//private static object? GetNormalizedValueWhenReadingFromDatastore(IServerPropertyInfo propertyModel, object? value, Type expectedType)
+		//{
+		//	if (value == DBNull.Value || value == null)
+		//		return expectedType.GetDefaultValue();
+		//	else
+		//		return GetNormalizedValue(propertyModel, value, expectedType);
+		//}
+
+		//private static object? GetNormalizedValueWhenWritingToDatastore(IServerPropertyInfo propertyModel, object? value, Type expectedType)
+		//{
+		//	if (value == null || propertyModel.IsRelationZeroValueDatastoreDBNull)
+		//		return DBNull.Value;
+		//	else if (value.GetType().IsEnum) // if field value is enum (not propertyModel.PropertyType.IsEnum), eg. SystemTransaction.Status, convers it to int. // propertyModel.PropertyType.IsEnum)
+		//		return (int)value;
+		//	else
+		//		return GetNormalizedValue(propertyModel, value, expectedType);
+		//}
+
+		//private static object? GetNormalizedValue(IServerPropertyInfo propertyModel, object? value, Type expectedType)
+		//{
+		//	object? result = value;
+
+		//	if (value is null)
+		//		return expectedType.GetDefaultValue();
+		//	else if (value.GetType() != expectedType)
+		//		result = Conversion.TryChangeType(value, expectedType);
+
+		//	return result;
+		//}
 
 		private void Dispose()
 		{

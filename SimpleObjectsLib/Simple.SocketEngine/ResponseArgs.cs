@@ -11,7 +11,7 @@ namespace Simple.SocketEngine
 	{
         public bool ResponseSucceeded => this.Status == PackageStatus.OK;
 
-        public override void WriteTo(ref SequenceWriter writer, ISimpleSession session) { }
-		public override void ReadFrom(ref SequenceReader reader, ISimpleSession session) { }
+  //      public override void WriteTo(ref SequenceWriter writer, ISimpleSession session) { }
+		//public override void ReadFrom(ref SequenceReader reader, ISimpleSession session) { }
     }
 }

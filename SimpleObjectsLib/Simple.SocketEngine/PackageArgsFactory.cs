@@ -20,6 +20,7 @@ namespace Simple.SocketEngine
 		private HashArray<Type?>? responseArgsByRequestId = null;
 		private HashArray<Type?>? systemResponseArgsByRequestId = null;
 
+		public static PackageArgsFactory Empty = new PackageArgsFactory(new List<Assembly>());
 		//public PackageArgsFactory()
 		//	: this(new List<Assembly>())
 		//{

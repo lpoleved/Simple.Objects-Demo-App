@@ -21,7 +21,7 @@ namespace Simple.SocketEngine
 		ValueTask SendAsync<TPackage>(IPackageEncoder<TPackage> packageEncoder, TPackage package);
 
 
-		void ResponseIsReceived(PackageReader response);
+		void ResponseIsReceived(PackageInfo response);
 
 		//ValueTask SendAsync(byte[] data);
 		//ValueTask SendAsync(ReadOnlyMemory<byte> segment);

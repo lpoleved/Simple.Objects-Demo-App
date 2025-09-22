@@ -25,9 +25,10 @@ namespace Simple.Objects.ServerMonitor
 	public partial class EditPanelGetServerObjectModel : EditPanelSessionPackageRequestResponse
 	{
 		private int columnIndexIndex, columnNameIndex, columnObjectTypeIdIndex, columnObjectTypeNameIndex;
-		private int columnDatastoreTypeIdIndex, columnIsRelationTableIdIndex, columnIsRelationObjectIdIndex;
-		private int columnIsSerializationOptimizableIndex, columnIsClientSeriazableIndex, columnIsServerSeriazableIndex;
+		private int columnDatastoreTypeIdIndex, columnIsRelationTableIdIndex, columnIsRelationObjectIdIndex, columnIsRelationZeroValueDatastoreDBNullIndex;
+		private int columnIsSerializationOptimizableIndex, columnIsClientSeriazableIndex, columnIsServerSeriazableIndex, columnIsServerToClientTransactionInfoSeriazableIndex;
 		private int columnIsStorableIndex, columnIsEncryptedIndex, columnIncludeInTransactionActionLogIndex, columnDefaultValueIndex;
+
 		//private GridColumn columnTableId, columnObjectName, columnPropertyIndexSequence;
 		//private int columnNoIndex, columnTableIdIndex, columnObjectNameIndex, columnPropertyIndexSequence;
 		//private BindingList<ServerPropertySequenceRow> dataSourceServerPropertySequences = new BindingList<ServerPropertySequenceRow>();
@@ -80,6 +81,12 @@ namespace Simple.Objects.ServerMonitor
 			column.Name = column.Caption = "IsRelationObjectId";
 			column.Visible = true;
 
+			// bool IsRelationZeroValueDatastoreDBNull 
+			column = this.treeListObjectPropertyValues.Columns.Add();
+			this.columnIsRelationZeroValueDatastoreDBNullIndex = column.AbsoluteIndex;
+			column.Name = column.Caption = "IsRelationZeroValueDatastoreDBNull";
+			column.Visible = true;
+
 			//bool IsSerializationOptimizable
 			column = this.treeListObjectPropertyValues.Columns.Add();
 			this.columnIsSerializationOptimizableIndex = column.AbsoluteIndex;
@@ -126,14 +133,15 @@ namespace Simple.Objects.ServerMonitor
 			column.Visible = true;
 
 			this.treeListObjectPropertyValues.OptionsView.ShowIndicator = false;
+			this.treeListObjectPropertyValues.OptionsView.AutoWidth = false;
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
-			TableIdRequestArgs? requestArgs = this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs as TableIdRequestArgs;
-			ServerObjectModelResponseArgs? responseArgs = this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs as ServerObjectModelResponseArgs;
+			TableIdRequestArgs? requestArgs = this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs as TableIdRequestArgs;
+			ServerObjectModelResponseArgs? responseArgs = this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs as ServerObjectModelResponseArgs;
 
 			int? tableId = requestArgs?.TableId;
 			//ISimpleObjectModel objectModel = Program.ModelDiscovery.GetObjectModel(tableId); // <- avoid directly using model discovery
@@ -160,6 +168,7 @@ namespace Simple.Objects.ServerMonitor
 					node.SetValue(this.columnDatastoreTypeIdIndex, serverPropertyInfo.DatastoreTypeId.ToString());
 					node.SetValue(this.columnIsRelationTableIdIndex, serverPropertyInfo.IsRelationTableId.ToString());
 					node.SetValue(this.columnIsRelationObjectIdIndex, serverPropertyInfo.IsRelationObjectId.ToString());
+					node.SetValue(this.columnIsRelationZeroValueDatastoreDBNullIndex, serverPropertyInfo.IsRelationZeroValueDatastoreDBNull.ToString());
 					node.SetValue(this.columnIsSerializationOptimizableIndex, serverPropertyInfo.IsSerializationOptimizable.ToString());
 					node.SetValue(this.columnIsClientSeriazableIndex, serverPropertyInfo.IsClientToServerSeriazable.ToString());
 					node.SetValue(this.columnIsServerSeriazableIndex, serverPropertyInfo.IsServerToClientSeriazable.ToString());

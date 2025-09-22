@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.Drawing;
-using System.Reflection;
+﻿using DevExpress.Utils.DragDrop;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Ribbon;
+using DevExpress.XtraEditors;
+using DevExpress.XtraSpreadsheet.Model;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Columns;
+using DevExpress.XtraTreeList.Nodes;
 using Simple;
 using Simple.Collections;
 using Simple.Controls;
 using Simple.Controls.TreeList;
-using DevExpress.XtraEditors;
-using DevExpress.XtraTreeList;
-using DevExpress.XtraTreeList.Nodes;
-using DevExpress.XtraTreeList.Columns;
-using DevExpress.XtraBars;
-using DevExpress.XtraBars.Ribbon;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
-using DevExpress.XtraSpreadsheet.Model;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+//using System.Windows;
+using System.Windows.Forms;
 
 namespace Simple.Objects.Controls
 {
@@ -53,7 +56,8 @@ namespace Simple.Objects.Controls
 		private Dictionary<int, BarItem> goToGraphBarButtonItemsByGraphKey = new Dictionary<int, BarItem>();
 		private object lockLastGraphEditor = new object();
 		private int graphUpdate = 0;
-		private object? destinationNodeParentCandidate = null;
+        private object? dragNode = null;
+        private object? destinationNodeParentCandidate = null;
 		//private int largeGraphUpdate = 0;
 		//private BaseEdit lastActiveEditor = null;
 		//private int lastActiveEditorSelectionStart = 0;
@@ -185,10 +189,10 @@ namespace Simple.Objects.Controls
                     this.TreeList.KeyUp -= new KeyEventHandler(treeList_KeyUp);
                     this.TreeList.KeyDown -= new KeyEventHandler(this.OnKeyDown);
                     this.TreeList.MouseDown -= new MouseEventHandler(treeList_MouseDown);
-                    this.TreeList.BeforeDragNode -= new BeforeDragNodeEventHandler(treeList_BeforeDragNode);
-                    this.TreeList.DragOver -= new DragEventHandler(treeList_DragOver);
-                    this.TreeList.DragDrop -= new DragEventHandler(treeList_DragDrop);
-                    this.TreeList.AfterDropNode -= new AfterDropNodeEventHandler(treeList_AfterDropNode);
+                    this.TreeList.BeforeDragNode -= this.OnTreeListBeforeDragNode;
+					this.TreeList.DragOver -= this.OnTreeListDragOver;
+					this.TreeList.DragDrop -= this.OnTreeListDragDrop;
+					this.TreeList.AfterDropNode -= this.OnTreeListAfterDropNode;
                     this.TreeList.GiveFeedback -= new GiveFeedbackEventHandler(treeList_GiveFeedback);
                     this.TreeList.CompareNodeValues -= new CompareNodeValuesEventHandler(treeList_CompareNodeValues);
 					this.TreeList.EndSorting -= new EventHandler(treeList_EndSorting);
@@ -210,11 +214,14 @@ namespace Simple.Objects.Controls
                     this.TreeList.KeyUp += new KeyEventHandler(treeList_KeyUp);
                     this.TreeList.KeyDown += new KeyEventHandler(this.OnKeyDown);
                     this.TreeList.MouseDown += new MouseEventHandler(treeList_MouseDown);
-                    this.TreeList.BeforeDragNode += new BeforeDragNodeEventHandler(treeList_BeforeDragNode);
-					this.TreeList.AfterDragNode += TreeList_AfterDragNode;
-                    this.TreeList.DragOver += new DragEventHandler(treeList_DragOver);
-                    this.TreeList.DragDrop += new DragEventHandler(treeList_DragDrop);
-					this.TreeList.AfterDropNode += new AfterDropNodeEventHandler(treeList_AfterDropNode);
+                    this.TreeList.BeforeDragNode += this.OnTreeListBeforeDragNode;
+					this.TreeList.DragOver += this.OnTreeListDragOver;
+                    this.TreeList.DragDrop += this.OnTreeListDragDrop;
+					this.TreeList.AfterDropNode += this.OnTreeListAfterDropNode;
+
+					DragDropManager.Default.DragOver += OnDragOver;
+					DragDropManager.Default.DragDrop += OnDragDrop;
+
 					this.TreeList.GiveFeedback += new GiveFeedbackEventHandler(treeList_GiveFeedback);
                     this.TreeList.CompareNodeValues += new CompareNodeValuesEventHandler(treeList_CompareNodeValues);
 					this.TreeList.EndSorting += new EventHandler(treeList_EndSorting);
@@ -227,10 +234,87 @@ namespace Simple.Objects.Controls
             }
         }
 
-
-		private void TreeList_AfterDragNode(object sender, AfterDragNodeEventArgs e)
+		void OnDragOver(object sender, DragOverEventArgs e)
 		{
+			if (object.ReferenceEquals(e.Source, e.Target))
+				return;
+			
+            e.Default();
+			
+            if (e.InsertType == InsertType.None)
+				return;
+			
+            e.Action = IsCopy(e.KeyState) ? DragDropActions.Copy : DragDropActions.Move;
+			
+            Cursor current = Cursors.No;
+			
+            if (e.Action != DragDropActions.None)
+				current = Cursors.Default;
+			
+            e.Cursor = current;
 		}
+
+		bool IsCopy(DragDropKeyState key)
+		{
+			return (key & DragDropKeyState.Control) != 0;
+		}
+
+		void OnDragDrop(object sender, DragDropEventArgs e)
+		{
+			if (object.ReferenceEquals(e.Source, e.Target))
+				return;
+			
+            e.Handled = true;
+			
+            if (e.Action == DragDropActions.None || e.InsertType == InsertType.None)
+				return;
+			
+            if (e.Target == this.TreeList)
+				OnTreeListDrop(e);
+			//if (e.Target == listBoxControl)
+			//	OnListBoxDrop(e);
+			Cursor.Current = Cursors.Default;
+		}
+
+
+		void OnTreeListDrop(DragDropEventArgs e)
+		{
+			//DataView dataView = listBoxControl.DataSource as DataView;
+			//if (dataView == null)
+			//	return;
+			var items = e.GetData<IEnumerable<object>>();
+			
+            if (items == null)
+				return;
+			
+            var destNode = GetNodeByPoint(e.Location);
+			
+   //         int index = CalcDestNodeIndex(e, destNode);
+			
+   //         TreeList.BeginUpdate();
+			//listBoxControl.BeginUpdate();
+			//treeList1.Selection.UnselectAll();
+			//List<object> _items = new List<object>(items);
+			//foreach (object _item in _items)
+			//{
+			//	DataRowView rowView = _item as DataRowView;
+			//	TreeListNode node = treeList1.AppendNode(rowView.Row.ItemArray, index == -1000 ? destNode : null);
+			//	if (index > -1)
+			//	{
+			//		treeList1.MoveNode(node, destNode.ParentNode, true, index);
+			//		index++;
+			//	}
+			//	if (e.Action != DragDropActions.Copy)
+			//		dataView.Table.Rows.Remove(rowView.Row);
+			//	treeList1.SelectNode(node);
+			//	if (node.ParentNode != null)
+			//		node.ParentNode.Expand();
+			//}
+			//listBoxControl.EndUpdate();
+			//treeList1.EndUpdate();
+		}
+
+
 
 		[Category("Controls"), DefaultValue(null)]
         public PopupMenu? PopupMenu
@@ -1585,23 +1669,34 @@ namespace Simple.Objects.Controls
             }
         }
 
-        private void treeList_BeforeDragNode(object sender, BeforeDragNodeEventArgs e)
+
+		//private void treeList_DragLeave(object sender, EventArgs e)
+		//{
+		//    //throw new NotImplementedException();
+		//},
+		private void OnTreeListBeforeDragNode(object sender, BeforeDragNodeEventArgs e)
+		{
+			e.CanDrag = this.GraphControlCanDragNode(e.Node);
+			this.dragNode = e.Node;
+		}
+
+		private void OnTreeListDragOver(object? sender, DragEventArgs e)
         {
-            e.CanDrag = this.GraphControlCanDragNode(e.Node);
-        }
+            var args = e.GetDXDragEventArgs(this.TreeList); // this.TreeList.GetDXDragEventArgs(e);
+            //IDragNodesProvider? provider = e.Data?.GetData(typeof(IDragNodesProvider)) as IDragNodesProvider;
+            object? dragNode = this.dragNode;
+			//object? dragNode = args.Node; // <- Does not working, it is always null
+			//object? dragNode = e.Data?.GetData(typeof(TreeListNode)) as TreeListNode;
+   //         object? dragNode = (e.Data?.GetData(typeof(IDragNodesProvider)) as IDragNodesProvider)?.DragNodes.ElementAt(0); // provider.DragNodes.ElementAt(0)
 
-        //private void treeList_DragLeave(object sender, EventArgs e)
-        //{
-        //    //throw new NotImplementedException();
-        //}
-
-        private void treeList_DragOver(object sender, DragEventArgs e)
-        {
-            DXDragEventArgs args = this.TreeList.GetDXDragEventArgs(e);
-            bool canChangeParent = false;
-
+			// args.Node ?? provider?.DragNodes.ElementAt(0) ?? ; // For some reasons args.Node is null
 
 			e.Effect = DragDropEffects.None;
+
+            // args.Node is null, but this is not the truth
+            // Alternative to fet the drag node:
+
+
 			//        if (args.TargetNode == null || args.DragInsertPosition == DragInsertPosition.None)
 			//        {
 			//this.RaiseDragOverTest(this, new DragOverTestArgs(args.TargetNode, args.DragInsertPosition, e.Effect));
@@ -1611,21 +1706,24 @@ namespace Simple.Objects.Controls
 
 			//if (args.DragInsertPosition != DragInsertPosition.None)
    //         {
+
+            //if (args.TargetNode.Id == 1 && args.DragInsertPosition == DragInsertPosition.AsChild)
+            //if (args.TargetNode.GetValue(0).ToString() == "F4" && args.DragInsertPosition == DragInsertPosition.AsChild)
+            //    e.Effect = DragDropEffects.None;
+
+            if (dragNode != null && dragNode != args.TargetNode)
+            {
                 TreeListNode? newParentNode = this.GetDragDropParentNode(args.TargetNode, args.DragInsertPosition);
-
-				//if (args.TargetNode.Id == 1 && args.DragInsertPosition == DragInsertPosition.AsChild)
-				//if (args.TargetNode.GetValue(0).ToString() == "F4" && args.DragInsertPosition == DragInsertPosition.AsChild)
-				//    e.Effect = DragDropEffects.None;
-
-				canChangeParent = this.CanNodeChangeParent(args.Node, newParentNode);
+                bool canChangeParent = this.CanNodeChangeParent(dragNode, newParentNode);
 
                 if (canChangeParent)
                 {
                     e.Effect = DragDropEffects.Move;
                     this.destinationNodeParentCandidate = newParentNode;
-				}
+                }
 
-            this.RaiseDragOverTest(this, new DragOverTestArgs(args.TargetNode, args.DragInsertPosition, e.Effect, canChangeParent));
+                this.RaiseDragOverTest(this, new DragOverTestArgs(args.TargetNode, args.DragInsertPosition, e.Effect, canChangeParent));
+            }
         }
 
 		private TreeListNode? GetDragDropParentNode(TreeListNode targetNode, DragInsertPosition dragInsertPosition)
@@ -1635,22 +1733,38 @@ namespace Simple.Objects.Controls
             return parentNode;
         }
 
-		private void treeList_DragDrop(object sender, DragEventArgs e)
+		private TreeListNode? GetNodeByPoint(Point hitPoint)
+		{
+			Point pt = this.TreeList!.PointToClient(hitPoint);
+			TreeListHitInfo ht = this.TreeList.CalcHitInfo(pt);
+			TreeListNode node = ht.Node;
+
+			if (node is TreeListAutoFilterNode)
+				return null;
+
+			return node;
+		}
+
+		private void OnTreeListDragDrop(object? sender, DragEventArgs e)
         {
-            DXDragEventArgs args = this.TreeList.GetDXDragEventArgs(e);
+            var args = e.GetDXDragEventArgs(this.TreeList);
+			IDragNodesProvider? provider = e.Data?.GetData(typeof(IDragNodesProvider)) as IDragNodesProvider;
+            var dragNode = provider?.DragNodes.FirstOrDefault();
 
 			if (args.DragInsertPosition == DragInsertPosition.None && this.destinationNodeParentCandidate == null) // In case when node can be moved to root (last under all elements in root position, if thex ecists) we need to manualy move node.
 				this.TreeList?.MoveNode(args.Node, destinationNode: null);                                         // TreeList AfterDropNode event is not fired
 
+			//this.GraphControlDragDrop(args.Node, this.destinationNodeParentCandidate);
+			if (dragNode != null)
+                this.GraphControlDragDrop(dragNode, this.destinationNodeParentCandidate);
 
-			this.GraphControlDragDrop(args.Node, this.destinationNodeParentCandidate);
 			//this.GraphControlDragDrop(args.Node, args.TargetNode);
 			//this.TreeList?.MoveNode(args.Node, this.destinationNodeParentCandidate as TreeListNode);                                         // TreeList AfterDropNode event is not fired
 
 			//e.Effect = DragDropEffects.Move;
 		}
 
-		private void treeList_AfterDropNode(object sender, AfterDropNodeEventArgs e)
+		private void OnTreeListAfterDropNode(object sender, AfterDropNodeEventArgs e)
 		{
 			if (!e.IsSuccess)
 				return;

@@ -16,12 +16,6 @@ namespace Simple.Objects
 {
 	partial class SimpleObject : IBindingSimpleObject, IPropertyValue, IEqualityComparer , IDisposable
 	{
-		#region |   Protected Members   |
-
-		protected readonly object lockObject = new object();
-
-		#endregion |   Protected Members   |
-
 		#region |   Private Members   |
 
 		private SimpleObjectManager manager;
@@ -40,11 +34,18 @@ namespace Simple.Objects
 		private static Dictionary<long, long> EmptyNewObjectIdsByTempClientObjectIdDictionary = new Dictionary<long, long>();
 
 		private string? imageName = null;
+		private string? defaultImageName = null;
 		private object? tag = null;
 
 		private const string imageNameOptionSeparator = ".";
 
 		#endregion |   Private Members   |
+
+		#region |   Protected Members   |
+
+		protected readonly object lockObject = new object();
+
+		#endregion |   Protected Members   |
 
 		#region |   Constructors and Initialization   |
 
@@ -207,22 +208,28 @@ namespace Simple.Objects
 
 		public virtual string? GetDescription()
 		{
-			if (this.GetModel().DescriptionPropertyModel != null)
-				return this.GetPropertyValue<string>(this.GetModel().DescriptionPropertyModel);
+			var propertyModel = this.GetModel().DescriptionPropertyModel;
+
+			if (propertyModel != null)
+				return this.GetPropertyValue<string>(propertyModel);
 
 			return null;
 		}
 
 		public void SetName(string name)
 		{
-			if (this.GetModel().NamePropertyModel != null)
-				this.SetPropertyValue(this.GetModel().NamePropertyModel, name);
+			var propertyModel = this.GetModel().NamePropertyModel;
+
+			if (propertyModel != null)
+				this.SetPropertyValue(propertyModel, name);
 		}
 
 		public void SetDescription(string description)
 		{
-			if (this.GetModel().DescriptionPropertyModel != null)
-				this.SetPropertyValue(this.GetModel().DescriptionPropertyModel, description);
+			var propertyModel = this.GetModel().DescriptionPropertyModel;
+
+			if (propertyModel != null)
+				this.SetPropertyValue(propertyModel, description);
 		}
 
 		public GraphElement CreateGraphElement(int graphKey, GraphElement? parent, ChangeContainer? changeContainer, ObjectActionContext context, object? requester)
@@ -242,7 +249,12 @@ namespace Simple.Objects
 
 		public T GetPropertyValue<T>(string propertyName)
 		{
-			return this.GetPropertyValue<T>(this.GetModel().PropertyModels[propertyName].PropertyIndex, default);
+			var propertyModel = this.GetModel().PropertyModels[propertyName];
+
+			if (propertyModel != null)
+				return this.GetPropertyValue<T>(propertyModel.PropertyIndex);
+
+			return default!; 
 		}
 
 		public T GetPropertyValue<T>(int propertyIndex)
@@ -276,7 +288,7 @@ namespace Simple.Objects
 
 		public virtual object? GetPropertyValue(string propertyName)
 		{
-			IPropertyModel propertyModel = this.GetModel().PropertyModels[propertyName];
+			IPropertyModel? propertyModel = this.GetModel().PropertyModels[propertyName];
 			object? result = null;
 
 			if (propertyModel != null)
@@ -603,30 +615,31 @@ namespace Simple.Objects
 
 		public virtual string? GetDefaultImageName()
 		{
-			string? result = null;
-			
-			if (this is GraphElement graphElement)
+			if (this.defaultImageName == null)
 			{
-				if (graphElement.SimpleObject != null)
-					result = graphElement.SimpleObject.GetDefaultImageName();
-			}
-			else
-			{
-				ISimpleObjectModel objectModel = this.GetModel();
-
-				result = objectModel.ImageName;
-
-				if (objectModel.ObjectSubTypePropertyModel != null) // ObjectSubTypes.Count > 0)
+				if (this is GraphElement graphElement)
 				{
-					int objectSubType = this.GetPropertyValue<int>(objectModel.ObjectSubTypePropertyModel);
-					IModelElement? subTypeModel;
+					if (graphElement.SimpleObject != null)
+						this.defaultImageName = graphElement.SimpleObject.GetDefaultImageName();
+				}
+				else
+				{
+					ISimpleObjectModel objectModel = this.GetModel();
 
-					if (objectModel.ObjectSubTypes.TryGetValue(objectSubType, out subTypeModel))
-						result = subTypeModel.ImageName;
+					this.defaultImageName = objectModel.ImageName;
+
+					if (objectModel.ObjectSubTypePropertyModel != null) // ObjectSubTypes.Count > 0)
+					{
+						int objectSubType = this.GetPropertyValue<int>(objectModel.ObjectSubTypePropertyModel);
+						IModelElement? subTypeModel;
+
+						if (objectModel.ObjectSubTypes.TryGetValue(objectSubType, out subTypeModel))
+							this.defaultImageName = subTypeModel.ImageName;
+					}
 				}
 			}
 
-			return result;
+			return this.defaultImageName;
 		}
 
 		public void SetImageName(string imageName)
@@ -637,19 +650,12 @@ namespace Simple.Objects
 
 		public void RecalcImageName()
 		{
-			string? newImageName = this.Manager.GetImageNameInternal(this);
+			string? oldImageName = this.imageName;
 			
-			if (newImageName != this.imageName)
-			{
-				string? oldImageName = this.imageName;
+			this.imageName = this.Manager.GetImageNameInternal(this);
 
-				this.imageName = newImageName;
+			if (this.imageName != oldImageName && !(oldImageName == null && this.imageName == this.GetDefaultImageName()))  // If first GetImageName is invoked and image name is default image name -> no need for fire event ImageNameChange
 				this.Manager.ImageNameIsChanged(this, this.imageName, oldImageName);
-			}
-			else
-			{
-				this.imageName = newImageName;
-			}
 		}
 
 		public void AddImageNameOption(string imageOption)
@@ -661,6 +667,7 @@ namespace Simple.Objects
 				string[] imageBaseNameAndOptions = imageName.Split(new string[] { imageNameOptionSeparator }, StringSplitOptions.RemoveEmptyEntries);
 				string imageBaseName = imageBaseNameAndOptions[0];
 				List<string> currentImageOptions = imageBaseNameAndOptions.ToList();
+				
 				currentImageOptions.RemoveAt(0);
 
 				if (!currentImageOptions.Contains(imageOption))
@@ -685,6 +692,7 @@ namespace Simple.Objects
 				string[] imageBaseNameAndOptions = this.imageName!.Split(new string[] { imageNameOptionSeparator }, StringSplitOptions.RemoveEmptyEntries);
 				string imageBaseName = imageBaseNameAndOptions[0];
 				List<string> currentImageOptions = imageBaseNameAndOptions.ToList();
+				
 				currentImageOptions.RemoveAt(0);
 
 				if (currentImageOptions.Contains(imageOption))
@@ -1179,7 +1187,7 @@ namespace Simple.Objects
 			return this.GetNonDefaultPropertyIndexValuesInternal(propertyIndex => this.GetFieldValue(propertyIndex), propertySelector);
 		}
 
-		internal List<PropertyIndexValuePair> GetNonDefaultPropertyIndexValuesInternal(Func<int, object?> getFieldValue, Predicate<IPropertyModel>? propertySelector = null) //, Func<IPropertyModel, object, object> normalizer)
+		internal List<PropertyIndexValuePair> GetNonDefaultPropertyIndexValuesInternal(Func<int, object?> getValue, Predicate<IPropertyModel>? propertySelector = null) //, Func<IPropertyModel, object, object> normalizer)
 		{
 			List<PropertyIndexValuePair> result;
 
@@ -1192,7 +1200,7 @@ namespace Simple.Objects
 					if (propertySelector != null && !propertySelector(propertyModel))
 						continue;
 					
-					object? propertyValue = getFieldValue(propertyModel.PropertyIndex); // this.GetOldPropertyValue(propertyModel.PropertyIndex);
+					object? propertyValue = getValue(propertyModel.PropertyIndex); // this.GetOldPropertyValue(propertyModel.PropertyIndex);
 					//propertyValue = normalizer(propertyModel, propertyValue);
 
 					bool isDefault = object.Equals(propertyValue, propertyModel.DefaultValue); // !Comparison.IsEqual(propertyValue, propertyModel.DefaultValue);
@@ -1745,6 +1753,112 @@ namespace Simple.Objects
 		//public ChangeContainer GetChangeContainer() => this.ChangeContainer ?? this.Manager.DefaultChangeContainer;
 
 		#endregion |   Public Methods   |
+
+		#region |   Object Property Value Normalization   |
+
+
+		//private object? NormalizeForWriting(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId)
+		//{
+		//	return GetNormalizedValue(propertyModel, value, expectedPropertyTypeId, (clearText) => PasswordSecurity.Encrypt(clearText, this.Encryptor)); //, this.CryptoBlockSize));
+		//}
+
+		//protected internal object? NormalizeForWritingByDatastoreType(IServerPropertyInfo propertyModel, object? propertyValue)
+		//{
+		//	return NormalizeForWriting(propertyModel, propertyValue, propertyModel.DatastoreTypeId);
+		//}
+
+
+		//private object? NormalizeWhenReading(IServerPropertyInfo propertyModel, object? readerValue, int expectedPropertyTypeId)
+		//{
+		//	return GetNormalizedValue(propertyModel, readerValue, expectedPropertyTypeId, (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor)); //, this.CryptoBlockSize));
+		//}
+
+		//public static object? NormalizeWhenReadingByPropertyTypeWithoutDecryption(IServerPropertyInfo propertyModel, object? readerValue)
+		//{
+		//	return GetNormalizedValueWhenReadingFromDatastore(propertyModel, readerValue, propertyModel.PropertyTypeId, (encryptedText) => encryptedText);
+		//}
+
+		public static object? GetNormalizedValueWhenReadingFromDatastore(IServerPropertyInfo propertyModel, object? fieldValue, int expectedPropertyTypeId, Func<string, string> encryptMethod)
+		{
+			Type expectedType = PropertyTypes.GetPropertyType(expectedPropertyTypeId);
+
+			return GetNormalizedValueWhenReadingFromDatastore(propertyModel, fieldValue, expectedType, encryptMethod);
+		}
+
+		public static object? GetNormalizedValueWhenReadingFromDatastore(IServerPropertyInfo propertyModel, object? fieldValue, Type expectedType, Func<string, string> encryptMethod)
+		{
+			if (fieldValue == DBNull.Value || fieldValue == null)
+				return expectedType.GetDefaultValue();
+			else
+				return GetNormalizedValue(propertyModel, fieldValue, expectedType, encryptMethod);
+		}
+
+		public static object? GetNormalizedValueForWritingToDatastore(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId, Func<string, string> encryptMethod)
+		{
+			Type expectedType = PropertyTypes.GetPropertyType(expectedPropertyTypeId);
+
+			return GetNormalizedValueForWritingToDatastore(propertyModel, value, expectedType, encryptMethod);
+		}
+
+		public static object? GetNormalizedValueForWritingToDatastore(IServerPropertyInfo propertyModel, object? value, Type expectedType, Func<string, string> encryptMethod)
+		{
+			if (value == null || (propertyModel.IsRelationZeroValueDatastoreDBNull && (long)value == 0))
+				return DBNull.Value;
+			else if (value.GetType().IsEnum) // if field value is enum (not propertyModel.PropertyType.IsEnum), eg. SystemTransaction.Status, convers it to int. // propertyModel.PropertyType.IsEnum)
+				return (int)value;
+			else
+				return GetNormalizedValue(propertyModel, value, expectedType, encryptMethod);
+		}
+
+		private static object? GetNormalizedValue(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId, Func<string, string> encryptMethod)
+		{
+			Type expectedType = PropertyTypes.GetPropertyType(expectedPropertyTypeId);
+
+			return GetNormalizedValue(propertyModel, value, expectedType, encryptMethod);
+		}
+
+		internal static object? GetNormalizedValue(IServerPropertyInfo propertyModel, object? value, Type expectedType, Func<string, string> encryptMethod)
+		{
+			object? result = value;
+			//Type valueType = value.GetType();
+			if (propertyModel.IsEncrypted)
+			{
+				result = encryptMethod(value.ToString());
+
+				//if (result == null)
+				//	return expectedType.GetDefaultValue();
+			}
+
+			//if (expectedType == typeof(Guid?))
+			//{
+			//	result = (Guid?)value;
+			//}
+			//else
+			//
+
+			if (value is null)
+			{
+				return expectedType.GetDefaultValue();
+			}
+			else if (value.GetType() != expectedType)
+			{
+				////Type nullableType = Nullable.GetUnderlyingType(result.GetType());
+				//if (expectedType.IsGenericType && expectedType.GetGenericTypeDefinition() == typeof(Nullable<>)) // IsNullable
+				//{
+				//	var result2 = Activator.CreateInstance(expectedType, result);
+				//}
+				//else
+				//{
+				result = Conversion.TryChangeType(value, expectedType);
+
+				//}
+			}
+
+			return result;
+		}
+
+		#endregion |   Object Property Value Normalization   |
+
 
 		#region |   Internal Methods   |
 
@@ -3838,7 +3952,7 @@ namespace Simple.Objects
 			this.OnPropertyValueChange(propertyModel, value, oldValue, isChanged, changeContainer, context, requester);
 			this.Manager.PropertyValueIsChanged(this, propertyModel, value, oldValue, isChanged, changeContainer, context, requester);
 
-			IPropertyModel objectSubTypePropertyModel = this.GetModel().ObjectSubTypePropertyModel;
+			IPropertyModel? objectSubTypePropertyModel = this.GetModel().ObjectSubTypePropertyModel;
 
 			if (objectSubTypePropertyModel != null && objectSubTypePropertyModel.PropertyIndex == propertyModel.PropertyIndex)
 				this.RecalcImageName();

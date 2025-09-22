@@ -31,7 +31,15 @@ namespace Simple.SocketEngine
             SequenceWriter binaryWriter = new SequenceWriter(span, package.CharacterEncoding);
 
 			if (package.HeaderInfo.PackageType == PackageType.Response)
-				package.headerInfo.ResponseSucceed = true; // Maybe already set to true
+			{
+				if (!package.HeaderInfo.ResponseSucceed)
+				{
+					Debug.WriteLine("Package.HeaderInfo.ResponseSucceed should be true at this pont: PackageEncoder.Encode");
+					//throw new Exception("Package.HeaderInfo.ResponseSucceed should be true at this pont: PackageEncoder.Encode");
+				}
+
+				package.HeaderInfo.ResponseSucceed = true; // Maybe already set to true
+			}
 
 			package.WriteHeader(ref binaryWriter);
 			
@@ -44,11 +52,11 @@ namespace Simple.SocketEngine
 				binaryWriter = new SequenceWriter(span, package.CharacterEncoding);
 
 				if (package.HeaderInfo.PackageType == PackageType.Response)
-					package.headerInfo.ResponseSucceed = false; 
+					package.HeaderInfo.ResponseSucceed = false; 
 
 				package.WriteHeader(ref binaryWriter);
 				package.PackageArgs = new ErrorResponseArgs(PackageStatus.ExceptionIsCaughtOnArgsWriting, ex.GetFullErrorMessage());
-				package.PackageArgs?.WriteTo(ref binaryWriter, package.Session);
+				package.PackageArgs!.WriteTo(ref binaryWriter, package.Session);
 				Debug.WriteLine("PackageEncoder error on writing PackageArgs: " + ex.GetFullErrorMessage());
 			}
 
@@ -56,6 +64,8 @@ namespace Simple.SocketEngine
 
             writer.Write(packageLengthData);
             binaryWriter.WriteDataTo(writer);
+
+			//if (((System.IO.Pipelines.Pipe.DefaultPipeWriter)writer).UnflushedBytes)
 
 			if (this.createDataCopy)
 			{

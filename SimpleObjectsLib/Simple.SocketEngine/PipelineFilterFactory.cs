@@ -7,9 +7,13 @@ using SuperSocket.ProtoBase;
 
 namespace Simple.SocketEngine
 {
-	public class PipelineFilterFactory : IPipelineFilterFactory<PackageReader> //, DefaultPipelineFilterFactory<PackageInfo, SimplePipelineFilter>
+	public class PipelineFilterFactory : IPipelineFilterFactory<PackageInfo> //, DefaultPipelineFilterFactory<PackageInfo, SimplePipelineFilter>
 	{
 		protected IPackageDecoder<PackageReader>? PackageDecoder { get; private set; }
+
+		//public PipelineFilterFactory()
+		//{
+		//}
 
 		public PipelineFilterFactory(IServiceProvider serviceProvider, PackageArgsFactory packageArgsFactory)
 		{
@@ -22,7 +26,7 @@ namespace Simple.SocketEngine
 
 		public PackageArgsFactory PackageArgsFactory { get; private set; }
 
-		public IPipelineFilter<PackageReader> Create()
+		public IPipelineFilter<PackageInfo> Create()
 		{
 			var result = new PipelineFilter(this.PackageArgsFactory, createPackageDataCopy: false); // base class sets Decoder to null
 

@@ -1628,7 +1628,7 @@ namespace Simple.Objects
 
 					//value = this.ObjectManager.GetObject(foreignObjectKey);
 					
-					if (primaryObjectId != null)		
+					if (primaryObjectId != null && primaryObjectId != 0)
 						value = this.Manager.GetObject(primaryTableId, (long)primaryObjectId);
 
                     //if (value != null)

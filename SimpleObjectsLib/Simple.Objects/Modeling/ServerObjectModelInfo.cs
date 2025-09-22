@@ -113,6 +113,7 @@ namespace Simple.Objects
 				writer.WriteInt32Optimized(serverPropertyInfo.DatastoreTypeId);
 				writer.WriteBoolean(serverPropertyInfo.IsRelationTableId);
 				writer.WriteBoolean(serverPropertyInfo.IsRelationObjectId);
+				writer.WriteBoolean(serverPropertyInfo.IsRelationZeroValueDatastoreDBNull);
 				writer.WriteBoolean(serverPropertyInfo.IsStorable);
 				writer.WriteBoolean(serverPropertyInfo.IsSerializationOptimizable);
 				writer.WriteBoolean(serverPropertyInfo.IsClientToServerSeriazable);
@@ -143,6 +144,7 @@ namespace Simple.Objects
 				int datastoreTypeId = reader.ReadInt32Optimized();
 				bool isRelationTableId = reader.ReadBoolean();
 				bool isRelationObjectId = reader.ReadBoolean();
+				bool isRelationZeroValueDatastoreDBNull = reader.ReadBoolean();
 				bool isStorable = reader.ReadBoolean();
 				bool isSerializationOptimizable = reader.ReadBoolean();
 				bool isMemberOfClientToServerSerializationSequence = reader.ReadBoolean();
@@ -152,7 +154,7 @@ namespace Simple.Objects
 				bool includeInTransactionActionLog = reader.ReadBoolean();
 				object? defaultValue = (isSerializationOptimizable) ? reader.ReadOptimized(propertyTypeId) : reader.Read(propertyTypeId);
 
-				this.ServerPropertyInfos[i] = new ServerPropertyInfo(propertyIndex, propertyName, propertyTypeId, datastoreTypeId, isRelationTableId, isRelationObjectId, isStorable,
+				this.ServerPropertyInfos[i] = new ServerPropertyInfo(propertyIndex, propertyName, propertyTypeId, datastoreTypeId, isRelationTableId, isRelationObjectId, isRelationZeroValueDatastoreDBNull, isStorable,
 																	 isSerializationOptimizable, isMemberOfClientToServerSerializationSequence, isMemberOfServerToClientSerializationSequence, isMemberOfClientToServerToClientSerializationSequence, 
 																	 isEncrypted, includeInTransactionActionLog, defaultValue);
 			}

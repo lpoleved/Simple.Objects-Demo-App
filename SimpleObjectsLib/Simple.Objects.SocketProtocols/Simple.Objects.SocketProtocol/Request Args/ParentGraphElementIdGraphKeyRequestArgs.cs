@@ -9,6 +9,7 @@ using Simple.SocketEngine;
 namespace Simple.Objects.SocketProtocol
 {
 	[SystemRequestArgs((int)SystemRequest.GetGraphElementsWithObjects)]
+	[SystemRequestArgs((int)SystemRequest.GetGraphElementsWithObjectsNew)]
 	public class ParentGraphElementIdGraphKeyRequestArgs : GraphKeyRequestArgs
 	{
 		public ParentGraphElementIdGraphKeyRequestArgs()

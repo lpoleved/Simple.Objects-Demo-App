@@ -240,7 +240,8 @@ namespace Simple.Objects.Controls
 					this.objectManager.AfterDelete -= ObjectManager_AfterDelete;
                     this.objectManager.PropertyValueChange -= ObjectManager_PropertyValueChange;
                     this.objectManager.GraphElementParentChange -= new OldParentGraphElemenChangeContainertContextRequesterEventHandler(objectManager_GraphElementParentChange);
-					this.objectManager.GraphElementHasChildrenUpdate -= ObjectManager_GraphElementHasChildrenUpdatze;
+					this.objectManager.GraphElementHasChildrenUpdate -= ObjectManager_GraphElementHasChildrenUpdate;
+					this.objectManager.GetGraphElementsWithObjectRestOfDataReceived -= ObjectManager_GetGraphElementsWithObjectRestOfDataReceived;
 					//this.manager.ChangedPropertyNamesCountChange -= new CountChangeSimpleObject(manager_ChangedPropertyNamesCountChange);
 					this.objectManager.OrderIndexChange -= new ChangeOrderIndexSimpleObjectRequesterEventHandler(objectManager_OrderIndexChange);
 					this.objectManager.RequireSavingChange -= ObjectManager_RequireSavingChange;
@@ -264,8 +265,9 @@ namespace Simple.Objects.Controls
                     this.objectManager.AfterDelete += ObjectManager_AfterDelete;
                     this.objectManager.PropertyValueChange += ObjectManager_PropertyValueChange;
                     this.objectManager.GraphElementParentChange += new OldParentGraphElemenChangeContainertContextRequesterEventHandler(objectManager_GraphElementParentChange);
-					this.objectManager.GraphElementHasChildrenUpdate += ObjectManager_GraphElementHasChildrenUpdatze;
-                    //this.manager.ChangedPropertyNamesCountChange += new CountChangeSimpleObject(manager_ChangedPropertyNamesCountChange);
+					this.objectManager.GraphElementHasChildrenUpdate += ObjectManager_GraphElementHasChildrenUpdate;
+					this.objectManager.GetGraphElementsWithObjectRestOfDataReceived += ObjectManager_GetGraphElementsWithObjectRestOfDataReceived;
+					//this.manager.ChangedPropertyNamesCountChange += new CountChangeSimpleObject(manager_ChangedPropertyNamesCountChange);
 					this.objectManager.OrderIndexChange += new ChangeOrderIndexSimpleObjectRequesterEventHandler(objectManager_OrderIndexChange);
                     this.objectManager.RequireCommitChange += ObjectManager_RequireCommitChange;
                     this.objectManager.RequireSavingChange += ObjectManager_RequireSavingChange;
@@ -2256,13 +2258,13 @@ namespace Simple.Objects.Controls
                         //{
                         if (graphElement.HasChildren)
                         {
+                            Cursor? currentCursor = Cursor.Current;
+                            
+                            Cursor.Current = Cursors.WaitCursor;
+							
                             var childGraphElements = this.ObjectManager!.GetGraphElements(this.GraphKey, parentGraphElementId: graphElement.Id);
 
-                            Cursor? currentCursor = Cursor.Current;
-                            Cursor.Current = Cursors.WaitCursor;
-
-
-                            this.isLoadingInProgress = true;
+							this.isLoadingInProgress = true;
                             nodeTag.ChildrenNodesLoading = true;
                             
                             this.BeginGraphUpdate();
@@ -2975,7 +2977,7 @@ namespace Simple.Objects.Controls
 			this.SetButtonsMoveDownEnableProperty(this.FocusedGraphElement);
 		}
 
-		private void ObjectManager_GraphElementHasChildrenUpdatze(object sender, GraphElementEventArgs e)
+		private void ObjectManager_GraphElementHasChildrenUpdate(object sender, GraphElementEventArgs e)
 		{
 			if (this.isLoadingInProgress || !this.isBinded || this.isDisposed)
 				return;
@@ -2983,12 +2985,12 @@ namespace Simple.Objects.Controls
 			Form? form = this.FindGraphControlForm();
 
 			if (form != null && form.InvokeRequired)
-				form.Invoke(new MethodInvoker(() => this.ObjectManager_OnGraphElementHasChildrenUpdatze(e)));
+				form.Invoke(new MethodInvoker(() => this.ObjectManager_OnGraphElementHasChildrenUpdate(e)));
 			else
-				this.ObjectManager_OnGraphElementHasChildrenUpdatze(e);
+				this.ObjectManager_OnGraphElementHasChildrenUpdate(e);
 		}
 
-		protected void ObjectManager_OnGraphElementHasChildrenUpdatze(GraphElementEventArgs e)
+		protected void ObjectManager_OnGraphElementHasChildrenUpdate(GraphElementEventArgs e)
         {
             object? node = this.GetNode(e.GraphElement);
 
@@ -3003,6 +3005,68 @@ namespace Simple.Objects.Controls
             }
 		}
 
+		private void ObjectManager_GetGraphElementsWithObjectRestOfDataReceived(object sender, GetGraphElementsWithObjectsRestofDataEventArgs e)
+		{
+			if (this.isLoadingInProgress || !this.isBinded || this.isDisposed)
+				return;
+
+			Form? form = this.FindGraphControlForm();
+
+			if (form != null && form.InvokeRequired)
+				form.Invoke(new MethodInvoker(() => this.ObjectManager_OnGetGraphElementsWithObjectRestOfDataReceived(e)));
+			else
+				this.ObjectManager_OnGetGraphElementsWithObjectRestOfDataReceived(e);
+		}
+
+        protected void ObjectManager_OnGetGraphElementsWithObjectRestOfDataReceived(GetGraphElementsWithObjectsRestofDataEventArgs e)
+        {
+            if (this.ObjectManager?.GetObjectCache(GraphElementModel.TableId) is ObjectCache graphElementObjectCache)
+            {
+				//if (e.ParentGraphElementId != 0 && this.GetGraphNodeTag(e.ParentGraphElementId) is GraphElementNodeTag parentNodeTag)
+				//	parentNodeTag.ChildrenNodesLoaded = true;
+				
+                if ((e.ParentGraphElementId == 0 && e.GraphKey == this.GraphKey && this.anchorGraphElement == null) || (e.ParentGraphElementId != 0 && (this.nodesByGraphElement.Contains(e.ParentGraphElementId) || e.ParentGraphElementId == (this.anchorGraphElement?.Id ?? 0))))
+                {
+                    this.BeginGraphUpdate();
+
+                    foreach (long id in e.GraphElementObjectIds)
+                    {
+                        if (graphElementObjectCache.GetObject(id) is GraphElement graphElement)
+                        {
+                            //if (!graphElement.IsAnchor)
+                            //{
+                                object node = this.AddNodeInternal(graphElement, graphElement.Parent);
+                                var nodeTag = this.GetGraphNodeTag(node);
+
+                                //nodeTag.ChildrenNodesLoaded = true;
+                                //this.RaiseGraphElementCreated(e);
+                            //}
+                            //else if (this.GetNode(e.ParentGraphElementId) is object parentNode) // (e.Requester is ForeignClientRequester &&
+                            //{
+                            //    // this is client client working mode, new GE is created from remote client and parent exists in this controller, just to make shure to set GraphControlSetNodeHasChildrenProperty to true if this is the firs child.
+                            //    //var parentNodeTag = this.GetGraphNodeTag(parentNode);
+
+                            //    this.GraphControlSetNodeHasChildrenProperty(parentNode, graphElement.Parent!.HasChildren);
+                            //}
+                        }
+                        else
+                        {
+                            // The GraphElement must be in cache !!!
+                            throw new ArgumentNullException("The GraphElement is not in cache!");
+                        }
+                    }
+
+                    this.EndGraphUpdate();
+                }
+				else if (this.GetNode(e.ParentGraphElementId) is object parentNode && graphElementObjectCache.GetObject(e.ParentGraphElementId) is GraphElement graphElement) // (e.Requester is ForeignClientRequester &&
+				{
+					// this is client client working mode, new GE is created from remote client and parent exists in this controller, just to make shure to set GraphControlSetNodeHasChildrenProperty to true if this is the firs child.
+					//var parentNodeTag = this.GetGraphNodeTag(parentNode);
+
+					this.GraphControlSetNodeHasChildrenProperty(parentNode, graphElement.Parent!.HasChildren);
+                }
+            }
+		}
 
 		//private void manager_ChangedPropertyNamesCountChange(object sender, CountChangeSimpleObjectEventArgs e)
 		//{

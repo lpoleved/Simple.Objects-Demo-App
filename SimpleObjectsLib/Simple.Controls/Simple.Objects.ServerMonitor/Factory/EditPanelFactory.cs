@@ -83,20 +83,20 @@ namespace Simple.Objects.ServerMonitor
 			
 			if (bindingObject != null && bindingObject is PackageInfoRow packageInfoRow)
 			{
-				if (packageInfoRow.RequestOrMessagePackageInfo.HeaderInfo.PackageType == PackageType.Message)
+				if (packageInfoRow.RequestOrMessagePackageReader.PackageInfo.HeaderInfo.PackageType == PackageType.Message)
 				{
-                    if (packageInfoRow.RequestOrMessagePackageInfo.HeaderInfo.IsSystem) 
-						if (this.EditPanelTypeBySystemMessageCode.TryGetValue(packageInfoRow.RequestOrMessagePackageInfo.Key, out result))
+                    if (packageInfoRow.RequestOrMessagePackageReader.PackageInfo.HeaderInfo.IsSystem) 
+						if (this.EditPanelTypeBySystemMessageCode.TryGetValue(packageInfoRow.RequestOrMessagePackageReader.PackageInfo.Key, out result))
 							return result;
-					else if (this.EditPanelTypeByMessageCode.TryGetValue(packageInfoRow.RequestOrMessagePackageInfo.Key, out result))
+					else if (this.EditPanelTypeByMessageCode.TryGetValue(packageInfoRow.RequestOrMessagePackageReader.PackageInfo.Key, out result))
 						return result;
 				}
-				else if (packageInfoRow.RequestOrMessagePackageInfo.HeaderInfo.PackageType == PackageType.Request || packageInfoRow.RequestOrMessagePackageInfo.HeaderInfo.PackageType == PackageType.Response)
+				else if (packageInfoRow.RequestOrMessagePackageReader.PackageInfo.HeaderInfo.PackageType == PackageType.Request || packageInfoRow.RequestOrMessagePackageReader.PackageInfo.HeaderInfo.PackageType == PackageType.Response)
 				{
-					if (packageInfoRow.RequestOrMessagePackageInfo.HeaderInfo.IsSystem)
-						if (this.EditPanelTypeBySystemRequestId.TryGetValue(packageInfoRow.RequestOrMessagePackageInfo.Key, out result))
+					if (packageInfoRow.RequestOrMessagePackageReader.PackageInfo.HeaderInfo.IsSystem)
+						if (this.EditPanelTypeBySystemRequestId.TryGetValue(packageInfoRow.RequestOrMessagePackageReader.PackageInfo.Key, out result))
 							return result;
-					if (this.EditPanelTypeByRequestId.TryGetValue(packageInfoRow.RequestOrMessagePackageInfo.Key, out result))
+					if (this.EditPanelTypeByRequestId.TryGetValue(packageInfoRow.RequestOrMessagePackageReader.PackageInfo.Key, out result))
 						return result;
 				}
 

@@ -9,16 +9,16 @@ using Simple.Serialization;
 using Simple.SocketEngine;
 using Simple.Objects.SocketProtocol;
 using Simple.Objects.MonitorProtocol;
-using DevExpress.CodeParser;
-using DevExpress.XtraScheduler.Commands;
-using DevExpress.XtraGauges.Core.Drawing;
 
 namespace Simple.Objects.ServerMonitor
 {
 	public class PackageInfoRow
 	{
-		private PackageInfo packageInfo;
-		private PackageInfo? responsePackageInfo = null;
+		private MonitorPackageReader packageReader;
+		private MonitorPackageReader? responsePackageReader = null;
+
+		//private PackageInfo packageInfo;
+		//private PackageInfo? responsePackageInfo = null;
 
 
 		/// <summary>
@@ -37,24 +37,27 @@ namespace Simple.Objects.ServerMonitor
 			this.Username = username;
 			this.Type = "Message";
 			this.Event = action.ToString();
-			
-			this.packageInfo = new PackageInfo(messageBuffer);
-			this.packageInfo.ReadPackageLength();
-			this.packageInfo.ReadHeader();
 
-			this.PackageKey = this.packageInfo.Key.ToString();
+			//
+			// We are going to decode packahe length, header and key info only.
+			// PackageArgs will be decoded only if this PackageRowInfo become focused.
+			//
+
+			this.packageReader = new MonitorPackageReader(messageBuffer);
+			this.packageReader.DecodePackageLengthHeaderAndKey();
+			this.PackageKey = this.packageReader.PackageInfo.Key.ToString();
 			//this.Token = this.packageInfo.Token;
 			this.Length = messageBuffer.Length.ToString() + " Bytes"; // (responseRequestMessagePackageInfo.PackageLengthSize + responseRequestMessagePackageInfo.HeaderSize + this.PackageDetails.ArgsBuffer.Length).ToString();
 
-			string keyAppInfo = (this.packageInfo.HeaderInfo.IsSystem) ? "System" : "App";
-			string keyDescription = this.packageInfo.Key.ToString();
+			string keyAppInfo = (this.packageReader.PackageInfo.HeaderInfo.IsSystem) ? "System" : "App";
+			string keyDescription = this.packageReader.PackageInfo.Key.ToString();
 
-			if (this.packageInfo.HeaderInfo.IsSystem)
+			if (this.packageReader.PackageInfo.HeaderInfo.IsSystem)
 			{
-				if (packageInfo.HeaderInfo.PackageType == PackageType.Message)
-					keyDescription = ((SystemMessage)this.packageInfo.Key).ToString();
+				if (this.packageReader.PackageInfo.HeaderInfo.PackageType == PackageType.Message)
+					keyDescription = ((SystemMessage)this.packageReader.PackageInfo.Key).ToString();
 				else
-					keyDescription = ((SystemRequest)this.packageInfo.Key).ToString();
+					keyDescription = ((SystemRequest)this.packageReader.PackageInfo.Key).ToString();
 			}
 
 			this.PackageKey += $"  ({keyAppInfo}.{keyDescription})";
@@ -73,15 +76,11 @@ namespace Simple.Objects.ServerMonitor
 		public PackageInfoRow(int rowIndex, long sessionKey, byte[] requestBuffer, byte[] responseBuffer, string username, PackageAction action)
 			: this(rowIndex, sessionKey, requestBuffer, username, action)
 		{
-			this.Type = "Request";
-
-			this.responsePackageInfo = new PackageInfo(responseBuffer);
-			this.responsePackageInfo.ReadPackageLength();
-			this.responsePackageInfo.ReadHeader();
-
-			this.Length = this.packageInfo.PackageLength + this.packageInfo.PackageLengthSize + " + " +
-						  (this.responsePackageInfo.PackageLength + this.responsePackageInfo.PackageLengthSize); // (responseRequestMessagePackageInfo.PackageLengthSize + responseRequestMessagePackageInfo.HeaderSize + this.PackageDetails.ArgsBuffer.Length).ToString();
-			this.Length += " Bytes";
+			this.responsePackageReader = new MonitorPackageReader(responseBuffer);
+			this.responsePackageReader.DecodePackageLengthHeaderAndKey();
+			this.Type = "Request-Response";
+			this.Length = this.packageReader.PackageLengthBytesConsumed + this.packageReader.PackageLength + " + " +
+						  this.responsePackageReader.PackageLengthBytesConsumed + this.responsePackageReader.PackageLength + " Bytes"; // (responseRequestMessagePackageInfo.PackageLengthSize + responseRequestMessagePackageInfo.HeaderSize + this.PackageDetails.ArgsBuffer.Length).ToString();
 		}
 
 		public int No { get; private set; }
@@ -97,8 +96,8 @@ namespace Simple.Objects.ServerMonitor
 		// Internal properties are not visible in grid control row
 		//
 		internal int RowIndex { get; private set; }
-		internal PackageInfo RequestOrMessagePackageInfo => this.packageInfo;
-		internal PackageInfo? ResponsePackageInfo => this.responsePackageInfo;
+		internal MonitorPackageReader RequestOrMessagePackageReader => this.packageReader;
+		internal MonitorPackageReader? ResponsePackageReader => this.responsePackageReader;
 
 
 		//internal MessageArgs? MessageArgs { get; set; }

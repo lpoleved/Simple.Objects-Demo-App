@@ -36,30 +36,44 @@ namespace Simple.Objects.ServerMonitor
 		//	base.OnBindingObjectChange(oldBindingObject, bindingObject);
 		//}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			if (this.PackageInfoRow != null)
 			{
 				ISimpleObjectSession? session = this.Context?.GetSimpleObjectSession(this.PackageInfoRow.SessionKey);
-				PackageInfo request = this.PackageInfoRow.RequestOrMessagePackageInfo;
-				PackageInfo response = this.PackageInfoRow.ResponsePackageInfo!;
-				int packageKey = request.Key;
-				string keyAppInfo = (request.HeaderInfo.IsSystem) ? "System" : "App";
+				var request = this.PackageInfoRow.RequestOrMessagePackageReader;
+				var response = this.PackageInfoRow.ResponsePackageReader;
+				int packageKey = request.PackageInfo.Key;
+				string keyAppInfo = (request.PackageInfo.HeaderInfo.IsSystem) ? "System" : "App";
 				string keyDescription = packageKey.ToString();
 
-				if (request.HeaderInfo.IsSystem)
+				if (request.PackageInfo.HeaderInfo.IsSystem)
 					keyDescription = ((SystemRequest)packageKey).ToString();
 
 				this.tabPageObjectName.Text = String.Format("Socket Package Request  -  {0}.{1} ({2})", keyAppInfo, keyDescription, packageKey);
 				this.editorRequestPackageLength.Text = request.PackageLength.ToString() + " Bytes"; //?? String.Empty;
-				this.editorRequestPackageHeaderValue.Text = "0x" + request.HeaderInfo.Value.ToString("X4");
-				this.packageControlRequestHeader.SetPackageHeaderValues(request.HeaderInfo);
+				this.editorRequestPackageHeaderValue.Text = "0x" + request.PackageInfo.HeaderInfo.Value.ToString("X4");
+				this.packageControlRequestHeader.SetPackageHeaderValues(request.PackageInfo.HeaderInfo);
 				this.editorMessageCodeOrRequestId.Text += $"  ({keyAppInfo}.{keyDescription})";
 				//this.editorToken.Text = this.PackageInfoRow.Token.ToString();
 
-				if (request.Buffer.Length < EditPanelSessionPackageMessage.LargePackageBufferSize)
+				if (request.PackageInfo.PackageArgs is null && session != null)
+				{
+					request.PackageInfo.PackageArgs = this.CreateRequestArgs();
+
+					try
+					{
+						request.DecodePackageArgs(session);
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine($"Error reading request args: {ex} (RequestId={request.PackageInfo.Key})");
+					}
+				}
+
+				if (request.PackageInfo.Buffer?.Length < EditPanelSessionPackageMessage.LargePackageBufferSize)
 				{
 					this.editorRequestPackageValue.Text = this.CreatePackageText(request);
 				}
@@ -80,36 +94,29 @@ namespace Simple.Objects.ServerMonitor
 					setPackageHexText.Start();
 				}
 
-				if (session != null && request.PackageArgs is null)
+				this.editorResponsePackageLength.Text = response?.PackageLength.ToString() + " Bytes"; // .BaseStream.Length.ToString() + " Bytes";
+				this.editorResponsePackageHeaderValue.Text = "0x" + response?.PackageInfo.HeaderInfo.Value.ToString("X4");
+				this.packageHeaderControlResponse.SetPackageHeaderValues(response?.PackageInfo.HeaderInfo ?? new HeaderInfo(9));
+
+				if (response != null && response.PackageInfo.PackageArgs is null && session != null)
 				{
-					RequestArgs? requestArgs = this.CreateRequestArgs();
+					response.PackageInfo.PackageArgs = this.CreateResponseArgs();
 
-					if (requestArgs != null)
+					try
 					{
-						SequenceReader reader = new SequenceReader(request.Buffer);
-
-						try
-						{
-							reader.AdvancePosition(request.PackageLengthSize + request.HeaderSize);
-							request.ReadArgs(requestArgs, ref reader, session);
-						}
-						catch (Exception ex)
-						{
-							Debug.WriteLine($"Error reading request args: {ex} (RequestId={request.Key})");
-						}
+						response.DecodePackageArgs(session);
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine($"Error reading response args: {ex} (RequestId={response.PackageInfo.Key})");
 					}
 				}
 
-
-				this.editorResponsePackageLength.Text = response.PackageLength.ToString() + " Bytes"; // .BaseStream.Length.ToString() + " Bytes";
-				this.editorResponsePackageHeaderValue.Text = "0x" + response.HeaderInfo.Value.ToString("X4");
-				this.packageHeaderControlResponse.SetPackageHeaderValues(response.HeaderInfo);
-
-				if (response.Buffer.Length < EditPanelSessionPackageMessage.LargePackageBufferSize)
+				if (response?.PackageInfo.Buffer?.Length < EditPanelSessionPackageMessage.LargePackageBufferSize)
 				{
 					this.editorResponsePackageValue.Text = this.CreatePackageText(response);
 				}
-				else
+				else if (response != null)
 				{
 					// this.LargePackageHexTextVisualizer.Post(new PackageHexTextVisualInfo(request, this.editorRequestPackageValue));
 
@@ -124,26 +131,6 @@ namespace Simple.Objects.ServerMonitor
 					setPackageHexText.Priority = ThreadPriority.Normal;
 					//setPackageHexText.SetApartmentState(ApartmentState.STA);
 					setPackageHexText.Start();
-				}
-
-				if (session != null && response.PackageArgs is null)
-				{
-					ResponseArgs? responseArgs = this.CreateResponseArgs();
-
-					if (responseArgs != null)
-					{
-						SequenceReader reader = new SequenceReader(response.Buffer);
-
-						try
-						{
-							reader.AdvancePosition(response.PackageLengthSize + response.HeaderSize);
-							response.ReadArgs(responseArgs, ref reader, session);
-						}
-						catch (Exception ex)
-						{
-							Debug.WriteLine($"Error reading response args: {ex} (RequestId={response.Key})");
-						}
-					}
 				}
 			}
 		}

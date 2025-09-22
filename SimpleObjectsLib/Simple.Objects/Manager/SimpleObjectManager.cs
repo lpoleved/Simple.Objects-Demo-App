@@ -818,6 +818,7 @@ namespace Simple.Objects
 		public event ChangeOrderIndexSimpleObjectRequesterEventHandler? OrderIndexChange;
 		public event ValidationInfoEventHandler? ValidationInfo;
 		//public event ValidationEventHandler DeleteValidation;
+		public event GetGraphElementsWithObjectRestOfData? GetGraphElementsWithObjectRestOfDataReceived;
 		public event TransactionDatastoreActionRequesterEventHandler? TransactionStarted;
 		public event TransactionDatastoreActionRequesterEventHandler? TransactionFinished;
 		//public event TransactionInfoEventHandler? TransactionSucceeded;
@@ -1329,6 +1330,7 @@ namespace Simple.Objects
 						if (parent.HasChildrenInClientModeWhenNotLoaded)
 						{
 							this.CacheGraphElementsWithObjectsFromServer(graphKey, parentGraphElementId, out List<long> graphElementObjectIds); //, out hasChildrenInfo);
+							//this.CacheGraphElementsWithObjectsFromServerNew(graphKey, parentGraphElementId, out List<long> graphElementObjectIds); //, out hasChildrenInfo);
 
 							var graphElements = new SimpleObjectCollection<GraphElement>(this, GraphElementModel.TableId, graphElementObjectIds);
 
@@ -1950,8 +1952,8 @@ namespace Simple.Objects
 
 		public SimpleObject? GetObject(int tableId, long objectId)
 		{
-			//if (objectId == 0) // || tableId == 0 
-			//	return null;
+			if (objectId == 0) // || tableId == 0 
+				return null;
 
 			ObjectCache? objectCache = this.GetObjectCache(tableId);
 			SimpleObject? value = objectCache?.GetObject(objectId);
@@ -5424,15 +5426,17 @@ namespace Simple.Objects
 				else
 				{
 					actionType = TransactionActionType.Delete;
-					
+
 					if (simpleObject is GraphElement graphElement)
 					{
 						propertyIndexValues = new List<PropertyIndexValuePair>() { new PropertyIndexValuePair(GraphElementModel.PropertyModel.PreviousParentId.PropertyIndex, graphElement.ParentId),
-																				   new PropertyIndexValuePair(GraphElementModel.PropertyModel.DoesPreviousParentHaveChildren.PropertyIndex, graphElement.Parent?.GraphElements.Count > 1) 
+																				   new PropertyIndexValuePair(GraphElementModel.PropertyModel.DoesPreviousParentHaveChildren.PropertyIndex, graphElement.Parent?.GraphElements.Count > 1)
 																				 };
 					}
 					else
+					{
 						propertyIndexValues = null;
+					}
 				}
 
 				result.Add(new TransactionActionInfo(tableId, objectId, actionType, propertyIndexValues)); //, this.GetServerObjectModelInfo));
@@ -5508,37 +5512,37 @@ namespace Simple.Objects
 			return result;
 		}
 
-		public TransactionActionInfo[] CreateStorableTransactionRequestActionInfos(KeyValuePair<SimpleObject, TransactionRequestAction>[] transactionRequests)
-		{
-			TransactionActionInfo[] result = new TransactionActionInfo[transactionRequests.Length];
+		//public TransactionActionInfo[] CreateStorableTransactionRequestActionInfos(KeyValuePair<SimpleObject, TransactionRequestAction>[] transactionRequests)
+		//{
+		//	TransactionActionInfo[] result = new TransactionActionInfo[transactionRequests.Length];
 
-			for (int i = 0; i < transactionRequests.Length; i++)
-			{
-				//var item = transactionRequests.ElementAt(i);
-				SimpleObject simpleObject = transactionRequests[i].Key;
-				TransactionRequestAction requestAction = transactionRequests[i].Value;
-				int tableId = simpleObject.GetModel().TableInfo.TableId;
-				long objectId = simpleObject.Id;
-				TransactionActionType actionType;
-				List<PropertyIndexValuePair>? propertyIndexValues;
+		//	for (int i = 0; i < transactionRequests.Length; i++)
+		//	{
+		//		//var item = transactionRequests.ElementAt(i);
+		//		SimpleObject simpleObject = transactionRequests[i].Key;
+		//		TransactionRequestAction requestAction = transactionRequests[i].Value;
+		//		int tableId = simpleObject.GetModel().TableInfo.TableId;
+		//		long objectId = simpleObject.Id;
+		//		TransactionActionType actionType;
+		//		List<PropertyIndexValuePair>? propertyIndexValues;
 
-				if (requestAction == TransactionRequestAction.Save)
-				{
-					actionType = (simpleObject.IsNew) ? TransactionActionType.Insert : TransactionActionType.Update;
+		//		if (requestAction == TransactionRequestAction.Save)
+		//		{
+		//			actionType = (simpleObject.IsNew) ? TransactionActionType.Insert : TransactionActionType.Update;
 
-					propertyIndexValues = simpleObject.GetChangedStorablePropertyIndexValuePairs(this.NormalizeForWritingByPropertyType);
-				}
-				else
-				{
-					actionType = TransactionActionType.Delete;
-					propertyIndexValues = null;
-				}
+		//			propertyIndexValues = simpleObject.GetChangedStorablePropertyIndexValuePairs(NormalizeForWritingByPropertyType);
+		//		}
+		//		else
+		//		{
+		//			actionType = TransactionActionType.Delete;
+		//			propertyIndexValues = null;
+		//		}
 
-				result[i] = new TransactionActionInfo(tableId, objectId, actionType, propertyIndexValues); //, this.GetServerObjectModelInfo));
-			}
+		//		result[i] = new TransactionActionInfo(tableId, objectId, actionType, propertyIndexValues); //, this.GetServerObjectModelInfo));
+		//	}
 
-			return result;
-		}
+		//	return result;
+		//}
 
 
 		public List<TransactionActionInfo> CreateClientSeriazableTransactionActionsFromTransactionRequests(IDictionary<SimpleObject, TransactionRequestAction> transactionRequests)
@@ -5605,7 +5609,7 @@ namespace Simple.Objects
 				else
 				{
 					actionType = TransactionActionType.Insert;
-					propertyIndexValues = simpleObject.GetNonDefaultPropertyIndexValuesInternal(propertySelector: propertyModel => propertyModel.IncludeInTransactionActionLog, getFieldValue: propertyIndex => simpleObject.GetOldPropertyValue(propertyIndex)); ;
+					propertyIndexValues = simpleObject.GetNonDefaultPropertyIndexValuesInternal(propertySelector: propertyModel => propertyModel.IncludeInTransactionActionLog, getValue: propertyIndex => simpleObject.GetOldPropertyValue(propertyIndex)); ;
 				}
 
 				result.Add(new TransactionActionInfo(tableId, objectId, actionType, propertyIndexValues)); ; //, this.GetServerObjectModelInfo));
@@ -5673,14 +5677,14 @@ namespace Simple.Objects
 
 						if (simpleObject.IsNew)
 						{
-							propertyIndexValues = simpleObject.GetStorablePropertyIndexValuePairs(this.NormalizeForWritingToDatastore);
+							propertyIndexValues = simpleObject.GetStorablePropertyIndexValuePairs(NormalizeForWritingToDatastore);
 
 							datastoreAction = new DatastoreActionInfo(tableId, simpleObject.Id, TransactionActionType.Insert, propertyIndexValues);
 							//datastoreAction.SetActionInsert(objectModel.TableInfo.TableId, simpleObject.Id, propertyValues);
 						}
 						else // Update
 						{
-							propertyIndexValues = simpleObject.GetChangedStorablePropertyIndexValuePairs(this.NormalizeForWritingToDatastore);
+							propertyIndexValues = simpleObject.GetChangedStorablePropertyIndexValuePairs(NormalizeForWritingToDatastore);
 
 							if (propertyIndexValues.Count > 0)
 								datastoreAction = new DatastoreActionInfo(tableId, simpleObject.Id, TransactionActionType.Update, propertyIndexValues);
@@ -6290,6 +6294,27 @@ namespace Simple.Objects
 				this.CommitChanges();
 		}
 
+		public void OnGetGraphElementsWithObjectsRestOfDataReceived(int graphKey, long parentGraphElementId, IEnumerable<GraphElementObjectPair> graphElementObjectPairs)
+		{
+			GraphElement? parent = this.graphElementObjectCache?.GetObject(parentGraphElementId) as GraphElement;
+			//GraphElement? parent = this.GetObject(GraphElementModel.TableId, parentGraphElementId) as GraphElement; //,  graphElementObjectCache?.GetObject(parentGraphElementId) as GraphElement;
+
+			this.CacheGraphElementsWithObjectsInternal(graphKey, parentGraphElementId, graphElementObjectPairs, out List<long> graphElementObjectIds); //, out hasChildrenInfo);
+			
+			if (parent != null)
+			{
+				//var graphElements = new SimpleObjectCollection<GraphElement>(this, GraphElementModel.TableId, graphElementObjectIds);
+
+				parent.MergeClientGraphElementCollectionInternal(graphElementObjectIds);
+			}
+			else
+			{
+				this.SystemGraphs[graphKey].MergeRootGraphElementsInternal(graphElementObjectIds);
+			}
+
+			this.RaiseGetGraphElementsWithObjectRestOfData(graphKey, parentGraphElementId, graphElementObjectIds);
+		}
+
 		//public Transaction BeginTransaction_New(User user)
 		//{
 		//	lock (this.lockTransaction)
@@ -6860,7 +6885,7 @@ namespace Simple.Objects
 								}
 								else
 								{
-									propertyValue = this.NormalizeWhenReadingByPropertyType(propertyModel, propertyValue);
+									propertyValue = NormalizeWhenReadingByPropertyType(propertyModel, propertyValue);
 									simpleObject.SetPropertyValue(propertyModel, propertyValue, changeContainer, context, requester);
 								}
 							}
@@ -7087,7 +7112,79 @@ namespace Simple.Objects
 		//}
 
 
-#endregion |   Transaction Handling   |
+		#endregion |   Transaction Handling   |
+
+		#region |   Object Property Value Normalization   |
+
+		public object? NormalizeForClientServerSending(object? value, Type expectedType, bool encrypt)
+		{
+			object? result = value;
+
+			if (value == null)
+			{
+				result = expectedType.GetDefaultValue();
+			}
+			else
+			{
+				if (encrypt)
+				{
+					result = PasswordSecurity.Encrypt(value.ToString(), this.Encryptor); //, this.CryptoBlockSize);
+
+					if (result == null)
+						return expectedType.GetDefaultValue();
+				}
+
+				if (value.GetType() != expectedType)
+					result = Conversion.TryChangeType(value, expectedType);
+			}
+
+			return result;
+
+		}
+
+		public object? NormalizeWhenReadingByPropertyType(IServerPropertyInfo propertyModel, object? propertyValue)
+		{
+			return SimpleObject.GetNormalizedValue(propertyModel, propertyValue, PropertyTypes.GetPropertyType(propertyModel.PropertyTypeId), (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor)); //, this.CryptoBlockSize));
+		}
+
+		public object? NormalizeForWritingByPropertyType(IServerPropertyInfo propertyModel, object? propertyValue)
+		{
+			return SimpleObject.GetNormalizedValue(propertyModel, propertyValue, PropertyTypes.GetPropertyType(propertyModel.PropertyTypeId), (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor)); //, this.CryptoBlockSize));
+		}
+
+		public object? NormalizeWhenReadingFromDatastore(IServerPropertyInfo propertyModel, object? propertyValue)
+		{
+			//if (propertyModel.IsRelationTableId && (propertyValue == null || Convert.IsDBNull(propertyValue)))
+			//	return default(int);
+
+			//if (propertyModel.IsRelationObjectId && (propertyValue == null || Convert.IsDBNull(propertyValue)))
+			//	return default(long);
+
+			//return NormalizeWhenReadingByPropertyType(propertyModel, propertyValue);
+			//return NormalizeWhenReading(propertyModel, propertyValue, propertyModel.PropertyTypeId);
+			return SimpleObject.GetNormalizedValueWhenReadingFromDatastore(propertyModel, propertyValue, propertyModel.PropertyTypeId, (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor));
+		}
+
+		//protected internal object NormalizeWhenReadingByDatastoreType(IPropertyModel propertyModel, object datastoreFieldValue)
+		//{
+		//	return NormalizeFromReader(propertyModel, datastoreFieldValue, propertyModel.DatastoreType);
+		//}
+
+		protected internal object? NormalizeForWritingToDatastore(IServerPropertyInfo propertyModel, object? propertyValue)
+		{
+			//if ((propertyModel.IsRelationTableId) && (int)propertyValue == 0)
+			//	return null;                                  //< -This will be set at SqlProviderBase.AddCommandParameter
+
+			//if (propertyModel.IsRelationObjectId && (long)propertyValue == 0)
+			//	return null;                                  //< -This will be set at SqlProviderBase.AddCommandParameter
+
+			//return NormalizeForWritingByDatastoreType(propertyModel, propertyValue);
+			return SimpleObject.GetNormalizedValueForWritingToDatastore(propertyModel, propertyValue, propertyModel.DatastoreTypeId, (clearText) => PasswordSecurity.Encrypt(clearText, this.Encryptor)); //, this.CryptoBlockSize));
+
+
+		}
+
+		#endregion |   Object Property Value Normalization   |
 
 		#region |   Object Property Value Serialization   |
 
@@ -7175,23 +7272,23 @@ namespace Simple.Objects
 			//}
 		}
 
-		private void WriteObjectPropertyValues(ref SequenceWriter writer, ISimpleObjectModel objectModel, IDictionary<int, object> propertyValues, bool includePropertyIndex, bool ifDefaultWriteOnlyBoolean)
+		private void WriteObjectPropertyValues(ref SequenceWriter writer, ISimpleObjectModel objectModel, IDictionary<int, object> propertyData, bool includePropertyIndex, bool ifDefaultWriteOnlyBoolean)
 		{
 			//int propertyCount = (propertyValues != null) ? propertyValues.Count : 0;
 			//writer.WriteInt32Optimized(propertyCount);
 
 			//if (propertyValues.Count > 0)
 			//{
-			foreach (var fieldDataItem in propertyValues)
+			foreach (var propertyItem in propertyData)
 			{
-				int propertyIndex = fieldDataItem.Key;
-				object? fieldValue = fieldDataItem.Value;
-				IPropertyModel propertyModel = objectModel.PropertyModels[propertyIndex];
+				int propertyIndex = propertyItem.Key;
+				object? propertyValue = propertyItem.Value;
+				IServerPropertyInfo propertyModel = objectModel.PropertyModels[propertyIndex];
 
 				if (includePropertyIndex)
 					writer.WriteInt32Optimized(propertyIndex);
 
-				object? propertyValue = NormalizeForWritingByPropertyType(propertyModel, fieldValue);
+				propertyValue = NormalizeForWritingByPropertyType(propertyModel, propertyValue);
 
 				//if (defaultOptimization)
 				//{
@@ -7276,172 +7373,6 @@ namespace Simple.Objects
 
 
 		#endregion |   Object Property Value Serialization   |
-
-		#region |   Object Property Value Normalization   |
-
-		public object? NormalizeForClientServerSending(object? value, Type expectedType, bool encrypt)
-		{
-			object? result = value;
-
-			if (value == null)
-			{
-				result = expectedType.GetDefaultValue();
-			}
-			else
-			{
-				if (encrypt)
-				{
-					result = PasswordSecurity.Encrypt(value.ToString(), this.Encryptor); //, this.CryptoBlockSize);
-
-					if (result == null)
-						return expectedType.GetDefaultValue();
-				}
-
-				//if (expectedType == typeof(Guid?))
-				//{
-				//	result = (Guid?)value;
-				//}
-				//else 
-				if (value.GetType() != expectedType)
-				{
-					////Type nullableType = Nullable.GetUnderlyingType(result.GetType());
-					//if (expectedType.IsGenericType && expectedType.GetGenericTypeDefinition() == typeof(Nullable<>)) // IsNullable
-					//{
-					//	var result2 = Activator.CreateInstance(expectedType, result);
-					//}
-					//else
-					//{
-					result = Conversion.TryChangeType(value, expectedType);
-					//}
-				}
-			}
-
-			return result;
-
-		}
-
-		public object? NormalizeWhenReadingByPropertyType(IServerPropertyInfo propertyModel, object? propertyValue)
-		{
-			return GetNormalizedValue(propertyModel, propertyValue, propertyModel.PropertyTypeId, (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor)); //, this.CryptoBlockSize));
-		}
-
-		public object? NormalizeForWritingByPropertyType(IServerPropertyInfo propertyModel, object? propertyValue)
-		{
-			return GetNormalizedValue(propertyModel, propertyValue, propertyModel.PropertyTypeId, (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor)); //, this.CryptoBlockSize));
-		}
-
-		public object? NormalizeWhenReadingFromDatastore(IServerPropertyInfo propertyModel, object? propertyValue)
-		{
-			//if (propertyModel.IsRelationTableId && (propertyValue == null || Convert.IsDBNull(propertyValue)))
-			//	return default(int);
-
-			//if (propertyModel.IsRelationObjectId && (propertyValue == null || Convert.IsDBNull(propertyValue)))
-			//	return default(long);
-
-			//return NormalizeWhenReadingByPropertyType(propertyModel, propertyValue);
-			//return NormalizeWhenReading(propertyModel, propertyValue, propertyModel.PropertyTypeId);
-			return GetNormalizedValueWhenReadingFromDatastore(propertyModel, propertyValue, propertyModel.PropertyTypeId, (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor));
-		}
-
-		//protected internal object NormalizeWhenReadingByDatastoreType(IPropertyModel propertyModel, object datastoreFieldValue)
-		//{
-		//	return NormalizeFromReader(propertyModel, datastoreFieldValue, propertyModel.DatastoreType);
-		//}
-
-		protected internal object? NormalizeForWritingToDatastore(IServerPropertyInfo propertyModel, object? propertyValue)
-		{
-			//if ((propertyModel.IsRelationTableId) && (int)propertyValue == 0)
-			//	return null;                                  //< -This will be set at SqlProviderBase.AddCommandParameter
-
-			//if (propertyModel.IsRelationObjectId && (long)propertyValue == 0)
-			//	return null;                                  //< -This will be set at SqlProviderBase.AddCommandParameter
-
-			//return NormalizeForWritingByDatastoreType(propertyModel, propertyValue);
-			return GetNormalizedValueWhenWritingToDatastore(propertyModel, propertyValue, propertyModel.DatastoreTypeId, (clearText) => PasswordSecurity.Encrypt(clearText, this.Encryptor)); //, this.CryptoBlockSize));
-
-
-		}
-
-		//private object? NormalizeForWriting(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId)
-		//{
-		//	return GetNormalizedValue(propertyModel, value, expectedPropertyTypeId, (clearText) => PasswordSecurity.Encrypt(clearText, this.Encryptor)); //, this.CryptoBlockSize));
-		//}
-
-		//protected internal object? NormalizeForWritingByDatastoreType(IServerPropertyInfo propertyModel, object? propertyValue)
-		//{
-		//	return NormalizeForWriting(propertyModel, propertyValue, propertyModel.DatastoreTypeId);
-		//}
-
-
-		//private object? NormalizeWhenReading(IServerPropertyInfo propertyModel, object? readerValue, int expectedPropertyTypeId)
-		//{
-		//	return GetNormalizedValue(propertyModel, readerValue, expectedPropertyTypeId, (encryptedText) => PasswordSecurity.Decrypt(encryptedText, this.Decryptor)); //, this.CryptoBlockSize));
-		//}
-
-		//public static object? NormalizeWhenReadingByPropertyTypeWithoutDecryption(IServerPropertyInfo propertyModel, object? readerValue)
-		//{
-		//	return GetNormalizedValueWhenReadingFromDatastore(propertyModel, readerValue, propertyModel.PropertyTypeId, (encryptedText) => encryptedText);
-		//}
-
-		private static object? GetNormalizedValueWhenReadingFromDatastore(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId, Func<string, string> encryptMethod)
-		{
-			if (value == DBNull.Value || value == null)
-				return PropertyTypes.GetPropertyType(expectedPropertyTypeId).GetDefaultValue();
-			else
-				return GetNormalizedValue(propertyModel, value, expectedPropertyTypeId, encryptMethod);
-		}
-
-		private static object? GetNormalizedValueWhenWritingToDatastore(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId, Func<string, string> encryptMethod)
-		{
-			if (value == null)
-				return DBNull.Value;
-			else
-				return GetNormalizedValue(propertyModel, value, expectedPropertyTypeId, encryptMethod);
-		}
-
-		private static object? GetNormalizedValue(IServerPropertyInfo propertyModel, object? value, int expectedPropertyTypeId, Func<string, string> encryptMethod)
-		{
-			object? result = value;
-			Type expectedType = PropertyTypes.GetPropertyType(expectedPropertyTypeId);
-
-			//Type valueType = value.GetType();
-			if (propertyModel.IsEncrypted)
-			{
-				result = encryptMethod(value.ToString());
-
-				//if (result == null)
-				//	return expectedType.GetDefaultValue();
-			}
-
-			//if (expectedType == typeof(Guid?))
-			//{
-			//	result = (Guid?)value;
-			//}
-			//else
-			//
-
-			if (value is null)
-			{
-				return expectedType.GetDefaultValue();
-			}
-			else if (value.GetType() != expectedType)
-			{
-				////Type nullableType = Nullable.GetUnderlyingType(result.GetType());
-				//if (expectedType.IsGenericType && expectedType.GetGenericTypeDefinition() == typeof(Nullable<>)) // IsNullable
-				//{
-				//	var result2 = Activator.CreateInstance(expectedType, result);
-				//}
-				//else
-				//{
-				result = Conversion.TryChangeType(value, expectedType);
-
-				//}
-			}
-
-			return result;
-		}
-
-		#endregion |   Object Property Value Normalization   |
 
 		#region |   Protected Internal Methods   |
 
@@ -7976,6 +7907,11 @@ namespace Simple.Objects
 			this.OrderIndexChange?.Invoke(this, new ChangeSortedSimpleObjectRequesterEventArgs(sortedSimpleObject, orderIndex, oldOrderIndex, requester));
 		}
 
+		protected virtual void RaiseGetGraphElementsWithObjectRestOfData(int graphKey, long parentGraphElementId, IEnumerable<long> graphElementObjectIds)
+		{
+			this.GetGraphElementsWithObjectRestOfDataReceived?.Invoke(this, new GetGraphElementsWithObjectsRestofDataEventArgs(graphKey, parentGraphElementId, graphElementObjectIds));
+		}
+
 		protected virtual void RaiseTransactionStarted(IEnumerable<TransactionActionInfo> transactionRequestActions, SystemTransaction transaction, IEnumerable<DatastoreActionInfo>? datastoreActions, object? requester)
         {
 			this.TransactionStarted?.Invoke(this, new TransactionDatastoreActionRequesterEventArgs(transactionRequestActions, transaction, datastoreActions, requester));
@@ -8125,54 +8061,20 @@ namespace Simple.Objects
 			if (parentGraphElementId < 0)
 				throw new ArgumentException("CacheGraphElementsWithObjectsFromServer: parentGraphElementId cannot be less than zero");
 			
-			var graphElementsWithObjects = this.RemoteDatastore!.GetGraphElementsWithObjects(graphKey, parentGraphElementId).GetAwaiter().GetResult();
-			long previousId = 0;
-			GraphElement? previousGraphElement = null;
-			//int orderIndex = 0;
-			graphElementIds = new List<long>(graphElementsWithObjects.Length);
-			//hasChildrenInfo = new bool[graphElementsWithObjects.Length];
+			var graphElementObjectPairs = this.RemoteDatastore!.GetGraphElementsWithObjects(graphKey, parentGraphElementId).GetAwaiter().GetResult();
 
-			for (int i = 0; i < graphElementsWithObjects.Length; i++) // GraphElementObjectPair item in graphElementsWithObjects!)
-			{
-				GraphElementObjectPair item = graphElementsWithObjects[i];
-				ObjectCache? simpleObjectCache = this.GetObjectCache(item.SimpleObjectTableId);
-				GraphElement graphElement;
-				//long graphElementId = ((long)item.GraphElementPropertyIndexValues.ElementAt(0).PropertyValue!)!;
-				//long simpleObjectId = (item.SimpleObjectPropertyIndexValues.Count() > 0) ? ((long)item.SimpleObjectPropertyIndexValues.ElementAt(0).PropertyValue!)! : 0;
+			this.CacheGraphElementsWithObjectsInternal(graphKey, parentGraphElementId, graphElementObjectPairs, out graphElementIds);
+		}
 
-				if (!simpleObjectCache!.IsInCache(item.SimpleObjectId))
-					_ = simpleObjectCache!.CreateAndLoadObjectInternal(item.SimpleObjectId, (simpleObject) => simpleObject
-										  .LoadFromServer(item.SimpleObjectPropertyIndexValues), this.DefaultChangeContainer, ObjectActionContext.Client);
+		internal void CacheGraphElementsWithObjectsFromServerNew(int graphKey, long parentGraphElementId, out List<long> graphElementIds) //, out bool[] hasChildrenInfo)
+		{
+			if (parentGraphElementId < 0)
+				throw new ArgumentException("CacheGraphElementsWithObjectsFromServer: parentGraphElementId cannot be less than zero");
 
-				if (this.GraphElementObjectCache.IsInCache(item.GraphElementId, out SimpleObject? simpleObject))
-				{
-					graphElement = (simpleObject as GraphElement)!;
-				}
-				else
-				{
-					graphElement = (this.GraphElementObjectCache.CreateAndLoadObjectInternal(item.GraphElementId, loadAction: ge => (ge as GraphElement)!
-																.Load(previousId, parentGraphElementId, graphKey, item.SimpleObjectTableId, item.SimpleObjectId, orderIndex: i), this.DefaultChangeContainer, ObjectActionContext.Client) as GraphElement)!; // orderIndex++);
-
-					//graphElement.HasChildrenInClientModeWhenNotLoaded = item.HasChildren;
-					//graphElement = (this.GraphElementObjectCache.CreateAndLoadObject(item.GraphElementPropertyIndexValues) as GraphElement)!; // real objectId will be loaded
-
-					if (previousGraphElement != null)
-						previousGraphElement.NextId = graphElement.Id;
-
-					previousGraphElement = graphElement;
-					//graphElement.SetPropertyValueInternal(graphElement.GetModel().PreviousIdPropertyModel, (previousGraphElement != null) ? previousGraphElement.Id : 0, changeContainer: null); // No tracing, just store value
-				}
-
-				//if (graphElement.HasChildrenInClientModeWhenNotLoaded != item.HasChildren)
-				//graphElement.HasChildrenInClientModeWhenNotLoaded = item.HasChildren;
-
-				graphElement.HasChildrenInClientModeWhenNotLoaded = item.HasChildren;
-
-				previousId = item.GraphElementId;
-				graphElementIds.Add(item.GraphElementId);
-				
-				//hasChildrenInfo[i] = item.HasChildren;
-			}
+			var graphElementObjectPairs = this.RemoteDatastore!.GetGraphElementsWithObjectsNew(graphKey, parentGraphElementId).GetAwaiter().GetResult();
+			
+			// This require null collection
+			this.CacheGraphElementsWithObjectsInternal(graphKey, parentGraphElementId, graphElementObjectPairs, out graphElementIds);
 		}
 
 		//internal SimpleObjectCollection<T> GetOneToManyForeignObjectCollectionFromServer<T>(SimpleObject simpleObject, int relationKey)
@@ -8234,6 +8136,56 @@ namespace Simple.Objects
 			this.OnObjectIdChange(simpleObject, oldTempId, newId, changeContainer, context, requester);
 			simpleObject.ObjectIdIsChanged(oldTempId, newId, changeContainer, context, requester);
 			this.RaiseObjectIdChange(simpleObject, oldTempId, newId);
+		}
+
+		private void CacheGraphElementsWithObjectsInternal(int graphKey, long parentGraphElementId, IEnumerable<GraphElementObjectPair> graphElementObjectPairs, out List<long> graphElementIds)
+		{
+			long previousId = 0;
+			GraphElement? previousGraphElement = null;
+			//int orderIndex = 0;
+			graphElementIds = new List<long>(graphElementObjectPairs.Count());
+			//hasChildrenInfo = new bool[graphElementsWithObjects.Length];
+
+			for (int i = 0; i < graphElementObjectPairs.Count(); i++) // GraphElementObjectPair item in graphElementsWithObjects!)
+			{
+				GraphElementObjectPair item = graphElementObjectPairs.ElementAt(i);
+				ObjectCache? simpleObjectCache = this.GetObjectCache(item.SimpleObjectTableId);
+				GraphElement graphElement;
+				//long graphElementId = ((long)item.GraphElementPropertyIndexValues.ElementAt(0).PropertyValue!)!;
+				//long simpleObjectId = (item.SimpleObjectPropertyIndexValues.Count() > 0) ? ((long)item.SimpleObjectPropertyIndexValues.ElementAt(0).PropertyValue!)! : 0;
+
+				if (!simpleObjectCache!.IsInCache(item.SimpleObjectId))
+					_ = simpleObjectCache!.CreateAndLoadObjectInternal(item.SimpleObjectId, loadAction: (simpleObject) => simpleObject.LoadFromServer(item.SimpleObjectPropertyIndexValues), this.DefaultChangeContainer, ObjectActionContext.Client);
+
+				if (this.GraphElementObjectCache.IsInCache(item.GraphElementId, out SimpleObject? simpleObject))
+				{
+					graphElement = (simpleObject as GraphElement)!;
+				}
+				else
+				{
+					graphElement = (this.GraphElementObjectCache.CreateAndLoadObjectInternal(item.GraphElementId,
+								   loadAction: ge => (ge as GraphElement)!.Load(previousId, parentGraphElementId, graphKey, item.SimpleObjectTableId, item.SimpleObjectId, orderIndex: i), this.DefaultChangeContainer, ObjectActionContext.Client) as GraphElement)!; // orderIndex++);
+
+					//graphElement.HasChildrenInClientModeWhenNotLoaded = item.HasChildren;
+					//graphElement = (this.GraphElementObjectCache.CreateAndLoadObject(item.GraphElementPropertyIndexValues) as GraphElement)!; // real objectId will be loaded
+
+					if (previousGraphElement != null)
+						previousGraphElement.NextId = graphElement.Id;
+
+					previousGraphElement = graphElement;
+					//graphElement.SetPropertyValueInternal(graphElement.GetModel().PreviousIdPropertyModel, (previousGraphElement != null) ? previousGraphElement.Id : 0, changeContainer: null); // No tracing, just store value
+				}
+
+				//if (graphElement.HasChildrenInClientModeWhenNotLoaded != item.HasChildren)
+				//graphElement.HasChildrenInClientModeWhenNotLoaded = item.HasChildren;
+
+				graphElement.HasChildrenInClientModeWhenNotLoaded = item.HasChildren;
+
+				previousId = item.GraphElementId;
+				graphElementIds.Add(item.GraphElementId);
+
+				//hasChildrenInfo[i] = item.HasChildren;
+			}
 		}
 
 		//private IDictionary<string, object> CreateFieldDataBasedOnObjectModelProperties(SimpleObject simpleObject, IDictionary<string, object> propertyValues, bool includeObjectKeyGuid)
@@ -8337,6 +8289,7 @@ namespace Simple.Objects
     public delegate void BindingObjectRelationForeignObjectSetEventHandler(object sender, BindingObjectRelationForeignObjectSetEventArgs e);
 	public delegate void ChangeOrderIndexSimpleObjectRequesterEventHandler(object sender, ChangeSortedSimpleObjectRequesterEventArgs e);
 
+	public delegate void GetGraphElementsWithObjectRestOfData(object sender, GetGraphElementsWithObjectsRestofDataEventArgs e);
     public delegate void TransactionRequesterEventHandler(object sender, TransactionRequesterEventArgs e);
 	public delegate void TransactionDatastoreActionRequesterEventHandler(object sender, TransactionDatastoreActionRequesterEventArgs e);
 	//public delegate void TransactionInfoEventHandler(object sender, TransactionInfoEventArgs e);
@@ -8612,6 +8565,20 @@ namespace Simple.Objects
 
 	//	public IEnumerable<TransactionActionInfo> TransactionActions { get; private set; }
 	//}
+
+	public class GetGraphElementsWithObjectsRestofDataEventArgs : EventArgs
+	{
+		public GetGraphElementsWithObjectsRestofDataEventArgs(int graphKey, long parentGraphElementId, IEnumerable<long> graphElementObjectIds)
+		{
+			this.GraphKey = GraphKey;
+			this.ParentGraphElementId = parentGraphElementId;
+			this.GraphElementObjectIds = graphElementObjectIds;
+		}
+
+		public int GraphKey { get; private set; }
+		public long ParentGraphElementId { get; private set; }
+		public IEnumerable<long> GraphElementObjectIds { get; private set; }
+	}
 
 	public class TransactionDatastoreActionRequesterEventArgs : TransactionRequesterEventArgs
 	{

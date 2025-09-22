@@ -61,6 +61,13 @@ namespace Simple.Objects.SocketProtocol
 			return response.GraphElementWithObjects!;
 		}
 
+		public async ValueTask<IEnumerable<GraphElementObjectPair>> GetGraphElementsWithObjectsNew(int graphKey, long parentGraphElementId)
+		{
+			var response = await this.AppClient.GetGraphElementsWithObjectsNew(graphKey, parentGraphElementId);
+
+			return response.GraphElementObjectPairs!;
+		}
+
 		public async ValueTask<IList<long>> GetOneToManyForeignObjectCollection(int tableId, long objectId, int relationKey)
 		{
 			var response = await this.AppClient.GetOneToManyForeignObjectCollection(tableId, objectId, relationKey);

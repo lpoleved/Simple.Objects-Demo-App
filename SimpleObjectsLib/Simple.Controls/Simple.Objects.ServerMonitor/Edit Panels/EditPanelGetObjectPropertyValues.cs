@@ -48,13 +48,13 @@ namespace Simple.Objects.ServerMonitor
 			//this.treeListObjectPropertyValues.OptionsView.AutoWidth = false;
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			ServerObjectModelInfo? objectModel = null;
 
-			if (this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs is ObjectIdTableIdRequestArgs requestArgs) // && this.PackageInfoRow.ResponseArgs is PropertyIndexValuePairsResponseArgs responseArgs)
+			if (this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs is ObjectIdTableIdRequestArgs requestArgs) // && this.PackageInfoRow.ResponseArgs is PropertyIndexValuePairsResponseArgs responseArgs)
 			{
 				string objectName = this.Context?.GetObjectName(requestArgs.TableId, requestArgs.ObjectId) ?? "Unknown";
 
@@ -99,7 +99,7 @@ namespace Simple.Objects.ServerMonitor
 			//this.treeListObjectPropertyValues.BeginUnboundLoad();
 			//this.treeListObjectPropertyValues.ClearNodes();
 
-			if (this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs is ObjectPropertyValuesResponseArgs responseArgs)
+			if (this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs is ObjectPropertyValuesResponseArgs responseArgs)
 			{
 				this.editorTableId.Text = responseArgs.TableId.ToString() + " (" + objectModel?.ObjectName + ")";
 				this.treeListObjectPropertyValues.BeginUnboundLoad();

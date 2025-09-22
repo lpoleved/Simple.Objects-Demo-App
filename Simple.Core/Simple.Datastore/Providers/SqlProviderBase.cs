@@ -515,15 +515,17 @@ namespace Simple.Datastore
 			dbDataParameter.ParameterName = fieldName; //"@" + fieldName;
 			dbDataParameter.Value = fieldValue;
 
-			if (((propertyModel.IsRelationTableId || propertyModel.IsRelationObjectId) && fieldValue != null && !Comparison.IsGreaterThanZero(fieldValue)) || fieldValue == null)
-				dbDataParameter.Value = DBNull.Value;
-			else if (fieldValue.GetType().IsEnum) // if field value is enum (not propertyModel.PropertyType.IsEnum), eg. SystemTransaction.Status, convers it to int. // propertyModel.PropertyType.IsEnum)
-				dbDataParameter.Value = (int)fieldValue;
+			//if (((propertyModel.IsRelationTableId || propertyModel.IsRelationObjectId) && fieldValue != null && !Comparison.IsGreaterThanZero(fieldValue)) || fieldValue == null)
+			//	dbDataParameter.Value = DBNull.Value;
+			//else if (fieldValue.GetType().IsEnum) // if field value is enum (not propertyModel.PropertyType.IsEnum), eg. SystemTransaction.Status, convers it to int. // propertyModel.PropertyType.IsEnum)
+			//	dbDataParameter.Value = (int)fieldValue;
+			//else
+			//	dbDataParameter.Value = fieldValue;
 
-				//if (propertyModel.PropertyTypeId == (int)PropertyTypeId.Binary) // && fieldValue == DBNull.Value
-				//	dbDataParameter.Size = -1; // varbynary(MAX) unlimited size
+			//if (propertyModel.PropertyTypeId == (int)PropertyTypeId.Binary) // && fieldValue == DBNull.Value
+			//	dbDataParameter.Size = -1; // varbynary(MAX) unlimited size
 
-				dbCommand.Parameters.Add(dbDataParameter);
+			dbCommand.Parameters.Add(dbDataParameter);
 
 			this.OnAddCommandParameter(dbCommand, dbDataParameter, propertyModel, fieldName, fieldValue);
 		}

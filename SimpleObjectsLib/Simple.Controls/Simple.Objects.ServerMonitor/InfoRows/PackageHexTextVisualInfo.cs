@@ -1,22 +1,23 @@
 ﻿using DevExpress.XtraEditors;
+using Simple.Objects.MonitorProtocol;
+using Simple.SocketEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Simple.SocketEngine;
 
 namespace Simple.Objects.ServerMonitor
 {
 	public struct PackageHexTextVisualInfo
 	{
-		public PackageHexTextVisualInfo(PackageInfo packageInfo, MemoEdit textControl)
+		public PackageHexTextVisualInfo(MonitorPackageReader packageReader, MemoEdit textControl)
 		{
-			this.PackageInfo = packageInfo;
+			this.PackageReader = packageReader;
 			this.TextControl = textControl;
 		}
 
-		public PackageInfo PackageInfo { get; private set; }
+		public MonitorPackageReader PackageReader { get; private set; }
 		public MemoEdit TextControl { get; private set; }
 	}
 }

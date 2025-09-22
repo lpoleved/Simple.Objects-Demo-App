@@ -8,6 +8,7 @@ namespace Simple.Objects.SocketProtocol
 {
 	public enum SystemMessage
 	{
-		TransactionCompleted = 0
+		TransactionCompleted = 0,
+		GetGraphElementsWithSimpleObjectsRestOfData = 1,
 	}
 }

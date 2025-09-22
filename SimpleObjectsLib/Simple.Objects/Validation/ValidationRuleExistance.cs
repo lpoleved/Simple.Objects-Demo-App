@@ -64,14 +64,13 @@ namespace Simple.Objects
 
 		public PropertyValidationResult ValidatePropertyExistenceByPropertyModel(SimpleObject simpleObject, IDictionary<SimpleObject, TransactionRequestAction> transactionRequests)
         {
-            bool passed = false;
 			PropertyValidationResult validationResult = PropertyValidationResult.GetDefaultSuccessResult(this.PropertyModel);
 
 			//if (simpleObject.IsValidationTest && this.SkipIfTest)
 			//	return validationResult;
 
 			object? propertyValue = simpleObject[this.PropertyModel.PropertyName];
-            passed = !Comparison.IsEmpty(propertyValue);
+            bool passed = !Comparison.IsEmpty(propertyValue);
 
             if (!passed)
             {

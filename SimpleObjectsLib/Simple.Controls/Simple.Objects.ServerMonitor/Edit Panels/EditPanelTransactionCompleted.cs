@@ -88,14 +88,14 @@ namespace Simple.Objects.ServerMonitor
 			this.gridControlTransactionDetails.DataSource = this.dataSourceTransactionRequestDetails;
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			//MonitorProcessTransactionRequestArgs requestArgs = this.PackageInfoRow.RequestArgs as MonitorProcessTransactionRequestArgs;
 			//ProcessTransactionResponseArgs responseArgs = this.PackageInfoRow.ResponseArgs as ProcessTransactionResponseArgs;
 
-			TransactionCompletedMessageArgs? messageArgs = this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs as TransactionCompletedMessageArgs;
+			TransactionCompletedMessageArgs? messageArgs = this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs as TransactionCompletedMessageArgs;
 
 			//this.labelControlTransactionRequestNumOfActions.Text = String.Format("({0} Action{1}):", messageArgs.TransactionActions.Count(), messageArgs.TransactionActions.Count() > 1 ? "s" : "");
 			if (messageArgs?.TransactionServerActionInfos != null)

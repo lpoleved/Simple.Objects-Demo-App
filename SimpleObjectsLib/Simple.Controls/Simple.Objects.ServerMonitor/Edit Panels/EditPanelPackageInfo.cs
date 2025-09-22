@@ -33,7 +33,7 @@ namespace Simple.Objects.ServerMonitor
 
 		protected ActionBlock<PackageHexTextVisualInfo> LargePackageHexTextVisualizer => this.largePackageHexTextVisualizer ??= new ActionBlock<PackageHexTextVisualInfo>(arg =>
 		{
-			this.SetPackageTextToControl(arg.TextControl, this.CreatePackageText(arg.PackageInfo));
+			this.SetPackageTextToControl(arg.TextControl, this.CreatePackageText(arg.PackageReader));
 		});
 
 		public PackageInfoRow? PackageInfoRow => base.BindingObject as PackageInfoRow;
@@ -47,15 +47,15 @@ namespace Simple.Objects.ServerMonitor
 		//	this.OnRefreshBindingObject();
 		//}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			if (this.PackageInfoRow is null)
 				return;
 
 			//HeaderInfo headerInfo = this.PackageInfoRow.RequestOrMessagePackageInfo.HeaderInfo; // (MessagePackage != null) ? this.PackageInfoRow.MessagePackage.Flags : this.PackageInfoRow.RequestPackage.Flags;
-			int keyValue = this.PackageInfoRow.RequestOrMessagePackageInfo.Key;
+			int keyValue = this.PackageInfoRow.RequestOrMessagePackageReader.PackageInfo.Key;
 
 			this.tabPageObjectName.Text = this.tabPageText;
 			//this.editorSessionId.Text = this.PackageInfoRow.SessionId;
@@ -92,6 +92,8 @@ namespace Simple.Objects.ServerMonitor
 																		  //	this.tabPageMessage.PageVisible = false;
 																		  //	this.tabPageRequest.PageVisible = true;
 																		  //	this.tabPageResponse.PageVisible = true;
+
+
 
 			//	this.editorRequestFlags.Text = packageInfoRow.SessionPackageJobAction.ReceivedPackage.Flags.Value.ToString("X4");
 			//	this.editorRequestLength.Text = packageInfoRow.SessionPackageJobAction.ReceivedPackage.Reader.BaseStream.Length.ToString() + " byte(s)";
@@ -131,44 +133,44 @@ namespace Simple.Objects.ServerMonitor
 			//}
 		}
 
-		protected void SetPackageTextToControl(MemoEdit textControl, string text)
-		{
-			if (this.InvokeRequired)
-				this.Invoke(new MethodInvoker(() => this.OnSetPackageText(textControl, text)));
-			else
-				this.OnSetPackageText(textControl, text);
-		}
+				//protected void SetPackageTextToControl(MemoEdit textControl, string text)
+				//{
+				//	if (this.InvokeRequired)
+				//		this.Invoke(new MethodInvoker(() => this.OnSetPackageText(textControl, text)));
+				//	else
+				//		this.OnSetPackageText(textControl, text);
+				//}
 
-		protected void OnSetPackageText(MemoEdit textControl, string text) => textControl.Text = text;
+				//protected void OnSetPackageText(MemoEdit textControl, string text) => textControl.Text = text;
 
 
-		protected string CreatePackageText(PackageInfo packageInfo)
-		{
-			string text;
-			string requestIdOrMessageCodeText = (packageInfo.HeaderInfo.PackageType == PackageType.Message) ? "Message Code" : "Request Id";
+		//protected string CreatePackageText(PackageInfo packageInfo)
+		//{
+		//	string text;
+		//	string requestIdOrMessageCodeText = (packageInfo.HeaderInfo.PackageType == PackageType.Message) ? "Message Code" : "Request Id";
 
-			text = packageInfo.PackageLength.To7BitEncodedHexString() + "   <- Package length, " + this.GetByteText(packageInfo.PackageLengthSize) + "\r\n";
-			text += $"  ==== Header, {this.GetByteText(packageInfo.HeaderSize)} ====r\n";
-			text += packageInfo.HeaderInfo.Value.To7BitEncodedHexString(out int headerInfoSize) + "   <- Header Info, " + this.GetByteText(headerInfoSize) + "\r\n";
-			text += packageInfo.Key.To7BitEncodedHexString(out int requestIdSize) + $"   <- {requestIdOrMessageCodeText}, " + this.GetByteText(requestIdSize) + "\r\n";
+		//	text = packageInfo.PackageLength.To7BitEncodedHexString() + "   <- Package length, " + this.GetByteText(packageInfo.PackageLengthSize) + "\r\n";
+		//	text += $"  ==== Header, {this.GetByteText(packageInfo.HeaderSize)} ====r\n";
+		//	text += packageInfo.HeaderInfo.Value.To7BitEncodedHexString(out int headerInfoSize) + "   <- Header Info, " + this.GetByteText(headerInfoSize) + "\r\n";
+		//	text += packageInfo.Key.To7BitEncodedHexString(out int requestIdSize) + $"   <- {requestIdOrMessageCodeText}, " + this.GetByteText(requestIdSize) + "\r\n";
 
-			//if (packageInfo.HeaderInfo.PackageType != PackageType.Message)
-			//	text += packageInfo.Token.To7BitEncodedHexString(out int tokenSize) + "   <- Token, " + this.GetByteText(tokenSize) + "\r\n";
-			long bodyLength = packageInfo.PackageLength - packageInfo.HeaderSize;
+		//	//if (packageInfo.HeaderInfo.PackageType != PackageType.Message)
+		//	//	text += packageInfo.Token.To7BitEncodedHexString(out int tokenSize) + "   <- Token, " + this.GetByteText(tokenSize) + "\r\n";
+		//	long bodyLength = packageInfo.PackageLength - packageInfo.HeaderSize;
 
-			text += $"  ==== Package Args Body, {this.GetByteText(bodyLength)} ====\r\n";
+		//	text += $"  ==== Package Args Body, {this.GetByteText(bodyLength)} ====\r\n";
 
-			if (bodyLength > 0)
-				text += BitConverter.ToString(packageInfo.Buffer, startIndex: packageInfo.PackageLengthSize + packageInfo.HeaderSize);
+		//	if (bodyLength > 0)
+		//		text += BitConverter.ToString(packageInfo.Buffer, startIndex: packageInfo.PackageLengthSize + packageInfo.HeaderSize);
 
-			return text;
-		}
+		//	return text;
+		//}
 
-		protected string GetByteText(int value, string keyword = " Byte") => this.GetByteText((long)value);
+		//protected string GetByteText(int value, string keyword = " Byte") => this.GetByteText((long)value);
 
-		protected string GetByteText(long value, string keyword = " Byte")
-		{
-			return value.ToString() + keyword + ((value != 1) ? "s" : "");
-		}
+		//protected string GetByteText(long value, string keyword = " Byte")
+		//{
+		//	return value.ToString() + keyword + ((value != 1) ? "s" : "");
+		//}
 	}
 }

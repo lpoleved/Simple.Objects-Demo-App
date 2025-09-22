@@ -14,6 +14,7 @@ namespace Simple.Objects
 
 		ValueTask<IEnumerable<PropertyIndexValuePair>?> GetObjectPropertyValues(int tableId, long objectId);
 		ValueTask<GraphElementObjectPair[]> GetGraphElementsWithObjects(int graphKey, long parentGraphElementId);
+		ValueTask<IEnumerable<GraphElementObjectPair>> GetGraphElementsWithObjectsNew(int graphKey, long parentGraphElementId);
 		ValueTask<IList<long>> GetOneToManyForeignObjectCollection(int tableId, long objectId, int relationKey);
 		ValueTask<SimpleObject?> GetOneToOneForeignObject(SimpleObject simpleObject, int relationKey);
 		ValueTask<IList<long>> GetGroupMembershipCollection(SimpleObject simpleObject, int relationKey);

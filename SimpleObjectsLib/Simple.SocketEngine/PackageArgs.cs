@@ -14,8 +14,8 @@ namespace Simple.SocketEngine
 
 		public virtual int GetBufferCapacity() => 24;
 
-		public abstract void WriteTo(ref SequenceWriter writer, ISimpleSession session);
-		public abstract void ReadFrom(ref SequenceReader reader, ISimpleSession session);
+		public virtual void WriteTo(ref SequenceWriter writer, ISimpleSession session) { }
+		public virtual void ReadFrom(ref SequenceReader reader, ISimpleSession session) { }
 
 
 		internal void WriteErrorInfo(SequenceWriter writer)

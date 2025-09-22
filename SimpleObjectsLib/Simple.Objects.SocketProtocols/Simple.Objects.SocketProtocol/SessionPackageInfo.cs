@@ -9,13 +9,13 @@ namespace Simple.Objects.SocketProtocol
 {
 	public class SessionPackageInfo
 	{
-		public SessionPackageInfo(ISimpleSession session, PackageReader packageInfo)
+		public SessionPackageInfo(ISimpleSession session, PackageInfo packageInfo)
 		{
 			this.Session = session;
 			this.PackageInfo = packageInfo;
 		}
 
 		public ISimpleSession Session { get; private set; }
-		public PackageReader PackageInfo { get; private set; }
+		public PackageInfo PackageInfo { get; private set; }
 	}
 }

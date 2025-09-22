@@ -1,24 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Reflection;
-using System.IO;
-using System.IO.Packaging;
-using System.ServiceModel.Channels;
-using System.Threading.Tasks;
-using System.Security.Authentication;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SuperSocket;
-using SuperSocket.ProtoBase;
-using SuperSocket.Connection;
-using SuperSocket.Server;
-using SuperSocket.Server.Abstractions;
-using SuperSocket.Server.Abstractions.Host;
-using SuperSocket.Server.Abstractions.Session;
-
 //using SuperSocket.SocketBase.Config;
 //using SuperSocket.SocketEngine;
 //using SuperSocket.ProtoBase;
@@ -26,7 +7,26 @@ using Simple;
 //using Simple.Threading;
 using Simple.Serialization;
 using Simple.SocketEngine;
+using SuperSocket;
+using SuperSocket.Connection;
+using SuperSocket.ProtoBase;
+using SuperSocket.Server;
+using SuperSocket.Server.Abstractions;
+using SuperSocket.Server.Abstractions.Host;
+using SuperSocket.Server.Abstractions.Session;
 using SuperSocket.Server.Host;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Packaging;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Security.Authentication;
+using System.ServiceModel.Channels;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 //using Simple.Objects;
 
 namespace Simple.SocketEngine
@@ -174,8 +174,8 @@ namespace Simple.SocketEngine
 			where TSession : SimpleSession
 		{
 			//string className = this.GetType().Name;
-			
-			
+
+
 			// This works file
 			//IServer server = CreateSocketServerBuilder<PackageInfo, SimplePipelineFilter>(hostConfigurator) // this.CreatePipelineFilter
 			//				 .UsePipelineFilterFactory<SimplePipelineFilterFactory>()
@@ -192,13 +192,14 @@ namespace Simple.SocketEngine
 			//				 .ConfigureServices((ctx, services) => services.AddSingleton<SessionContainerDependentService>())
 			//				 .BuildAsServer();
 
+			//SimpleSocketService simpleSocketService = new SimpleSocketService(this.service, serverOp )
 
-			IServer server = CreateSocketServerBuilder<PackageReader>(hostConfigurator) // this.CreatePipelineFilter
+			IServer server = CreateSocketServerBuilder<PackageInfo>(this.CreatePipelineFilter, hostConfigurator) // this.CreatePipelineFilter
+							 //.UsePipelineFilterFactory(this.CreatePipelineFilter)
 							 //.UsePipelineFilter<SimplePipelineFilter>()
 							 //.UsePipelineFilterFactory<PipelineFilterFactory>()
 							 //.UseSession<TSession>(this.CreateSession)
 							 //.UseSessionFactory<SimpleSession>(this.CreateSession)
-							 .UsePipelineFilterFactory(this.CreatePipelineFilter)
 							 .UseSessionFactory(this.CreateSession)
 							 .UseSessionHandler(this.OnSessionConnected, this.OnSessionClosed)
 							 .UsePackageHandler(this.OnPackageReceive, this.OnPackageProcessingError)
@@ -212,6 +213,7 @@ namespace Simple.SocketEngine
 							 })
 							 .UseInProcSessionContainer()
 							 .ConfigureServices((ctx, services) => services.AddSingleton<SessionContainerDependentService>())
+							 //.UsePipelineFilter<PipelineFilter>()
 							 .BuildAsServer();
 			return server;
 		}
@@ -257,36 +259,36 @@ namespace Simple.SocketEngine
 			return await this.StartAsync();
 		}
 
-		protected async ValueTask SendBroadcastMessage(int messageCode, MessageArgs? messageArgs = null, long exceptionSessionKey = 0)
+		protected async ValueTask SendBroadcastMessage(int messageCode, MessageArgs? messageArgs = null, SimpleSession? exceptionSession = null)
 		{
-			await this.SendBroadcastMessage(messageCode, this.PackageEncoder, messageArgs, exceptionSessionKey);
+			await this.SendBroadcastMessage(messageCode, this.PackageEncoder, messageArgs, exceptionSession);
 		}
 
-		protected async ValueTask SendBroadcastMessage(int messageCode, IPackageEncoder<PackageWriter> packageEncoder, MessageArgs? messageArgs = null, long exceptionSessionKey = 0)
+		protected async ValueTask SendBroadcastMessage(int messageCode, IPackageEncoder<PackageWriter> packageEncoder, MessageArgs? messageArgs = null, SimpleSession? exceptionSession = null)
 		{
-			await this.SendBroadcastMessage(messageCode, MessageBrodcastFlags, packageEncoder, messageArgs, exceptionSessionKey);
+			await this.SendBroadcastMessage(messageCode, MessageBrodcastFlags, packageEncoder, messageArgs, exceptionSession);
 		}
 
-		protected async ValueTask SendBroadcastSystemMessage(int messageCode, MessageArgs? messageArgs = null, long exceptionSessionKey = 0)
+		protected async ValueTask SendBroadcastSystemMessage(int messageCode, MessageArgs? messageArgs = null, SimpleSession? exceptionSession = null)
 		{
-			await this.SendBroadcastSystemMessage(messageCode, this.PackageEncoder, messageArgs, exceptionSessionKey);
+			await this.SendBroadcastSystemMessage(messageCode, this.PackageEncoder, messageArgs, exceptionSession);
 		}
 
-		protected async ValueTask SendBroadcastSystemMessage(int messageCode, IPackageEncoder<PackageWriter> packageEncoder, MessageArgs? messageArgs = null, long exceptionSessionKey = 0)
+		protected async ValueTask SendBroadcastSystemMessage(int messageCode, IPackageEncoder<PackageWriter> packageEncoder, MessageArgs? messageArgs = null, SimpleSession? exceptionSession = null)
 		{
-			await this.SendBroadcastMessage(messageCode, MessageSystemBrodcastFlags, packageEncoder, messageArgs, exceptionSessionKey);
+			await this.SendBroadcastMessage(messageCode, MessageSystemBrodcastFlags, packageEncoder, messageArgs, exceptionSession);
 		}
 
-		private async ValueTask SendBroadcastMessage(int messageCode, HeaderInfo headerInfo, IPackageEncoder<PackageWriter> packageEncoder, MessageArgs? messageArgs, long exceptionSessionKey = 0)
+		private async ValueTask SendBroadcastMessage(int messageCode, HeaderInfo headerInfo, IPackageEncoder<PackageWriter> packageEncoder, MessageArgs? messageArgs, SimpleSession? exceptionSession = null)
         {
 			Dictionary<Encoding, ReadOnlyMemory<byte>> packageDataByEncoding = new Dictionary<Encoding, ReadOnlyMemory<byte>>();
 			var sessionContainer = this.Server.GetAsyncSessionContainer();
 			IEnumerable<IAppSession> sessions = await sessionContainer.GetSessionsAsync();
 			bool isOnBrodcastMessageSentInvoked = false;
 
-			foreach (SimpleSession session in sessions)
+			foreach (SimpleSession? session in sessions)
 			{
-				if (session != null && session.IsConnected && session.IsAuthenticated && session.SessionKey != exceptionSessionKey)
+				if (session != null && session.IsConnected && session.IsAuthenticated && session != exceptionSession)
 				{
 					try
 					{
@@ -298,8 +300,8 @@ namespace Simple.SocketEngine
 						}
 						else
 						{
-							PackageWriter package = new PackageWriter(headerInfo, messageCode, session.CharacterEncoding, session, messageArgs); // Each endpoint user differ only in character encoding
-							
+							PackageWriter package = new PackageWriter(headerInfo, messageCode, session, messageArgs); // Each endpoint user differ only in character encoding
+
 							await session.SendAsync(packageEncoder, package); //.DoNotAwait(); // ConfigureAwait(false);
 
 							packageData = new ReadOnlyMemory<byte>(package.Buffer);
@@ -319,6 +321,59 @@ namespace Simple.SocketEngine
 				}
 			}
         }
+
+		protected async ValueTask SendUnicastMessage(SimpleSession session, int messageCode, PackageArgs? packageArgs = null)
+		{
+			await this.SendUnicastMessage(session, messageCode, MessageFlags, this.PackageEncoder, packageArgs);
+		}
+
+		protected async ValueTask SendUnicastSystemMessage(SimpleSession session, int messageCode, PackageArgs? packageArgs = null)
+		{
+			await this.SendUnicastMessage(session, messageCode, MessageSystemFlags, this.PackageEncoder, packageArgs);
+		}
+
+		private async ValueTask SendUnicastMessage(SimpleSession session, int messageCode, HeaderInfo headerInfo, IPackageEncoder<PackageWriter> packageEncoder, PackageArgs? packageArgs, long exceptionSessionKey = 0)
+		{
+			Dictionary<Encoding, ReadOnlyMemory<byte>> packageDataByEncoding = new Dictionary<Encoding, ReadOnlyMemory<byte>>();
+			var sessionContainer = this.Server.GetAsyncSessionContainer();
+			IEnumerable<IAppSession> sessions = await sessionContainer.GetSessionsAsync();
+			bool isOnBrodcastMessageSentInvoked = false;
+
+			//foreach (SimpleSession session in sessions)
+			//{
+				if (session is SimpleSession simpleSession && simpleSession.IsConnected && simpleSession.IsAuthenticated && simpleSession.SessionKey != exceptionSessionKey)
+				{
+					try
+					{
+						ReadOnlyMemory<byte> packageData;
+
+						if (packageDataByEncoding.TryGetValue(simpleSession.CharacterEncoding, out packageData))
+						{
+							await session.SendAsync(packageData); //.DoNotAwait(); // ConfigureAwait(false);
+						}
+						else
+						{
+							PackageWriter package = new PackageWriter(headerInfo, messageCode, session, packageArgs); // Each endpoint user differ only in character encoding
+
+							await session.SendAsync(packageEncoder, package); //.DoNotAwait(); // ConfigureAwait(false);
+
+							packageData = new ReadOnlyMemory<byte>(package.Buffer);
+							packageDataByEncoding.Add(simpleSession.CharacterEncoding, packageData);
+
+							if (!isOnBrodcastMessageSentInvoked)
+							{
+								await this.OnBrodcastMessageSent(package.Buffer!, simpleSession.CharacterEncoding); //
+								isOnBrodcastMessageSentInvoked = true;
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						this.Logger?.LogDebug(String.Format("Error in sending message, MessageId={0} ({1})", messageCode, ex.GetFullErrorMessage()));
+					}
+				}
+			//}
+		}
 
 		protected async ValueTask<bool> IsAnyClientAuthenticated(long exceptionSessionKey = 0)
 		{
@@ -362,7 +417,7 @@ namespace Simple.SocketEngine
 				await this.SessionClosed((session as SimpleSession)!, closeInfo.Reason);
 		}
 
-		protected virtual ValueTask OnPackageReceive(IAppSession session, PackageReader package)
+		protected virtual ValueTask OnPackageReceive(IAppSession session, PackageInfo package)
 		{
 			return base.OnPackageReceived(commandOwner: this.GetCommandOwnerInstance(), (session as ISimpleSession)!, package, this.CommandDiscovery);
 		}
@@ -371,8 +426,22 @@ namespace Simple.SocketEngine
 		{
 			await base.OnRequestReceived(session, requestPackageData, responsePackageData);
 
+
+
+
+			// TODO: Make ActionBlock to handle event in another thread
+			// See SimpleObjectServer example
+
+			//private ActionBlock<SessionPackageInfo> processTransactionRequest;
+
+
+
+
+
+
 			if (this.RequestReceived != null)
-				await this.RequestReceived((session as SimpleSession)!, requestPackageData, responsePackageData);
+				//await this.RequestReceived((session as SimpleSession)!, requestPackageData, responsePackageData);
+				this.RequestReceived((session as SimpleSession)!, requestPackageData, responsePackageData).DoNotAwait();
 		}
 
 		//protected override async ValueTask OnRequestSent(ISimpleSession session, byte[] requestPackageData, byte[]? responsePackageData)
@@ -385,7 +454,7 @@ namespace Simple.SocketEngine
 		//}
 
 		//Func<IAppSession, PackageHandlingException<TReceivePackage>, ValueTask<bool>
-		protected virtual async ValueTask<bool> OnPackageProcessingError(IAppSession session, PackageHandlingException<PackageReader> ex)
+		protected virtual async ValueTask<bool> OnPackageProcessingError(IAppSession session, PackageHandlingException<PackageInfo> ex)
 		{
 			//OutputHelper.WriteLine("Server Package error hendler exception: " + ex.GetFullErrorMessage());
 			//session.GetDefaultLogger()?.LogDebug("Server Package error hendler exception: " + ex.GetFullErrorMessage());

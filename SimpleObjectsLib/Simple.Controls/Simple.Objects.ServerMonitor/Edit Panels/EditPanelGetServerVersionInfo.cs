@@ -20,12 +20,12 @@ namespace Simple.Objects.ServerMonitor
 			InitializeComponent();
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
-			this.editorSystemServerVersion.Text = (this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs as ServerVersionInfoResponseArgs)?.SystemServerVersion?.ToString() ?? String.Empty;
-			this.editorAppServerVersion.Text = (this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs as ServerVersionInfoResponseArgs)?.AppServerVersion?.ToString() ?? String.Empty;
+			this.editorSystemServerVersion.Text = (this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs as ServerVersionInfoResponseArgs)?.SystemServerVersion?.ToString() ?? String.Empty;
+			this.editorAppServerVersion.Text = (this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs as ServerVersionInfoResponseArgs)?.AppServerVersion?.ToString() ?? String.Empty;
 		}
 
 		protected override ResponseArgs CreateResponseArgs() => new ServerVersionInfoResponseArgs();

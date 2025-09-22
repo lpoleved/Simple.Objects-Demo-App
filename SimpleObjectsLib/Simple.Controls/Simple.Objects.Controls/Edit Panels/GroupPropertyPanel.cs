@@ -76,10 +76,10 @@ namespace Simple.Objects.Controls
 				bindingControl.SetBindingObject(bindingObject);
 		}
 
-		public void RefreshBindingObject()
+		public void RefreshBindingObject(object? requester)
 		{
 			if (this.activePropertyPanel is IBindingControl bindingControl)
-				bindingControl.RefreshBindingObject();
+				bindingControl.RefreshBindingObject(requester);
 		}
 
 		#endregion |   Public Methods   |

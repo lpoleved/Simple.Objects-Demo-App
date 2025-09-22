@@ -24,7 +24,7 @@ namespace Simple.SocketEngine
 		private IPackageEncoder<PackageWriter> packageEncoder;
 		private bool[] isObjectModelFetchedByTableId = new bool[0];
 		private ManualResetEvent requestResetEvent = new ManualResetEvent(false);
-		private PackageReader? response = null;
+		private PackageInfo? response = null;
 		private readonly object lockRequest = new object();
 		public int numOfRetry = 3;
 
@@ -60,7 +60,6 @@ namespace Simple.SocketEngine
 		protected IPackageEncoder<PackageWriter> PackageEncoder => this.packageEncoder;
 
 		#endregion |   Proptected Properties   |
-
 
 		#region |   Public Properties   |
 
@@ -143,13 +142,11 @@ namespace Simple.SocketEngine
 
 		#endregion |   Protected Methods   |
 
-		
-
 		#region |   Private Methods   |
 
 		private async ValueTask<bool> SendMessage(HeaderInfo flags, int messageCode, MessageArgs? messageArgs)
 		{
-			PackageWriter package = new PackageWriter(flags, messageCode, this.CharacterEncoding, session: this, messageArgs);
+			PackageWriter package = new PackageWriter(flags, messageCode, session: this, messageArgs);
 			bool succeeded;
 
 			try
@@ -174,7 +171,7 @@ namespace Simple.SocketEngine
 			where TResponseArgs : ResponseArgs, new()
 		{
 			PackageWriter request;
-			PackageReader? response = null;
+			PackageInfo? response = null;
 			TResponseArgs result;
 
 			if (!this.IsConnected)
@@ -188,7 +185,7 @@ namespace Simple.SocketEngine
 				lock (this.lockRequest)
 				{
 					this.requestResetEvent.Reset();
-					request = new PackageWriter(headerInfo, key: requestId, this.CharacterEncoding, session: this, requestArgs);
+					request = new PackageWriter(headerInfo, key: requestId, session: this, requestArgs);
 
 					int retry = 0;
 					bool isEnd = false;
@@ -261,7 +258,7 @@ namespace Simple.SocketEngine
 
 		ValueTask ISimpleSession.SendAsync<TPackage>(IPackageEncoder<TPackage> packageEncoder, TPackage package) => this.Connection.SendAsync(packageEncoder, package);
 
-		void ISimpleSession.ResponseIsReceived(PackageReader response)
+		void ISimpleSession.ResponseIsReceived(PackageInfo response)
 		{
 			this.response = response;
 			this.requestResetEvent.Set();

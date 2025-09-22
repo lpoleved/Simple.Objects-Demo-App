@@ -88,6 +88,6 @@ namespace Simple.Objects.ServerMonitor
 		ValueTask ISimpleSession.SendAsync(ReadOnlyMemory<byte> data) => throw new NotImplementedException("SendAsync is not supported in this context");
 
 		ValueTask ISimpleSession.SendAsync<TPackage>(IPackageEncoder<TPackage> packageEncoder, TPackage package) => throw new NotImplementedException("SendAsync is not supported in this context");
-		void ISimpleSession.ResponseIsReceived(PackageReader response) => throw new NotImplementedException("ResponseIsReceived is not used in this context");
+		void ISimpleSession.ResponseIsReceived(PackageInfo packageInfo) => throw new NotImplementedException("ResponseIsReceived is not used in this context");
 	}
 }

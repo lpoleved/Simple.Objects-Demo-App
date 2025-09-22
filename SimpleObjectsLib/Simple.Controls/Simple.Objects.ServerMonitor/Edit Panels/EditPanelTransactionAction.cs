@@ -78,21 +78,21 @@ namespace Simple.Objects.ServerMonitor
 			this.gridControlGetRequestsDetails.DataSource = this.dataSourceTransactionRequestDetails;
 		}
 
-		protected override void OnRefreshBindingObject()
+		protected override void OnRefreshBindingObject(object? requester)
 		{
-			base.OnRefreshBindingObject();
+			base.OnRefreshBindingObject(requester);
 
 			//MonitorProcessTransactionRequestArgs requestArgs = this.PackageInfoRow.RequestArgs as MonitorProcessTransactionRequestArgs;
 			//ProcessTransactionResponseArgs responseArgs = this.PackageInfoRow.ResponseArgs as ProcessTransactionResponseArgs;
 
-			ProcessTransactionRequestArgs? requestArgs = this.PackageInfoRow?.RequestOrMessagePackageInfo.PackageArgs as ProcessTransactionRequestArgs;
-			ProcessTransactionResponseArgs? responseArgs = this.PackageInfoRow?.ResponsePackageInfo?.PackageArgs as ProcessTransactionResponseArgs;
+			ProcessTransactionRequestArgs? requestArgs = this.PackageInfoRow?.RequestOrMessagePackageReader.PackageInfo.PackageArgs as ProcessTransactionRequestArgs;
+			ProcessTransactionResponseArgs? responseArgs = this.PackageInfoRow?.ResponsePackageReader?.PackageInfo.PackageArgs as ProcessTransactionResponseArgs;
 
-			this.labelControlTransactionRequestNumOfActions.Text = String.Format("({0} Action{1}):", requestArgs.TransactionActionInfoList.Count(), requestArgs.TransactionActionInfoList.Count() > 1 ? "s" : "");
+			this.labelControlTransactionRequestNumOfActions.Text = String.Format("({0} Action{1}):", requestArgs?.TransactionActionInfoList?.Count(), requestArgs?.TransactionActionInfoList?.Count() > 1 ? "s" : "");
 			this.gridViewGetRequestDetails.BeginUpdate();
 			this.dataSourceTransactionRequestDetails.Clear();
 
-			for (int i = 0; i < requestArgs.TransactionActionInfoList.Count(); i++)
+			for (int i = 0; i < requestArgs.TransactionActionInfoList?.Count(); i++)
 				this.AppendTransactionRequestActionRow(i + 1, requestArgs.TransactionActionInfoList.ElementAt(i));
 
 			this.columnAction.BestFit();
@@ -101,42 +101,48 @@ namespace Simple.Objects.ServerMonitor
 			//this.gridViewGetRequestDetails.BestFitColumns();
 			this.gridViewGetRequestDetails.EndUpdate();
 
-			this.editorTransactionSucceed.Text = responseArgs.TransactionSucceeded.ToString();
-			this.editorTransactionId.Text = responseArgs.TransactionId.ToString();
+			this.editorTransactionSucceed.Text = responseArgs?.TransactionSucceeded.ToString();
+			this.editorTransactionId.Text = responseArgs?.TransactionId.ToString();
 
-			if (responseArgs.TransactionSucceeded)
+			if (responseArgs != null)
 			{
-				string newIdsText = String.Empty;
-				string separator = String.Empty;
-
-				this.editorTransactionId.Text = responseArgs.TransactionId.ToString();
-
-				//this.labelControlInfoMessage.Text = "New Object Ids:";
-
-				foreach (long id in responseArgs.NewObjectIds)
+				if (responseArgs.TransactionSucceeded)
 				{
-					newIdsText += separator + id.ToString();
-					separator = ", ";
+					string newIdsText = String.Empty;
+					string separator = String.Empty;
+
+					this.editorTransactionId.Text = responseArgs.TransactionId.ToString();
+
+					//this.labelControlInfoMessage.Text = "New Object Ids:";
+
+					if (responseArgs.NewObjectIds != null)
+					{
+						foreach (long id in responseArgs.NewObjectIds)
+						{
+							newIdsText += separator + id.ToString();
+							separator = ", ";
+						}
+					}
+
+					this.editorNewIds.Text = newIdsText;
+				}
+				else
+				{
+					this.editorNewIds.Text = String.Empty;
 				}
 
-				this.editorNewIds.Text = newIdsText;
-			}
-			else
-			{
-				this.editorNewIds.Text = String.Empty;
-			}
-
-			if (responseArgs.InfoMessage.IsNullOrEmpty())
-			{
-				this.labelControlInfoMessage.Visible = false;
-				this.editorInfoMessage.Visible = false;
-			}
-			else
-			{
-				this.labelControlInfoMessage.Text = (responseArgs.TransactionSucceeded) ? "Info Message:" : "Error Description:";
-				this.editorInfoMessage.Text = responseArgs.InfoMessage;
-				this.labelControlInfoMessage.Visible = true;
-				this.editorInfoMessage.Visible = true;
+				if (responseArgs.InfoMessage.IsNullOrEmpty())
+				{
+					this.labelControlInfoMessage.Visible = false;
+					this.editorInfoMessage.Visible = false;
+				}
+				else
+				{
+					this.labelControlInfoMessage.Text = (responseArgs.TransactionSucceeded) ? "Info Message:" : "Error Description:";
+					this.editorInfoMessage.Text = responseArgs.InfoMessage;
+					this.labelControlInfoMessage.Visible = true;
+					this.editorInfoMessage.Visible = true;
+				}
 			}
 		}
 
@@ -250,15 +256,13 @@ namespace Simple.Objects.ServerMonitor
 			return result;
 		}
 
-		private string GePropertyValueString(ServerPropertyInfo propertyModel, object? propertyValue)
-		{
-			Type propertyType = PropertyTypes.GetPropertyType(propertyModel.PropertyTypeId);
+		//protected override string GePropertyValueString(IServerPropertyInfo propertyModel, object? propertyValue)
+		//{
+		//	if (propertyValue is null)
+		//		return "DBNull";
 
-			if (propertyType.IsEnum)
-				return String.Format("{0}({1}.{2})", Conversion.TryChangeType<int>(propertyValue), propertyType.Name, Enum.GetName(propertyType, propertyValue ?? "null"));
-
-			return propertyValue?.ValueToString() ?? string.Empty;
-		}
+		//	return base.GePropertyValueString(propertyModel, propertyValue);
+		//}
 
 
 		//class MonitorProcessTransactionRequestArgs_OLD : RequestArgs // ProcessTransactionRequestArgs2

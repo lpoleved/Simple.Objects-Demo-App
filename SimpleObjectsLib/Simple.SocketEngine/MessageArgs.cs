@@ -9,7 +9,7 @@ namespace Simple.SocketEngine
 {
     public abstract class MessageArgs : PackageArgs
 	{
-        public override void WriteTo(ref SequenceWriter writer, ISimpleSession session) { }
-        public override void ReadFrom(ref SequenceReader reader, ISimpleSession session) { }
+        //public override void WriteTo(ref SequenceWriter writer, ISimpleSession session) { }
+        //public override void ReadFrom(ref SequenceReader reader, ISimpleSession session) { }
     }
 }

@@ -15,20 +15,19 @@ namespace Simple.SocketEngine
     {
 		//private bool isHeaderWritten = false;
 		//private bool isArgsWritten = false;
-		internal HeaderInfo headerInfo;
 
-        public PackageWriter(HeaderInfo headerInfo, int key, Encoding characterEncoding, ISimpleSession session, PackageArgs? packageArgs)
+        public PackageWriter(HeaderInfo headerInfo, int key, ISimpleSession session, PackageArgs? packageArgs)
         {
-            this.headerInfo = headerInfo;
+            this.HeaderInfo = headerInfo;
             this.Key = key;
-            this.CharacterEncoding = characterEncoding;
 			this.Session = session;
             this.PackageArgs = packageArgs;
 		}
 
-		public HeaderInfo HeaderInfo => this.headerInfo;
+		public HeaderInfo HeaderInfo { get; private set; }
         
         public int Key { get; private set; }
+		public ISimpleSession Session { get; private set; }
 
         /// <summary>
         /// The session request-response unique identifier. 
@@ -38,16 +37,13 @@ namespace Simple.SocketEngine
         //public int Token { get; private set; }
         
         public PackageArgs? PackageArgs { get; internal set; }
-        
-        public Encoding CharacterEncoding { get; private set; }
-
         //public SerialWriter SerializationWriter { get; set; }
 
-		public ISimpleSession Session { get; set; }
 
 		public byte[]? Buffer { get; internal set; } = null;
+		public Encoding CharacterEncoding => this.Session.CharacterEncoding;
 
-		public virtual void WriteHeader(ref SequenceWriter writer)
+		public void WriteHeader(ref SequenceWriter writer)
 		{
 			//if (this.isHeaderWritten)
 			//	return;

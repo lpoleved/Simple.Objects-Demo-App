@@ -431,7 +431,7 @@ namespace Simple.Objects.MonitorProtocol
 
 		[AuthorizationNotRequired]
 		[SystemRequestCommand((int)MonitorSystemRequest.AuthenticateSession)]
-		public ResponseArgs AuthenticateSession(SimpleSession session, PackageReader package)
+		public ResponseArgs AuthenticateSession(SimpleSession session, PackageInfo packageInfo)
 		{
 			string username = String.Empty;
 
@@ -442,7 +442,7 @@ namespace Simple.Objects.MonitorProtocol
 				return new AuthenticateSessionResponseArgs(isAuthenticated: true, session.UserId); //, username);
 			}
 
-			AuthenticateSessionRequestArgs requestArgs = (package.PackageArgs as AuthenticateSessionRequestArgs)!;
+			AuthenticateSessionRequestArgs requestArgs = (packageInfo.PackageArgs as AuthenticateSessionRequestArgs)!;
 			bool isAuthenticated = this.AppServer.ObjectManager.AuthenticateMonitorSession(requestArgs.Username, requestArgs.PasswordHash, out long userId);
 			//bool isAuthenticated = (this.clientUsername == requestArgs.Username && this.clientPasswordHash == requestArgs.PasswordHash);
 
@@ -454,14 +454,14 @@ namespace Simple.Objects.MonitorProtocol
 
 
 		[SystemRequestCommand((int)MonitorSystemRequest.GetServerState)]
-		public ResponseArgs GetServerState(SimpleSession session, PackageReader package)
+		public ResponseArgs GetServerState(SimpleSession session, PackageInfo packageInfo)
 		{
 			return new ServerStateResponseArgs(this.AppServer.State);
 		}
 
 
 		[SystemRequestCommand((int)MonitorSystemRequest.StartServer)]
-		public ResponseArgs StartServer(SimpleSession session, PackageReader package)
+		public ResponseArgs StartServer(SimpleSession session, PackageInfo packageInfo)
 		{
 			this.AppServer.StartAsync().GetAwaiter().GetResult();
 
@@ -470,7 +470,7 @@ namespace Simple.Objects.MonitorProtocol
 
 
 		[SystemRequestCommand((int)MonitorSystemRequest.StopServer)]
-		public ResponseArgs StopServer(SimpleSession session, PackageReader package)
+		public ResponseArgs StopServer(SimpleSession session, PackageInfo packageInfo)
 		{
 			this.AppServer.StopAsync().GetAwaiter().GetResult();
 
@@ -479,7 +479,7 @@ namespace Simple.Objects.MonitorProtocol
 
 
 		[SystemRequestCommand((int)MonitorSystemRequest.GetSessionInfos)]
-		public ResponseArgs GetSessionInfos(SimpleSession session, PackageReader package)
+		public ResponseArgs GetSessionInfos(SimpleSession session, PackageInfo packageInfo)
 		{
 			IEnumerable<IAppSession> sessions = this.AppServer.GetAllSessions().GetAwaiter().GetResult();
 
@@ -499,9 +499,9 @@ namespace Simple.Objects.MonitorProtocol
 		//}
 
 		[SystemRequestCommand((int)MonitorSystemRequest.GetServerObjectModel)]
-		public ResponseArgs GetServerObjectModelInfo(SimpleSession session, PackageReader package)
+		public ResponseArgs GetServerObjectModelInfo(SimpleSession session, PackageInfo packageInfo)
 		{
-			TableIdRequestArgs requestArgs = (package.PackageArgs as TableIdRequestArgs)!;
+			TableIdRequestArgs requestArgs = (packageInfo.PackageArgs as TableIdRequestArgs)!;
 
 			//requestArgs.ReadFrom(package.SerializationReader);
 
@@ -514,27 +514,27 @@ namespace Simple.Objects.MonitorProtocol
 		}
 
 		[SystemRequestCommand((int)MonitorSystemRequest.GetGraphName)]
-		public ResponseArgs GetGraphName(SimpleSession session, PackageReader package)
+		public ResponseArgs GetGraphName(SimpleSession session, PackageInfo packageInfo)
 		{
-			GraphKeyRequestArgs requestArgs = (package.PackageArgs as GraphKeyRequestArgs)!;
+			GraphKeyRequestArgs requestArgs = (packageInfo.PackageArgs as GraphKeyRequestArgs)!;
 			string graphName = this.AppServer.GetGraphName(requestArgs.GraphKey);
 
 			return new NameResponseArgs(graphName);
 		}
 
 		[SystemRequestCommand((int)MonitorSystemRequest.GetRelationName)]
-		public ResponseArgs GetRelationName(SimpleSession session, PackageReader package)
+		public ResponseArgs GetRelationName(SimpleSession session, PackageInfo packageInfo)
 		{
-			RelationKeyRequestArgs requestArgs = (package.PackageArgs as RelationKeyRequestArgs)!;
+			RelationKeyRequestArgs requestArgs = (packageInfo.PackageArgs as RelationKeyRequestArgs)!;
 			string relationName = this.AppServer.GetRelationName(requestArgs.RelationKey);
 
 			return new NameResponseArgs(relationName);
 		}
 
 		[SystemRequestCommand((int)MonitorSystemRequest.GetObjectName)]
-		public ResponseArgs GetObjectName(SimpleSession session, PackageReader package)
+		public ResponseArgs GetObjectName(SimpleSession session, PackageInfo packageInfo)
 		{
-			ObjectIdTableIdRequestArgs requestArgs = (package.PackageArgs as ObjectIdTableIdRequestArgs)!;
+			ObjectIdTableIdRequestArgs requestArgs = (packageInfo.PackageArgs as ObjectIdTableIdRequestArgs)!;
 			string objectName = this.AppServer.GetObjectName(requestArgs.TableId, requestArgs.ObjectId);
 
 			return new NameResponseArgs(objectName);

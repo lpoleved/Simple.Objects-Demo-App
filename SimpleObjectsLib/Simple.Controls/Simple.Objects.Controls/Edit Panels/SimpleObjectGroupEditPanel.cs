@@ -149,9 +149,9 @@ namespace Simple.Objects.Controls
 
             if (this.activeEditPanel is IBindingSimpleEditPanel bindingSimpleEditPanel)
                 bindingSimpleEditPanel.PropertyValueIsChanged(e);
-        }
+		}
 
-        private void changableBindingObjectControl_BindingObjectRelatedForeignObjectSet(object sender, BindingObjectRelationForeignObjectSetEventArgs e)
+		private void changableBindingObjectControl_BindingObjectRelatedForeignObjectSet(object sender, BindingObjectRelationForeignObjectSetEventArgs e)
         {
             if (this.activeEditPanel is IBindingSimpleEditPanel bindingSimpleEditPanel)
                 bindingSimpleEditPanel.BindingObjectRelationForeignObjectIsSet(e);
@@ -287,7 +287,7 @@ namespace Simple.Objects.Controls
 
             if (this.activeEditPanel is IBindingSimpleEditPanel bindingSimpleEditPanel)
                 bindingSimpleEditPanel.SetBindingObject(bindingObject);
-        }
+		}
 
         #endregion |   Private Methods   |
 

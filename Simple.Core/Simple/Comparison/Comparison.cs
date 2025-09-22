@@ -48,7 +48,7 @@ namespace Simple
 
         public static bool IsEmpty(object? value)
         {
-            bool result = false;
+            bool result;
 
             if (value == null)
             {
@@ -58,10 +58,14 @@ namespace Simple
             {
                 result = true;
             }
-            else
-            {
-                result = false;
-            }
+            else if (value!.GetType().IsValueType && Convert.ToInt64(value) == 0)
+			{
+				result = true;
+			}
+			else
+			{
+				result = false;
+			}
 
             return result;
         }

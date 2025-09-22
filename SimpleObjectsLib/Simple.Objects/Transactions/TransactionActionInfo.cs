@@ -71,7 +71,7 @@ namespace Simple.Objects
 				{
 					ServerPropertyInfo propertyModel = objectModel.GetPropertyInfo(item.PropertyIndex);
 					object? propertyValue = this.GetPropertyValue(item.PropertyValue);
-					int propertyTypeId = this.GetPropertyTypeId(propertyModel);
+					int propertyTypeId = this.GetPropertyTypeId(propertyModel, propertyValue);
 
 					writer.WriteInt32Optimized(item.PropertyIndex);
 					this.WritePropertyTypeId(ref writer, propertyTypeId);
@@ -89,7 +89,7 @@ namespace Simple.Objects
 			}
 		}
 
-		protected virtual int GetPropertyTypeId(IServerPropertyInfo propertyModel) => propertyModel.PropertyTypeId;
+		protected virtual int GetPropertyTypeId(IServerPropertyInfo propertyModel, object? propertyValue) => propertyModel.PropertyTypeId;
 
 		protected virtual object? GetPropertyValue(object? value) => value;
 

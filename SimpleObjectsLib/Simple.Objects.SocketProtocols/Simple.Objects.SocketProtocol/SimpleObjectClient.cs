@@ -218,14 +218,7 @@ namespace Simple.Objects.SocketProtocol
 			return response;
 		}
 
-		protected override void OnClose()
-		{
-			base.OnClose();
-			this.ObjectManager.SetCurrentUser(userId: 0);
-			this.UserId = 0;
-		}
-
-		//public ServerObjectModelInfo GetServerObjectModelByGetAll(int tableId) => this.serverObjectModelsArray![tableId];
+ 		//public ServerObjectModelInfo GetServerObjectModelByGetAll(int tableId) => this.serverObjectModelsArray![tableId];
 
 		//public ServerObjectModelInfo GetServerObjectModelFast(int tableId) => this.serverObjectModelInfosByTableId[tableId]!;
 
@@ -306,6 +299,13 @@ namespace Simple.Objects.SocketProtocol
 			return response;
 		}
 
+		public async ValueTask<GraphElementsObjectPairsNewResponseArgs> GetGraphElementsWithObjectsNew(int graphKey, long parentGraphElementId)
+		{
+			var request = new ParentGraphElementIdGraphKeyRequestArgs(graphKey, parentGraphElementId);
+			var response = await this.SendSystemRequest<GraphElementsObjectPairsNewResponseArgs>((int)SystemRequest.GetGraphElementsWithObjects, request);
+
+			return response;
+		}
 
 		public async ValueTask<ObjectIdResponseArgs> GetSimpleObjectGraphElementIdByGraphKey(int tableId, long objectId, int graphKey)
 		{
@@ -436,7 +436,7 @@ namespace Simple.Objects.SocketProtocol
 		#region |   System Message Receivers   |
 
 		[SystemMessageCommand((int)SystemMessage.TransactionCompleted)]
-		protected void MessageReceive_TransactionCompleted(ISimpleSession session, PackageReader packageInfo)
+		protected void SystemMessageReceive_TransactionCompleted(ISimpleSession session, PackageInfo packageInfo)
 		{
 			if (packageInfo.PackageArgs is TransactionCompletedMessageArgs args) // && args.TransactionActions != null)
 				this.onForeignTransactionCompletedActionBlock.Post(args);
@@ -444,6 +444,14 @@ namespace Simple.Objects.SocketProtocol
 
 				//if (!result.TransactionSucceeded)
 				//	Debug.WriteLine("Transaction completed from server but not on client: " + result.InfoMessage);
+		}
+
+		[SystemMessageCommand((int)SystemMessage.GetGraphElementsWithSimpleObjectsRestOfData)]
+		protected void SystemMessageReceive_GetGraphElementsWithObjectsRestOfData(ISimpleSession session, PackageInfo packageInfo)
+		{
+			if (packageInfo.PackageArgs is GraphElementsWithObjectsRestOfDataMessageArgs args)
+				this.ObjectManager.OnGetGraphElementsWithObjectsRestOfDataReceived(args.GraphKey, args.ParentGraphElementId, args.GraphElementObjectsPairs);
+
 		}
 
 		//protected override void OnSesionPackageJobAction(AppSession session, JobActionType jobActionType, PackageInfo receivedPackage, byte[] sentData)
@@ -535,6 +543,13 @@ namespace Simple.Objects.SocketProtocol
 		#region |   Protected Methods   |
 
 		protected override object GetCommandOwnerInstance() => this;
+
+		protected override void OnClose()
+		{
+			base.OnClose();
+			this.ObjectManager.SetCurrentUser(userId: 0);
+			this.UserId = 0;
+		}
 
 		//protected override void OnConnected()
 		//{
